@@ -16,9 +16,21 @@ export default {
       child_routes: null
     },
     {
+      menu_title: "Loctite List",
+      menu_icon: "zmdi zmdi-plus",
+      path: "/app/inventory/loctite",
+      child_routes: null
+    },
+    {
       menu_title: "New Item",
       menu_icon: "zmdi zmdi-plus",
       path: "/app/inventory/new",
+      child_routes: null
+    },
+    {
+      menu_title: "Stock Adjustments",
+      menu_icon: "zmdi zmdi-plus",
+      path: "/app/inventory/adjustments",
       child_routes: null
     }
   ],

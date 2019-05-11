@@ -8,7 +8,7 @@ import RctCollapsibleCard from "Components/RctCollapsibleCard/RctCollapsibleCard
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 
-class ViewAllInventory extends Component {
+class ViewAllLoctite extends Component {
   state = {};
 
   reloadTable() {
@@ -18,23 +18,35 @@ class ViewAllInventory extends Component {
   render() {
     const columns = [
       "Image",
-      "Description",
-      "Code",
-      "Material",
-      "Category",
-      "Unit",
-      "Quantity",
-      "Quantity Per Box",
-      "Location"
+      "Name",
+      "Total Stock Count",
+      "Batch 1",
+      "Expiration Date",
+      "Batch 2",
+      "Expiration Date",
+      "Batch 3",
+      "Expiration Date"
     ];
 
-    const data = [];
+    const data = [
+      [
+        "LOCTITE THREADLOCKER  319 (50ML)",
+        20,
+        50,
+        30,
+        "19/4/20",
+        10,
+        "19/4/21",
+        10,
+        "19/4/22"
+      ]
+    ];
     const options = {
       filterType: "dropdown",
       responsive: "stacked",
       download: false,
       print: false,
-      textLabels: { body: { noMatch: "No Inventory to display" } },
+      textLabels: { body: { noMatch: "No Loctite to display" } },
       customToolbar: () => {
         return (
           <Tooltip id="tooltip-icon" title="Refresh">
@@ -51,17 +63,15 @@ class ViewAllInventory extends Component {
         );
       }
     };
-    const { match } = this.props;
     return (
       <React.Fragment>
         <Helmet>
-          <title>YSIS | View All Inventory</title>
-          <meta name="description" content="YSIS View All Inventory" />
+          <title>YSIS | View Loctite</title>
         </Helmet>
-        <PageTitleBar title="View All Inventory" match={match} />
+        <PageTitleBar title="View Loctite" />
         <RctCollapsibleCard fullBlock>
           <MUIDataTable
-            title={"Inventory list"}
+            title={"Loctite list"}
             data={data}
             columns={columns}
             options={options}
@@ -72,4 +82,4 @@ class ViewAllInventory extends Component {
   }
 }
 
-export default ViewAllInventory;
+export default ViewAllLoctite;

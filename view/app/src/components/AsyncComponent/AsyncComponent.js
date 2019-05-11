@@ -23,6 +23,14 @@ export const AsyncInventoryNewComponent = Loadable({
   loader: () => import("Routes/inventory/new"),
   loading: () => <RctPageLoader />
 });
+export const AsyncLoctiteComponent = Loadable({
+  loader: () => import("Routes/inventory/loctite"),
+  loading: () => <RctPageLoader />
+});
+export const AsyncInventoryAdjustmentsComponent = Loadable({
+  loader: () => import("Routes/inventory/adjustments"),
+  loading: () => <RctPageLoader />
+});
 
 //  warehouse
 export const AsyncWarehouse1Component = Loadable({

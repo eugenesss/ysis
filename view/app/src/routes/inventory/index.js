@@ -4,7 +4,9 @@ import { Route, Switch } from "react-router-dom";
 // async components
 import {
   AsyncInventoryViewAllComponent,
-  AsyncInventoryNewComponent
+  AsyncInventoryNewComponent,
+  AsyncLoctiteComponent,
+  AsyncInventoryAdjustmentsComponent
 } from "Components/AsyncComponent/AsyncComponent";
 
 const InventorySwitcher = ({ match }) => (
@@ -15,6 +17,11 @@ const InventorySwitcher = ({ match }) => (
         component={AsyncInventoryViewAllComponent}
       />
       <Route path={`${match.url}/new`} component={AsyncInventoryNewComponent} />
+      <Route path={`${match.url}/loctite`} component={AsyncLoctiteComponent} />
+      <Route
+        path={`${match.url}/adjustments`}
+        component={AsyncInventoryAdjustmentsComponent}
+      />
     </Switch>
   </div>
 );

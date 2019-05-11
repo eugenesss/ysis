@@ -26,7 +26,7 @@ import Notifications from "./Notifications";
 import QuickLinks from "./QuickLinks";
 
 // intl messages
-import IntlMessages from "Util/IntlMessages";
+import UserBlock from "./UserBlock";
 
 class Header extends Component {
   state = {
@@ -74,7 +74,7 @@ class Header extends Component {
           </div>
           <ul className="navbar-right list-inline mb-0">
             <Notifications />
-            <Notifications />
+            <UserBlock />
             <li className="list-inline-item">
               <Tooltip title="Full Screen" placement="bottom">
                 <IconButton
