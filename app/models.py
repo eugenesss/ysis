@@ -73,3 +73,19 @@ class Inventory(db.Model, Serializer):
         self.price = price
         self.quantity = quantity
 
+
+class Loctite(db.Model, Serializer):
+    """
+    Create an Loctite table
+    """
+    __tablename__ = 'loctite'
+    pid = db.Column("pid", db.Integer, primary_key=True)
+    name = db.Column("name", db.String(50))
+    price = db.Column("price", db.Integer)
+    quantity = db.Column("quantity", db.Integer)
+
+    def __init__(self, pid, name, price, quantity):
+        self.pid = pid
+        self.name = name
+        self.price = price
+        self.quantity = quantity
