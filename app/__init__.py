@@ -40,5 +40,8 @@ def create_app(config_name):
     from .inventory import inventory as inventory_blueprint
     app.register_blueprint(inventory_blueprint)
 
+    from .loctite import loctite as loctite_blueprint
+    app.register_blueprint(loctite_blueprint)
+
 
     return app

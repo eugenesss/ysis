@@ -13,10 +13,12 @@ def save_item():
     """
     Add an item
     """
-    form = InventoryForm()
     if request.method == 'POST':
-        data = request.get_json()
-        item = Inventory(form.pid.data, form.name.data, form.price.data, form.quantity.data)
+        pid = request.form.get('pid')
+        name = request.form.get('name')
+        price = request.form.get('price')
+        quantity = request.form.get('quantity')
+        item = Inventory(pid, name, price, quantity)
         db.session.add(item)
         db.session.commit()
         return json.dumps(item.serialize()), 200
@@ -42,12 +44,14 @@ def update_items(pid):
     Update inventory
     """
     item = Inventory.query.get_or_404(pid)
-    form = InventoryForm(obj=Inventory)
+    name = request.form.get('name')
+    price = request.form.get('price')
+    quantity = request.form.get('quantity')
 
     # update changes
-    item.name = form.name.data
-    item.price = form.price.data
-    item.quantity = form.quantity.data
+    item.name = name
+    item.price = price
+    item.quantity = quantity
     db.session.commit()
 
     return json.dumps(item.serialize()), 200
