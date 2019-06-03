@@ -73,4 +73,3 @@ def logout():
 
     # redirect to the login page
     return redirect(url_for('auth.login'))
-
