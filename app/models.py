@@ -64,14 +64,30 @@ class Inventory(db.Model, Serializer):
     __tablename__ = 'inventory'
     pid = db.Column("pid", db.Integer, primary_key=True)
     name = db.Column("name", db.String(50))
+    description = db.Column("description", db.String(150))
+    code = db.Column("code", db.String(20))
+    material = db.Column("material", db.String(50))
     price = db.Column("price", db.Integer)
     quantity = db.Column("quantity", db.Integer)
+    perbox = db.Column("perbox", db.Integer)
+    location = db.Column("location", db.String(50))
+    file = db.Column("file", db.String(150))
+    created_date = db.Column("created_date", db.DateTime)
+    updated_Date = db.Column("updated_date", db.DateTime)
 
-    def __init__(self, pid, name, price, quantity):
+    def __init__(self, pid, name, description, code, material, price, quantity, perbox, location, file, created_date, updated_date):
         self.pid = pid
         self.name = name
+        self.description = description
+        self.code = code
+        self.material = material
         self.price = price
         self.quantity = quantity
+        self.perbox = perbox
+        self.location = location
+        self.file = file
+        self.created_date = created_date
+        self.updated_date = updated_date
 
 
 class Loctite(db.Model, Serializer):
@@ -81,11 +97,25 @@ class Loctite(db.Model, Serializer):
     __tablename__ = 'loctite'
     pid = db.Column("pid", db.Integer, primary_key=True)
     name = db.Column("name", db.String(50))
+    description = db.Column("description", db.String(150))
+    code = db.Column("code", db.String(20))
     price = db.Column("price", db.Integer)
     quantity = db.Column("quantity", db.Integer)
+    batch = db.Column("batch", db.Integer)
+    expiry_date = db.Column("expiry_date", db.DateTime)
+    file = db.Column("file", db.String(150))
+    created_date = db.Column("created_date", db.DateTime)
+    updated_date = db.Column("updated_date", db.DateTime)
 
-    def __init__(self, pid, name, price, quantity):
+    def __init__(self, pid, name, description, code, price, quantity, batch, expiry_date, file, created_date, updated_date):
         self.pid = pid
         self.name = name
+        self.description = description
+        self.code = code
         self.price = price
         self.quantity = quantity
+        self.batch = batch
+        self.expiry_date = expiry_date
+        self.file = file
+        self.created_date = created_date
+        self.updated_date = updated_date
