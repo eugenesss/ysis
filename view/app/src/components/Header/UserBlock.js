@@ -43,27 +43,12 @@ class UserBlock extends Component {
             <Fragment>
               <RctCard customClasses="profile-head mb-0">
                 <div className="profile-top border-bottom">
-                  <div className="user-image text-center mb-15 mt-30">
-                    {/*  <UserAvatar
-                      customClasses="img-fluid rounded-circle rct-notify mx-auto"
-                      user={user}
-                      size={80}
-                    /> */}
-                  </div>
                   <div className="user-list-content">
                     <div className="text-center">
                       <h3 className="fw-bold">{user && user.fullName}</h3>
-                      <p>
-                        {user && user.role}
-                        <br />
-                        <small className="">
-                          Member Since{" "}
-                          {user && Moment(user.createdAt).fromNow()}
-                        </small>
-                      </p>
                       <div className="social-list clearfix mb-30">
                         <ul className="list-inline d-inline-block mb-10">
-                          <li className="list-inline-item">
+                          {/* <li className="list-inline-item">
                             <Button
                               variant="contained"
                               color="primary"
@@ -76,7 +61,7 @@ class UserBlock extends Component {
                             >
                               View Profile
                             </Button>
-                          </li>
+                          </li> */}
                           <li className="list-inline-item">
                             <Button
                               variant="contained"

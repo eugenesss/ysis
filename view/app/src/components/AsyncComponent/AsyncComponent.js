@@ -23,12 +23,30 @@ export const AsyncInventoryNewComponent = Loadable({
   loader: () => import("Routes/inventory/new"),
   loading: () => <RctPageLoader />
 });
-export const AsyncLoctiteComponent = Loadable({
-  loader: () => import("Routes/inventory/loctite"),
-  loading: () => <RctPageLoader />
-});
 export const AsyncInventoryAdjustmentsComponent = Loadable({
   loader: () => import("Routes/inventory/adjustments"),
+  loading: () => <RctPageLoader />
+});
+export const AsyncViewSingleInventory = Loadable({
+  loader: () => import("Routes/inventory/view"),
+  loading: () => <RctPageLoader />
+});
+
+// Loctite
+export const AsyncLoctiteComponent = Loadable({
+  loader: () => import("Routes/loctite/all"),
+  loading: () => <RctPageLoader />
+});
+export const AsyncNewLoctiteComponent = Loadable({
+  loader: () => import("Routes/loctite/new"),
+  loading: () => <RctPageLoader />
+});
+export const AsyncLoctiteAdjustComponent = Loadable({
+  loader: () => import("Routes/loctite/adjustments"),
+  loading: () => <RctPageLoader />
+});
+export const AsyncSingleLoctiteComponent = Loadable({
+  loader: () => import("Routes/loctite/view"),
   loading: () => <RctPageLoader />
 });
 
@@ -43,5 +61,36 @@ export const AsyncWarehouse2Component = Loadable({
 });
 export const AsyncWarehouse3Component = Loadable({
   loader: () => import("Routes/warehouse/warehouse_3"),
+  loading: () => <RctPageLoader />
+});
+
+// settings
+
+export const AsyncSettingPage = Loadable({
+  loader: () => import("Routes/settings"),
+  loading: () => <RctPageLoader />
+});
+
+// General
+export const Async_setting_gen_companyDetails_component = Loadable({
+  loader: () => import("Routes/settings/general/companyDetails"),
+  loading: () => <RctPageLoader />
+});
+export const Async_setting_gen_myProfile_component = Loadable({
+  loader: () => import("Routes/settings/general/myProfile"),
+  loading: () => <RctPageLoader />
+});
+// User & Controls
+export const Async_setting_user_users_component = Loadable({
+  loader: () => import("Routes/settings/users-and-controls/users"),
+  loading: () => <RctPageLoader />
+});
+export const Async_setting_user_rolesPermissions_component = Loadable({
+  loader: () =>
+    import("Routes/settings/users-and-controls/roles-and-permissions"),
+  loading: () => <RctPageLoader />
+});
+export const Async_setting_user_groups_component = Loadable({
+  loader: () => import("Routes/settings/users-and-controls/groups"),
   loading: () => <RctPageLoader />
 });

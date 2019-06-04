@@ -18,16 +18,30 @@ import Login from "Routes/login";
 /**
  * Initial Path To Check Whether User Is Logged In Or Not
  */
-const InitialPath = ({ component: Component, ...rest }) => (
-  <Route {...rest} render={props => <Component {...props} />} />
-);
+const InitialPath = ({ component: Component, ...rest, authUser }) =>
+   <Route
+      {...rest}
+      render={props =>
+         authUser
+            ? <Component {...props} />
+            : <Redirect
+               to={{
+                  pathname: '/login',
+                  state: { from: props.location }
+               }}
+            />}
+   />;
 
 class App extends Component {
   render() {
-    const { location, match, user } = this.props;
-    if (location.pathname === "/") {
-      return <Redirect to={"/app/dashboard"} />;
-    }
+     const { location, match, user } = this.props;
+      if (location.pathname === '/') {
+         if (user === null) {
+            return (<Redirect to={'/login'} />);
+         } else {
+            return (<Redirect to={'/app/dashboard'} />);
+         }
+      }
     return (
       <RctThemeProvider>
         <NotificationContainer />

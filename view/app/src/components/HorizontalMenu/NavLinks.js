@@ -8,17 +8,11 @@ export default {
       child_routes: null
     }
   ],
-  category2: [
+  inventory: [
     {
       menu_title: "View All",
       menu_icon: "zmdi zmdi-eye",
       path: "/app/inventory/all",
-      child_routes: null
-    },
-    {
-      menu_title: "Loctite List",
-      menu_icon: "zmdi zmdi-plus",
-      path: "/app/inventory/loctite",
       child_routes: null
     },
     {
@@ -34,7 +28,7 @@ export default {
       child_routes: null
     }
   ],
-  category3: [
+  warehouse: [
     {
       menu_title: "Warehouse 1",
       menu_icon: "zmdi zmdi-home",
@@ -90,7 +84,7 @@ export default {
       ]
     }
   ],
-  category4: [
+  quote: [
     {
       menu_title: "View All",
       menu_icon: "zmdi zmdi-eye",
@@ -104,7 +98,27 @@ export default {
       child_routes: null
     }
   ],
-  category5: [
+  loctite: [
+    {
+      menu_title: "View All",
+      menu_icon: "zmdi zmdi-eye",
+      path: "/app/loctite/all",
+      child_routes: null
+    },
+    {
+      menu_title: "New Item",
+      menu_icon: "zmdi zmdi-plus",
+      path: "/app/loctite/new",
+      child_routes: null
+    },
+    {
+      menu_title: "Stock Adjustments",
+      menu_icon: "zmdi zmdi-plus",
+      path: "/app/loctite/adjustments",
+      child_routes: null
+    }
+  ],
+  reports: [
     {
       menu_title: "Warehouse 1",
       menu_icon: "zmdi zmdi-home",

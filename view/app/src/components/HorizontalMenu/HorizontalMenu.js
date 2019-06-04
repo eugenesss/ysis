@@ -29,7 +29,18 @@ class HorizontalMenu extends Component {
               <span className="menu-title">Inventory</span>
             </a>
             <ul className="list-unstyled sub-menu">
-              {navLinks.category2.map((menu, key) => (
+              {navLinks.inventory.map((menu, key) => (
+                <NavMenuItem menu={menu} key={key} />
+              ))}
+            </ul>
+          </li>
+          <li className="nav-item">
+            <a href="javascript:void(0);" className="nav-link">
+              <i className="zmdi zmdi-store" />
+              <span className="menu-title">Loctite</span>
+            </a>
+            <ul className="list-unstyled sub-menu">
+              {navLinks.loctite.map((menu, key) => (
                 <NavMenuItem menu={menu} key={key} />
               ))}
             </ul>
@@ -40,7 +51,7 @@ class HorizontalMenu extends Component {
               <span className="menu-title">Warehouse</span>
             </a>
             <ul className="list-unstyled sub-menu">
-              {navLinks.category3.map((menu, key) => (
+              {navLinks.warehouse.map((menu, key) => (
                 <NavMenuItem menu={menu} key={key} />
               ))}
             </ul>
@@ -51,7 +62,7 @@ class HorizontalMenu extends Component {
               <span className="menu-title">Quote</span>
             </a>
             <ul className="list-unstyled sub-menu">
-              {navLinks.category4.map((menu, key) => (
+              {navLinks.quote.map((menu, key) => (
                 <NavMenuItem menu={menu} key={key} />
               ))}
             </ul>
@@ -62,7 +73,7 @@ class HorizontalMenu extends Component {
               <span className="menu-title">Reports</span>
             </a>
             <ul className="list-unstyled sub-menu">
-              {navLinks.category5.map((menu, key) => (
+              {navLinks.reports.map((menu, key) => (
                 <NavMenuItem menu={menu} key={key} />
               ))}
             </ul>

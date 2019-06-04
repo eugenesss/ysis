@@ -13,7 +13,7 @@ import "./lib/reactifyCss";
 // app component
 import App from "./container/App";
 
-import { configureStore } from "./store";
+import { configureStore } from "./redux/store";
 
 const MainApp = () => (
   <Provider store={configureStore()}>
