@@ -45,7 +45,7 @@ class HorizontalMenu extends Component {
               ))}
             </ul>
           </li>
-          <li className="nav-item">
+          {/* <li className="nav-item">
             <a href="javascript:void(0);" className="nav-link">
               <i className="zmdi zmdi-city-alt" />
               <span className="menu-title">Warehouse</span>
@@ -77,7 +77,7 @@ class HorizontalMenu extends Component {
                 <NavMenuItem menu={menu} key={key} />
               ))}
             </ul>
-          </li>
+          </li> */}
         </ul>
       </div>
     );

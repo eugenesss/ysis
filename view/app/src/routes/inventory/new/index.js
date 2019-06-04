@@ -18,7 +18,12 @@ class NewInventory extends Component {
           <meta name="description" content="YSIS Dashboard" />
         </Helmet>
         <RctCollapsibleCard heading="New Item">
-          <InventoryForm />
+          <div className="row">
+            <div className="col-md-3">image upload</div>
+            <div className="col-md-9">
+              <InventoryForm />
+            </div>
+          </div>
         </RctCollapsibleCard>
       </React.Fragment>
     );
