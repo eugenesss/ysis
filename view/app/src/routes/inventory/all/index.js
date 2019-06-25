@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { show } from "redux-modal";
 import { Helmet } from "react-helmet";
 
 // Components
@@ -8,10 +9,18 @@ import InventoryList from "Components/Inventory/InventoryList";
 
 // Actions
 import { getAllInventory } from "Actions";
+import EditInventoryModal from "Components/Inventory/EditInventoryModal";
 
 class ViewAllInventory extends Component {
+  constructor(props) {
+    super(props);
+    this.handleEdit = this.handleEdit.bind(this);
+  }
   componentWillMount() {
     this.props.getAllInventory();
+  }
+  handleEdit(id) {
+    this.props.show("edit_inventory", { itemToEdit: id });
   }
 
   render() {
@@ -23,8 +32,13 @@ class ViewAllInventory extends Component {
           <meta name="description" content="YSIS View All Inventory" />
         </Helmet>
         <RctCollapsibleCard fullBlock>
-          <InventoryList data={allInventory} loading={allInventoryLoading} />
+          <InventoryList
+            data={allInventory}
+            loading={allInventoryLoading}
+            handleEdit={this.handleEdit}
+          />
         </RctCollapsibleCard>
+        <EditInventoryModal />
       </React.Fragment>
     );
   }
@@ -36,5 +50,5 @@ const mapStateToProps = ({ inventoryState }) => {
 
 export default connect(
   mapStateToProps,
-  { getAllInventory }
+  { getAllInventory, show }
 )(ViewAllInventory);

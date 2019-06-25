@@ -14,13 +14,13 @@ const DescriptionFormInput = ({ handleChange, description }) => {
       >
         Description
       </TableCell>
-      <TableCell colSpan={5} style={{ borderBottom: "none" }} padding="dense">
+      <TableCell colSpan={3} style={{ borderBottom: "none" }} padding="dense">
         <TextField
           multiline
           fullWidth
           rows="6"
           defaultValue={description}
-          onChange={e => handleChange("info", e.target.value, "baseContact")}
+          onChange={handleChange}
           margin="dense"
           variant="outlined"
         />

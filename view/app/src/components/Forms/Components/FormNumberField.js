@@ -1,17 +1,19 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 
-const FormTextField = ({ label, value, handleChange }) => {
+const FormNumberField = ({ label, value, handleChange, target }) => {
   return (
     <TextField
       label={label}
       defaultValue={value}
-      onChange={handleChange}
+      onChange={e => handleChange(target, e.target.value)}
       fullWidth
       margin="dense"
+      type="number"
+      step="1"
       variant="filled"
     />
   );
 };
 
-export default FormTextField;
+export default FormNumberField;

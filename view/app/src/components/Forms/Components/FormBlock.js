@@ -3,6 +3,7 @@ import TableCell from "@material-ui/core/TableCell";
 
 import FormTextField from "Components/Forms/Components/FormTextField";
 import FormSelectField from "Components/Forms/Components/FormSelectField";
+import FormNumberField from "./FormNumberField";
 
 const FormBlock = ({
   label,
@@ -12,7 +13,8 @@ const FormBlock = ({
   selectValues,
   customTextField,
   required,
-  empty
+  empty,
+  numberInput
 }) => {
   return (
     <React.Fragment>
@@ -34,6 +36,12 @@ const FormBlock = ({
               handleChange={handleChange}
               target={target}
               selectValues={selectValues}
+            />
+          ) : numberInput ? (
+            <FormNumberField
+              value={value}
+              handleChange={handleChange}
+              target={target}
             />
           ) : (
             <FormTextField

@@ -1,5 +1,6 @@
-from flask import flash, redirect, render_template, url_for, request, jsonify
+from flask import flash, redirect, render_template, url_for, request, jsonify, Response, json
 from flask_login import login_required, login_user, logout_user
+import logging
 
 from . import auth
 from forms import LoginForm, RegistrationForm
@@ -35,30 +36,32 @@ def register():
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
-    form = LoginForm()
+    #form = LoginForm()
     email = request.form.get('email')
     password = request.form.get('password')
-
+    data = request.data
+    dataDict = json.loads(data)
+    email2 = dataDict.get('email')
     # check whether employee exists in the database and whether
     # the password entered matches the password in the database
-    employee = Employee.query.filter_by(email=email).first()
-    if employee is not None and employee.verify_password(
-                password):
+    login_info = {}
+    employee = Employee.query.filter_by(email=email2).first()
+    if employee is not None and employee.verify_password(password):
         # log employee in
         login_user(employee)
 
         # redirect to the appropriate dashboard page
-        if employee.is_admin:
-            return jsonify(username=employee.username, is_admin=True)
-        else:
-            return jsonify(username=employee.username, is_admin=False)
+        #if employee.is_admin:
+        login_info = {'email':employee.email, 'is_admin':True}
+
+       # else:
+         #   login_info = {'email':employee.email, 'first_name':employee.first_name, 'last_name':employee.last_name, 'is_admin':False}
 
     # when login details are incorrect
-    else:
-        flash('Invalid email or password.')
+    #else:
+     #   jsonify('Invalid email or password.')
+    return jsonify(login_info)
 
-    # load login template
-    return render_template('auth/login.html', form=form, title='Login')
 
 
 @auth.route('/logout')

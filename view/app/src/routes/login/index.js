@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
 import { Link } from "react-router-dom";
 import { Form, FormGroup, Input } from "reactstrap";
 import LinearProgress from "@material-ui/core/LinearProgress";
@@ -12,12 +10,12 @@ import QueueAnim from "rc-queue-anim";
 import AppConfig from "Constants/AppConfig";
 
 // redux action
-import {} from "Actions";
+import { login } from "Actions";
 
 class Login extends Component {
   state = {
-    email: "demo@example.com",
-    password: "test#123"
+    email: "",
+    password: ""
   };
 
   /**
@@ -25,7 +23,7 @@ class Login extends Component {
    */
   onUserLogin() {
     if (this.state.email !== "" && this.state.password !== "") {
-      this.props.signinUserInFirebase(this.state, this.props.history);
+      this.props.login(this.state);
     }
   }
 
@@ -106,22 +104,12 @@ class Login extends Component {
                         </Button>
                       </FormGroup>
                     </Form>
-
-                    <p>
-                      <a
-                        target="_blank"
-                        href="#/terms-condition"
-                        // className="text-muted"
-                      >
-                        Terms of Service
-                      </a>
-                    </p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <p>With love from ES & VT.</p>
+          <p>With love.</p>
         </div>
       </QueueAnim>
     );
@@ -136,5 +124,5 @@ const mapStateToProps = ({ authUser }) => {
 
 export default connect(
   mapStateToProps,
-  {}
+  { login }
 )(Login);

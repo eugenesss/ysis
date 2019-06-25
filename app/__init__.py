@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_bootstrap import Bootstrap
+from flask_cors import CORS
 
 # local imports
 from config import app_config
@@ -18,6 +19,7 @@ def create_app(config_name):
     app.config.from_object(app_config[config_name])
     app.config.from_pyfile('config.py')
     db.init_app(app)
+    CORS(app)
 
     login_manager.init_app(app)
     login_manager.login_message = "You must be logged in to access this page"

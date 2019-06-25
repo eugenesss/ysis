@@ -3,7 +3,7 @@
  */
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Redirect, Route } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import { NotificationContainer } from "react-notifications";
 
 // rct theme provider
@@ -15,42 +15,38 @@ import HorizontalLayout from "./HorizontalLayout";
 // Auth
 import Login from "Routes/login";
 
-/**
- * Initial Path To Check Whether User Is Logged In Or Not
- */
-const InitialPath = ({ component: Component, ...rest, authUser }) =>
-   <Route
-      {...rest}
-      render={props =>
-         authUser
-            ? <Component {...props} />
-            : <Redirect
-               to={{
-                  pathname: '/login',
-                  state: { from: props.location }
-               }}
-            />}
-   />;
-
 class App extends Component {
   render() {
-     const { location, match, user } = this.props;
-      if (location.pathname === '/') {
-         if (user === null) {
-            return (<Redirect to={'/login'} />);
-         } else {
-            return (<Redirect to={'/app/dashboard'} />);
-         }
+    const { location, match, user } = this.props;
+    if (location.pathname === "/") {
+      if (user) {
+        return <Redirect to={"/app/dashboard"} />;
+      } else {
+        return <Redirect to={"/login"} />;
       }
+    }
     return (
       <RctThemeProvider>
         <NotificationContainer />
-        <InitialPath
-          path={`${match.url}app`}
-          authUser={user}
-          component={HorizontalLayout}
-        />
-        <Route path="/login" component={Login} />
+        <Switch>
+          <Route
+            path={`${match.url}app`}
+            render={() =>
+              user ? (
+                <HorizontalLayout />
+              ) : (
+                <Redirect to={{ pathname: "/login" }} />
+              )
+            }
+          />
+          <Route
+            exact
+            path={"/"}
+            render={() => <Redirect to={{ pathname: "/app/dashboard" }} />}
+          />
+          <Route exact path={`${match.url}login`} component={Login} />
+          <Redirect to="/404" />
+        </Switch>
       </RctThemeProvider>
     );
   }

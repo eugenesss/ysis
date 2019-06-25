@@ -2,8 +2,11 @@ import {
   GET_ALL_INVENTORY,
   GET_ALL_INVENTORY_SUCCESS,
   INVENTORY_API_FAILURE,
-  VIEW_INVENTORY,
-  VIEW_INVENTORY_SUCCESS
+  GET_INVENTORY,
+  GET_INVENTORY_SUCCESS,
+  SUBMIT_INVENTORY_FORM,
+  SUBMIT_INVENTORY_SUCCESS,
+  SUBMIT_INVENTORY_FAILURE
 } from "Types";
 
 /**
@@ -28,12 +31,27 @@ export const getAllInventorySuccess = inventory => ({
 /**
  * View Inventory
  */
-
-export const viewInventory = id => ({
-  type: VIEW_INVENTORY,
+export const getInventory = id => ({
+  type: GET_INVENTORY,
   payload: id
 });
-export const viewInventorySuccess = inv => ({
-  type: VIEW_INVENTORY_SUCCESS,
+export const getInventorySuccess = inv => ({
+  type: GET_INVENTORY_SUCCESS,
   payload: inv
+});
+
+/**
+ * New Inventory
+ */
+export const submitInventory = data => ({
+  type: SUBMIT_INVENTORY_FORM,
+  payload: data
+});
+export const submitInventorySuccess = data => ({
+  type: SUBMIT_INVENTORY_SUCCESS,
+  payload: data
+});
+export const submitInventoryFailure = error => ({
+  type: SUBMIT_INVENTORY_FAILURE,
+  payload: error
 });

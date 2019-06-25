@@ -1,91 +1,71 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { UncontrolledDropdown, DropdownToggle, DropdownMenu } from "reactstrap";
 
-import CircularProgress from "@material-ui/core/CircularProgress";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 
-import Moment from "moment";
-// import UserAvatar from "Components/User/UserAvatar";
-import { RctCard } from "Components/RctCard";
-
-// import { logoutUser } from "Actions";
+// Actions
+import { logout } from "Actions";
 
 class UserBlock extends Component {
-  state = {
-    buttonLoading: false
-  };
+  state = {};
 
-  componentWillUnmount() {
-    clearTimeout(this.timer);
+  handleProfile() {
+    console.log("profile");
   }
-  logoutUser() {
-    this.props.logoutUser();
+
+  handleLogout() {
+    console.log("logout");
   }
 
   render() {
-    const { location, user } = this.props;
-    const { buttonLoading } = this.state;
     return (
       <UncontrolledDropdown nav className="list-inline-item cart-dropdown">
         <DropdownToggle nav className="p-0">
           <Tooltip title="User" placement="bottom">
             <IconButton aria-label="user">
-              <i className="zmdi zmdi-face" />
+              <i className="zmdi zmdi-face text-white" />
             </IconButton>
           </Tooltip>
         </DropdownToggle>
         <DropdownMenu>
           <div className="dropdown-content">
-            <Fragment>
-              <RctCard customClasses="profile-head mb-0">
-                <div className="profile-top border-bottom">
-                  <div className="user-list-content">
-                    <div className="text-center">
-                      <h3 className="fw-bold">{user && user.fullName}</h3>
-                      <div className="social-list clearfix mb-30">
-                        <ul className="list-inline d-inline-block mb-10">
-                          {/* <li className="list-inline-item">
-                            <Button
-                              variant="contained"
-                              color="primary"
-                              className="btn bg-primary text-white"
-                              onClick={() =>
-                                this.props.history.push(
-                                  `/ocrm/users/profile/${user.id}`
-                                )
-                              }
-                            >
-                              View Profile
-                            </Button>
-                          </li> */}
-                          <li className="list-inline-item">
-                            <Button
-                              variant="contained"
-                              color="primary"
-                              className="btn bg-danger text-white"
-                              disabled={buttonLoading}
-                              onClick={() => this.logoutUser()}
-                            >
-                              Logout
-                              {buttonLoading && (
-                                <CircularProgress
-                                  size={14}
-                                  style={{ position: "absolute" }}
-                                />
-                              )}
-                            </Button>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
+            <div className="lazy-up">
+              <div className="card p-20">
+                <div className="media">
+                  <div className="media-body">
+                    <span className="mb-5 text-primary fs-14 d-block">
+                      Hello firstName!
+                    </span>
+                    <h4 className="mb-5">jobTitle</h4>
+                    <span className="text-muted fs-12 mb-15 d-block">
+                      <i>Member since 4 hours ago</i>
+                    </span>
                   </div>
                 </div>
-              </RctCard>
-            </Fragment>
+                <div className="card-foot d-flex align-self-end">
+                  <Button
+                    variant="contained"
+                    size="small"
+                    onClick={() => this.handleProfile()}
+                    className="btn-primary mr-10 mb-10 text-white"
+                  >
+                    Profile
+                  </Button>
+                  <Button
+                    variant="contained"
+                    size="small"
+                    onClick={() => this.handleLogout()}
+                    className="btn-warning mb-10 text-white"
+                  >
+                    Logout
+                  </Button>
+                </div>
+              </div>
+            </div>
           </div>
         </DropdownMenu>
       </UncontrolledDropdown>

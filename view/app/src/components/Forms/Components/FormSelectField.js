@@ -17,7 +17,7 @@ const FormSelectField = ({
       value={value ? value : ""}
       onChange={e => handleChange(target, e.target.value)}
       margin="dense"
-      // variant="outlined"
+      variant="filled"
     >
       {selectValues &&
         selectValues.map((select, key) => (

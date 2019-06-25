@@ -1,14 +1,18 @@
 export const inventory = {
-  id: 1,
+  pid: 1,
   name: "Glass Holder Bracket GHB1",
+  price: 100,
   code: "GHB1",
   material: "ALUMINIUM ALLOY",
   category: "BRACKET",
   unit: 5,
   quantity: 20,
-  qtyPerBox: 100,
+  perbox: 100,
   rack: "A1",
-  warehouse: "AMK #3-30"
+  warehouse: "AMK #3-30",
+  created_date: "19/20/2001",
+  updated_date: "19/20/2001",
+  description: null
 };
 
 export const inventoryList = [inventory, inventory, inventory];
