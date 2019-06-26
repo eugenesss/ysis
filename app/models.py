@@ -1,5 +1,6 @@
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
+from passlib.apps import custom_app_context as pwd_context
 
 from app import db, login_manager
 from sqlalchemy.inspection import inspect
@@ -40,13 +41,15 @@ class Employee(UserMixin, db.Model, Serializer):
         """
         Set password to a hashed password
         """
-        self.password_hash = generate_password_hash(password)
+        #self.password_hash = generate_password_hash(password)
+        self.password_hash = pwd_context.encrypt(password)
 
     def verify_password(self, password):
         """
         Check if hashed password matches actual password
         """
-        return check_password_hash(self.password_hash, password)
+        #return check_password_hash(self.password_hash, password)
+        return pwd_context.verify(password, self.password_hash)
 
     def __repr__(self):
         return '<User: {}>'.format(self.username)

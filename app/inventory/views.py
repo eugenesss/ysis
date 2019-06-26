@@ -17,16 +17,18 @@ def save_item():
     Add an item
     """
     if request.method == 'POST':
-        pid = request.form.get('pid')
-        name = request.form.get('name')
-        description = request.form.get('description')
-        code = request.form.get('code')
-        material = request.form.get('material')
-        price = request.form.get('price')
-        quantity = request.form.get('quantity')
-        perbox = request.form.get('perbox')
-        location = request.form.get('location')
-        file = request.form.get('file')
+        data = request.data
+        data_js = json.loads(data)
+        pid = data_js.get('pid')
+        name = data_js.get('name')
+        description = data_js.get('description')
+        code = data_js.get('code')
+        material = data_js.get('material')
+        price = data_js.get('price')
+        quantity = data_js.get('quantity')
+        perbox = data_js.get('perbox')
+        location = data_js.get('location')
+        file = data_js.get('file')
         item = Inventory(pid, name, description, code, material, price, quantity, perbox, location, file, created_date=datetime.datetime.now())
         db.session.add(item)
         db.session.commit()
@@ -53,15 +55,17 @@ def update_items(pid):
     Update inventory
     """
     item = Inventory.query.get_or_404(pid)
-    name = request.form.get('name')
-    description = request.form.get('description')
-    code = request.form.get('code')
-    material = request.form.get('material')
-    price = request.form.get('price')
-    quantity = request.form.get('quantity')
-    perbox = request.form.get('perbox')
-    location = request.form.get('location')
-    file = request.form.get('file')
+    data = request.data
+    data_js = json.loads(data)
+    name = data_js.get('name')
+    description = data_js.get('description')
+    code = data_js.get('code')
+    material = data_js.get('material')
+    price = data_js.get('price')
+    quantity = data_js.get('quantity')
+    perbox = data_js.get('perbox')
+    location = data_js.get('location')
+    file = data_js.form.get('file')
 
     # update changes
     item.name = name

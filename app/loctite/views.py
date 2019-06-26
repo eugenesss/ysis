@@ -15,17 +15,19 @@ def save_item():
     """
     Add a loctite
     """
-    pid = request.form.get('pid')
-    name = request.form.get('name')
-    description = request.form.get('description')
-    code = request.form.get('code')
-    price = request.form.get('price')
-    quantity = request.form.get('quantity')
-    batch = request.form.get('batch')
-    expiry_date = request.form.get('expiry_date')
-    file = request.form.get('file')
-    created_date = request.form.get('created_date')
-    updated_date = request.form.get('updated_date')
+    data = request.data
+    data_js = json.loads(data)
+    pid = data_js.get('pid')
+    name = data_js.get('name')
+    description = data_js.get('description')
+    code = data_js.get('code')
+    price = data_js.get('price')
+    quantity = data_js.get('quantity')
+    batch = data_js.get('batch')
+    expiry_date = data_js.get('expiry_date')
+    file = data_js.get('file')
+    created_date = data_js.get('created_date')
+    updated_date = data_js.get('updated_date')
     if request.method == 'POST':
         item = Loctite(pid, name, description, code, price, quantity, batch, expiry_date, file, created_date, updated_date)
         db.session.add(item)
@@ -52,16 +54,18 @@ def update_items(pid):
     """
     Update loctite
     """
+    data = request.data
+    data_js = json.loads(data)
     item = Loctite.query.get_or_404(pid)
-    pid = request.form.get('pid')
-    name = request.form.get('name')
-    description = request.form.get('description')
-    code = request.form.get('code')
-    price = request.form.get('price')
-    quantity = request.form.get('quantity')
-    batch = request.form.get('batch')
-    expiry_date = request.form.get('expiry_date')
-    file = request.form.get('file')
+    pid = data_js.get('pid')
+    name = data_js.get('name')
+    description = data_js.get('description')
+    code = data_js.get('code')
+    price = data_js.get('price')
+    quantity = data_js.get('quantity')
+    batch = data_js.get('batch')
+    expiry_date = data_js.get('expiry_date')
+    file = data_js.get('file')
 
     # update changes
     item.name = name
