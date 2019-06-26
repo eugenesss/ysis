@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: d28359c0ba2e
+Revision ID: 8b2234ca52c5
 Revises: 
-Create Date: 2019-05-09 11:06:56.737071
+Create Date: 2019-06-26 10:02:24.281375
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'd28359c0ba2e'
+revision = '8b2234ca52c5'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -35,15 +35,30 @@ def upgrade():
     op.create_table('inventory',
     sa.Column('pid', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=50), nullable=True),
+    sa.Column('description', sa.String(length=150), nullable=True),
+    sa.Column('code', sa.String(length=20), nullable=True),
+    sa.Column('material', sa.String(length=50), nullable=True),
     sa.Column('price', sa.Integer(), nullable=True),
     sa.Column('quantity', sa.Integer(), nullable=True),
+    sa.Column('perbox', sa.Integer(), nullable=True),
+    sa.Column('location', sa.String(length=50), nullable=True),
+    sa.Column('file', sa.String(length=150), nullable=True),
+    sa.Column('created_date', sa.DateTime(), nullable=True),
+    sa.Column('updated_date', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('pid')
     )
     op.create_table('loctite',
     sa.Column('pid', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=50), nullable=True),
+    sa.Column('description', sa.String(length=150), nullable=True),
+    sa.Column('code', sa.String(length=20), nullable=True),
     sa.Column('price', sa.Integer(), nullable=True),
     sa.Column('quantity', sa.Integer(), nullable=True),
+    sa.Column('batch', sa.Integer(), nullable=True),
+    sa.Column('expiry_date', sa.DateTime(), nullable=True),
+    sa.Column('file', sa.String(length=150), nullable=True),
+    sa.Column('created_date', sa.DateTime(), nullable=True),
+    sa.Column('updated_date', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('pid')
     )
     # ### end Alembic commands ###
