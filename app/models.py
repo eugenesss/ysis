@@ -4,6 +4,8 @@ from passlib.apps import custom_app_context as pwd_context
 
 from app import db, login_manager
 from sqlalchemy.inspection import inspect
+from sqlalchemy.orm import relationship, backref
+from sqlalchemy import ForeignKey
 
 class Serializer(object):
 
@@ -59,6 +61,19 @@ class Employee(UserMixin, db.Model, Serializer):
     def load_user(user_id):
         return Employee.query.get(int(user_id))
 
+class Warehouse(db.Model, Serializer):
+    """
+    Create a Warehouse table
+    """
+    __tablename__ = 'warehouse'
+    wid = db.Column("wid", db.Integer, primary_key=True)
+    name = db.Column("name", db.String(50))
+    location = db.Column("location", db.String(100))
+
+    def __init__(self, wid, name, location):
+        self.wid = wid
+        self.name = name
+        self.location = location
 
 class Inventory(db.Model, Serializer):
     """
@@ -76,9 +91,12 @@ class Inventory(db.Model, Serializer):
     location = db.Column("location", db.String(50))
     file = db.Column("file", db.String(150))
     created_date = db.Column("created_date", db.DateTime)
-    updated_Date = db.Column("updated_date", db.DateTime)
+    updated_date = db.Column("updated_date", db.DateTime)
+    wid = db.Column('wid', db.Integer, ForeignKey('warehouse.wid'))
+    warehouse = relationship("Warehouse", backref=db.backref("inventory", uselist=False))
 
-    def __init__(self, pid, name, description, code, material, price, quantity, perbox, location, file, created_date, updated_date):
+    def __init__(self, pid, name, description, code, material, price, quantity, perbox, location, file, created_date,
+                 updated_date, wid):
         self.pid = pid
         self.name = name
         self.description = description
@@ -91,6 +109,7 @@ class Inventory(db.Model, Serializer):
         self.file = file
         self.created_date = created_date
         self.updated_date = updated_date
+        self.wid = wid
 
 
 class Loctite(db.Model, Serializer):
@@ -109,8 +128,11 @@ class Loctite(db.Model, Serializer):
     file = db.Column("file", db.String(150))
     created_date = db.Column("created_date", db.DateTime)
     updated_date = db.Column("updated_date", db.DateTime)
+    wid = db.Column('wid', db.Integer, ForeignKey('warehouse.wid'))
+    warehouse = relationship("Warehouse", backref=backref("loctite", uselist=False))
 
-    def __init__(self, pid, name, description, code, price, quantity, batch, expiry_date, file, created_date, updated_date):
+    def __init__(self, pid, name, description, code, price, quantity, batch, expiry_date, file, created_date,
+                 updated_date, wid):
         self.pid = pid
         self.name = name
         self.description = description
@@ -122,3 +144,4 @@ class Loctite(db.Model, Serializer):
         self.file = file
         self.created_date = created_date
         self.updated_date = updated_date
+        self.wid = wid

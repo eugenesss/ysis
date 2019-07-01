@@ -1,8 +1,8 @@
-from flask import render_template, url_for, redirect, flash, request, json, jsonify
+from flask import request, json, jsonify
 from . import loctite
 import datetime
 import os
-from forms import LoctiteForm
+
 from flask_login import login_required
 
 from app import db
