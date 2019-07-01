@@ -1,11 +1,9 @@
-from flask import render_template, url_for, redirect, flash, request, json, jsonify
+from flask import request, json, jsonify
 from . import inventory
 import os
 import datetime
-from forms import InventoryForm
-from flask_login import login_required
-from werkzeug import secure_filename
 
+from flask_login import login_required
 from app import db
 from ..models import Inventory, Serializer
 
