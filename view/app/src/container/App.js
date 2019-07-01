@@ -14,6 +14,7 @@ import HorizontalLayout from "./HorizontalLayout";
 
 // Auth
 import Login from "Routes/login";
+import SystemAlerts from "Components/YSIS/SystemAlerts";
 
 class App extends Component {
   render() {
@@ -28,6 +29,7 @@ class App extends Component {
     return (
       <RctThemeProvider>
         <NotificationContainer />
+        <SystemAlerts />
         <Switch>
           <Route
             path={`${match.url}app`}

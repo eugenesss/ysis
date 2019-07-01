@@ -84,6 +84,7 @@ const InventoryList = ({ title, data, loading, handleEdit }) => {
     responsive: "stacked",
     download: false,
     print: false,
+    selectableRows: "none",
     textLabels: { body: { noMatch: "No Inventory to display" } }
   };
   return (

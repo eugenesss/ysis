@@ -42,6 +42,7 @@ const LoctiteList = ({ data, loading }) => {
     responsive: "stacked",
     download: false,
     print: false,
+    selectableRows: "none",
     textLabels: { body: { noMatch: "No Loctite to display" } }
   };
   return (

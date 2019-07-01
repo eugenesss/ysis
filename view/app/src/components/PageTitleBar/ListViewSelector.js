@@ -17,7 +17,7 @@ class ListViewSelector extends Component {
     const { options, nowShowing, onChangeValue } = this.props;
     return (
       <Dropdown isOpen={this.state.dropdownOpen} toggle={() => this.toggle()}>
-        <DropdownToggle color="primary" className="text-white" caret>
+        <DropdownToggle color="dark" className="text-white" caret>
           {nowShowing}
         </DropdownToggle>
         <DropdownMenu>

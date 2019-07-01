@@ -12,7 +12,11 @@ import TableRow from "@material-ui/core/TableRow";
 import Button from "@material-ui/core/Button";
 
 // Actions
-import { submitInventory, startEditInventory } from "Actions";
+import {
+  submitInventory,
+  clearInventoryForm,
+  handleInvFormChange
+} from "Actions";
 
 class InventoryForm extends Component {
   constructor(props) {
@@ -21,10 +25,12 @@ class InventoryForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.isDisabled = this.isDisabled.bind(this);
   }
+  componentWillUnmount() {
+    this.props.clearInventoryForm();
+  }
 
   handleChange(field, value) {
-    // redux change
-    this.setState({ item: { ...this.state.item, [field]: value } });
+    this.props.handleInvFormChange(field, value);
   }
 
   handleSubmit() {
@@ -153,5 +159,5 @@ const mapStateToProps = ({ inventoryState }) => {
 
 export default connect(
   mapStateToProps,
-  { submitInventory, startEditInventory }
+  { submitInventory, clearInventoryForm, handleInvFormChange }
 )(InventoryForm);

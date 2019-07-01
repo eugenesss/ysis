@@ -1,5 +1,5 @@
 import { NotificationManager } from "react-notifications";
-import * as invType from "Types/InventoryTypes";
+import * as types from "Types/InventoryTypes";
 
 /**
  * initial auth user
@@ -39,7 +39,7 @@ export default (state = INIT_STATE, action) => {
     //=========================
     //  API FAILURE
     //=========================
-    case invType.INVENTORY_API_FAILURE:
+    case types.INVENTORY_API_FAILURE:
       NotificationManager.error("Inventory API Error");
       console.log(action.payload);
       return INIT_STATE;
@@ -47,12 +47,12 @@ export default (state = INIT_STATE, action) => {
     //=========================
     //  GET ALL INVENTORY
     //=========================
-    case invType.GET_ALL_INVENTORY:
+    case types.GET_ALL_INVENTORY:
       return {
         ...state,
         inventoryList: { ...state.inventoryList, loading: true }
       };
-    case invType.GET_ALL_INVENTORY_SUCCESS:
+    case types.GET_ALL_INVENTORY_SUCCESS:
       return {
         ...state,
         inventoryList: {
@@ -61,7 +61,7 @@ export default (state = INIT_STATE, action) => {
           tableData: action.payload
         }
       };
-    case invType.ON_CHANGE_INVENTORY_LIST:
+    case types.ON_CHANGE_INVENTORY_LIST:
       return {
         ...state,
         inventoryList: {
@@ -74,42 +74,55 @@ export default (state = INIT_STATE, action) => {
     //=========================
     //  VIEW INVENTORY
     //=========================
-    case invType.GET_INVENTORY:
+    case types.GET_INVENTORY:
       return { ...state, itemToView: { loading: true } };
-    case invType.GET_INVENTORY_SUCCESS:
+    case types.GET_INVENTORY_SUCCESS:
       return { ...state, itemToView: { loading: false, item: action.payload } };
 
     //=========================
     //  New INVENTORY
     //=========================
-    case invType.SUBMIT_INVENTORY_FORM:
+    case types.SUBMIT_INVENTORY_FORM:
       return {
         ...state,
         inventoryForm: { ...state.inventoryForm, loading: true }
       };
-    case invType.SUBMIT_INVENTORY_SUCCESS:
-      NotificationManager.success("Item Created");
+    case types.SUBMIT_INVENTORY_SUCCESS:
+      NotificationManager.success("Success");
       return {
         ...state,
         inventoryForm: { ...state.inventoryForm, loading: false }
       };
-    case invType.SUBMIT_INVENTORY_FAILURE:
+    case types.SUBMIT_INVENTORY_FAILURE:
       NotificationManager.danger("Error in POST api");
       console.log(action.payload);
       return {
         ...state,
         inventoryForm: { ...state.inventoryForm, loading: false }
       };
+    case types.CLEAR_INVENTORY_FORM:
+      return { ...state, inventoryForm: INIT_STATE.inventoryForm };
+    case types.HANDLE_INV_FORM_CHANGE:
+      return {
+        ...state,
+        inventoryForm: {
+          ...state.inventoryForm,
+          item: {
+            ...state.inventoryForm.item,
+            [action.payload.field]: action.payload.value
+          }
+        }
+      };
 
     //=========================
     //  Edit INVENTORY
     //=========================
-    case invType.START_EDIT_INVENTORY:
+    case types.START_EDIT_INVENTORY:
       return {
         ...state,
         inventoryForm: { ...state.inventoryForm, modalLoading: true }
       };
-    case invType.START_EDIT_INVENTORY_SUCCESS:
+    case types.START_EDIT_INVENTORY_SUCCESS:
       return {
         ...state,
         inventoryForm: {
@@ -118,7 +131,7 @@ export default (state = INIT_STATE, action) => {
           item: action.payload
         }
       };
-    case invType.START_EDIT_INVENTORY_FAILURE:
+    case types.START_EDIT_INVENTORY_FAILURE:
       NotificationManager.error("Error in fetching Item");
       console.log(action.payload);
       return {

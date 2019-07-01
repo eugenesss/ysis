@@ -13,7 +13,7 @@ const ViewCardTitle = ({ name, subHeading, image }) => {
       >
         image placeholder 200x300
       </div>
-      <h1 className="mb-5">{name}</h1>
+      <h1 className="mb-5 mt-20">{name}</h1>
       {subHeading.length > 1 ? (
         subHeading.map((child, key) => {
           return (

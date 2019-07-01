@@ -13,7 +13,7 @@ const ViewCardDetails = ({ children }) => {
                   <i className={`zmdi ${child.icon} mb-2`} />
                 </Tooltip>
               </div>
-              <div className="col-lg-8">
+              <div className="col-lg-6">
                 <p className="mb-1 fs-12">{child.detail}</p>
               </div>
             </div>

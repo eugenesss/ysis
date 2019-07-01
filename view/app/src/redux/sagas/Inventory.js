@@ -24,8 +24,8 @@ import { inventoryList, inventory } from "Components/dummydata";
 // REQUESTS
 //=========================
 const getAllInventoryReq = async () => {
-  const test = await api.get("/show_items");
-  console.log(test);
+  // const test = await api.get("/show_items");
+  // console.log(test);
   const result = inventoryList;
   return result;
 };

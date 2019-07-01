@@ -2,16 +2,15 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { show } from "redux-modal";
 import { Helmet } from "react-helmet";
-import PageTitleBar from "Components/PageTitleBar/PageTitleBar";
 import ListViewSelector from "Components/PageTitleBar/ListViewSelector";
 
 // Components
 import RctCollapsibleCard from "Components/RctCollapsibleCard/RctCollapsibleCard";
 import InventoryList from "Components/Inventory/InventoryList";
+import EditInventoryModal from "Components/Inventory/EditInventoryModal";
 
 // Actions
 import { getAllInventory, changeInvList } from "Actions";
-import EditInventoryModal from "Components/Inventory/EditInventoryModal";
 
 class ViewAllInventory extends Component {
   constructor(props) {
@@ -42,20 +41,15 @@ class ViewAllInventory extends Component {
           <title>YSIS | View All Inventory</title>
           <meta name="description" content="YSIS View All Inventory" />
         </Helmet>
-        <PageTitleBar
-          title={
-            <div className="d-flex">
+        <RctCollapsibleCard fullBlock>
+          <InventoryList
+            title={
               <ListViewSelector
                 options={options}
                 nowShowing={nowShowing}
                 onChangeValue={this.props.changeInvList}
               />
-            </div>
-          }
-        />
-        <RctCollapsibleCard fullBlock>
-          <InventoryList
-            title={nowShowing}
+            }
             data={tableData}
             loading={loading}
             handleEdit={this.handleEdit}
