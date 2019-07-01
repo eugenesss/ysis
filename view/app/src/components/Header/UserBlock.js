@@ -18,7 +18,7 @@ class UserBlock extends Component {
   }
 
   handleLogout() {
-    console.log("logout");
+    this.props.logout();
   }
 
   render() {
@@ -82,6 +82,6 @@ const mapStateToProps = ({ settings, authUser }) => {
 export default withRouter(
   connect(
     null,
-    {}
+    { logout }
   )(UserBlock)
 );

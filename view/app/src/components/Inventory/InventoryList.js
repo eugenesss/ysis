@@ -5,7 +5,7 @@ import RctSectionLoader from "Components/RctSectionLoader/RctSectionLoader";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 
-const InventoryList = ({ data, loading, handleEdit }) => {
+const InventoryList = ({ title, data, loading, handleEdit }) => {
   const columns = [
     {
       label: "ID",
@@ -89,7 +89,7 @@ const InventoryList = ({ data, loading, handleEdit }) => {
   return (
     <React.Fragment>
       <MUIDataTable
-        title={"Inventory list"}
+        title={title}
         data={data}
         columns={columns}
         options={options}

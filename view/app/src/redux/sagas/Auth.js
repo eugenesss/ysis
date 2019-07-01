@@ -19,7 +19,7 @@ const loginUserRequest = async (email, password) => {
 };
 
 const logoutUserRequest = async id => {
-  const result = {};
+  localStorage.removeItem("ysis_user");
 };
 //=========================
 // CALL(GENERATOR) ACTIONS
@@ -29,6 +29,7 @@ function* loginUser({ payload }) {
   try {
     const user = yield call(loginUserRequest, email, password);
     localStorage.setItem("ysis_user", user);
+    window.location.replace("/");
     yield put(loginSuccess(user));
   } catch (error) {
     yield put(loginFailure(error));
@@ -37,7 +38,7 @@ function* loginUser({ payload }) {
 function* logoutUser({ payload }) {
   try {
     yield call(logoutUserRequest, payload);
-    localStorage.removeItem("ysis_user");
+    window.location.replace("/");
     yield put(logoutSuccess());
   } catch (error) {
     yield put(logoutFailure());

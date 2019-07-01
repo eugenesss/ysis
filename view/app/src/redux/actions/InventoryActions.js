@@ -1,19 +1,10 @@
-import {
-  GET_ALL_INVENTORY,
-  GET_ALL_INVENTORY_SUCCESS,
-  INVENTORY_API_FAILURE,
-  GET_INVENTORY,
-  GET_INVENTORY_SUCCESS,
-  SUBMIT_INVENTORY_FORM,
-  SUBMIT_INVENTORY_SUCCESS,
-  SUBMIT_INVENTORY_FAILURE
-} from "Types";
+import * as invType from "Types/InventoryTypes";
 
 /**
  * GET ALL INVENTORY
  */
 export const inventoryApiFailure = error => ({
-  type: INVENTORY_API_FAILURE,
+  type: invType.INVENTORY_API_FAILURE,
   payload: error
 });
 
@@ -21,22 +12,26 @@ export const inventoryApiFailure = error => ({
  * GET ALL INVENTORY
  */
 export const getAllInventory = () => ({
-  type: GET_ALL_INVENTORY
+  type: invType.GET_ALL_INVENTORY
 });
 export const getAllInventorySuccess = inventory => ({
-  type: GET_ALL_INVENTORY_SUCCESS,
+  type: invType.GET_ALL_INVENTORY_SUCCESS,
   payload: inventory
+});
+export const changeInvList = option => ({
+  type: invType.ON_CHANGE_INVENTORY_LIST,
+  payload: option
 });
 
 /**
  * View Inventory
  */
 export const getInventory = id => ({
-  type: GET_INVENTORY,
+  type: invType.GET_INVENTORY,
   payload: id
 });
 export const getInventorySuccess = inv => ({
-  type: GET_INVENTORY_SUCCESS,
+  type: invType.GET_INVENTORY_SUCCESS,
   payload: inv
 });
 
@@ -44,14 +39,28 @@ export const getInventorySuccess = inv => ({
  * New Inventory
  */
 export const submitInventory = data => ({
-  type: SUBMIT_INVENTORY_FORM,
+  type: invType.SUBMIT_INVENTORY_FORM,
   payload: data
 });
 export const submitInventorySuccess = data => ({
-  type: SUBMIT_INVENTORY_SUCCESS,
+  type: invType.SUBMIT_INVENTORY_SUCCESS,
   payload: data
 });
 export const submitInventoryFailure = error => ({
-  type: SUBMIT_INVENTORY_FAILURE,
+  type: invType.SUBMIT_INVENTORY_FAILURE,
+  payload: error
+});
+// Edit
+
+export const startEditInventory = id => ({
+  type: invType.START_EDIT_INVENTORY,
+  payload: id
+});
+export const startEditInventorySuccess = data => ({
+  type: invType.START_EDIT_INVENTORY_SUCCESS,
+  payload: data
+});
+export const startEditInventoryFailure = error => ({
+  type: invType.START_EDIT_INVENTORY_FAILURE,
   payload: error
 });

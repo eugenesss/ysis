@@ -5,8 +5,11 @@ import { Helmet } from "react-helmet";
 // Components
 import RctPageLoader from "Components/RctPageLoader/RctPageLoader";
 import PageErrorMsg from "Components/YSIS/ErrorMsg/PageErrorMsg";
-// InventoryCard
+import TabsWrapper from "Components/YSIS/Tabs/TabsWrapper";
+import ViewActionBox from "Components/YSIS/ViewActionBox";
+// Inventory
 import InventoryCard from "Components/Inventory/InventoryCard";
+import InventoryDetails from "Components/Inventory/InventoryDetails";
 // actions
 import { getInventory } from "Actions";
 
@@ -16,19 +19,31 @@ class ViewSingleInventory extends Component {
     this.props.getInventory(id);
   }
   render() {
-    const { singleItem, singleItemLoading } = this.props;
-    return singleItemLoading ? (
+    const { item, loading } = this.props.itemToView;
+    return loading ? (
       <RctPageLoader />
-    ) : singleItem ? (
+    ) : item ? (
       <React.Fragment>
         <Helmet>
           <title>YSIS | View Inventory</title>
         </Helmet>
         <div className="row">
           <div className="col-md-3">
-            <InventoryCard />
+            <div>
+              <InventoryCard />
+              <ViewActionBox>{{ label: "Edit" }}</ViewActionBox>
+            </div>
           </div>
-          <div className="col-md-9">details</div>
+          <div className="col-md-9">
+            <TabsWrapper>
+              <div label="Details" icon="zmdi-lamp">
+                <InventoryDetails item={item} />
+              </div>
+              <div label="Notes" icon="zmdi-book">
+                Notes
+              </div>
+            </TabsWrapper>
+          </div>
         </div>
       </React.Fragment>
     ) : (
@@ -40,8 +55,8 @@ class ViewSingleInventory extends Component {
   }
 }
 const mapStateToProps = ({ inventoryState }) => {
-  const { singleItem, singleItemLoading } = inventoryState;
-  return { singleItem, singleItemLoading };
+  const { itemToView } = inventoryState;
+  return { itemToView };
 };
 
 export default connect(

@@ -12,50 +12,32 @@ import TableRow from "@material-ui/core/TableRow";
 import Button from "@material-ui/core/Button";
 
 // Actions
-import { submitInventory } from "Actions";
+import { submitInventory, startEditInventory } from "Actions";
 
 class InventoryForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      item: {
-        name: "",
-        price: 0,
-        code: "",
-        material: "",
-        category: "",
-        unit: 0,
-        quantity: 0,
-        perBox: 0,
-        rack: "",
-        warehouse: "",
-        description: ""
-      }
-    };
+    this.state = {};
     this.handleSubmit = this.handleSubmit.bind(this);
     this.isDisabled = this.isDisabled.bind(this);
   }
-  componentWillMount() {
-    if (this.props.editItemId) {
-      console.log("call start edit api");
-      // set state
-    }
-  }
 
   handleChange(field, value) {
+    // redux change
     this.setState({ item: { ...this.state.item, [field]: value } });
   }
 
   handleSubmit() {
-    this.props.submitInventory(this.state.item);
+    this.props.submitInventory();
   }
 
-  isDisabled() {
-    var disabled = !this.state.item.name;
+  isDisabled(name) {
+    var disabled = !name;
     return disabled;
   }
 
   render() {
+    const { item, loading } = this.props.inventoryForm;
     const {
       name,
       price,
@@ -64,15 +46,14 @@ class InventoryForm extends Component {
       category,
       unit,
       quantity,
-      perBox,
+      perbox,
       rack,
       warehouse,
       description
-    } = this.state.item;
-    const { inventoryFormLoading } = this.props;
+    } = item;
     return (
       <React.Fragment>
-        {inventoryFormLoading && <RctSectionLoader />}
+        {loading && <RctSectionLoader />}
         <FormTable>
           <TableRow>
             <FormBlock
@@ -116,8 +97,8 @@ class InventoryForm extends Component {
           </TableRow>
           <TableRow>
             <FormBlock
-              value={perBox}
-              handleChange={e => this.handleChange("perBox", e.target.value)}
+              value={perbox}
+              handleChange={e => this.handleChange("perbox", e.target.value)}
               label="Qty Per Box"
               numberInput
             />
@@ -151,7 +132,7 @@ class InventoryForm extends Component {
                 Cancel
               </Button>
               <Button
-                disabled={this.isDisabled()}
+                disabled={this.isDisabled(name)}
                 onClick={() => this.handleSubmit()}
                 className="bg-success text-white"
                 variant="contained"
@@ -166,11 +147,11 @@ class InventoryForm extends Component {
   }
 }
 const mapStateToProps = ({ inventoryState }) => {
-  const { inventoryFormLoading } = inventoryState;
-  return { inventoryFormLoading };
+  const { inventoryForm } = inventoryState;
+  return { inventoryForm };
 };
 
 export default connect(
   mapStateToProps,
-  { submitInventory }
+  { submitInventory, startEditInventory }
 )(InventoryForm);

@@ -5,9 +5,9 @@ const api = axios.create({
   timeout: 2000
 });
 
-api.interceptors.request.use(config => {
-  config.headers = { "Content-Type": "application/json" };
-  return config;
-});
+// api.interceptors.request.use(config => {
+//   config.headers = { "Content-Type": "application/json" };
+//   return config;
+// });
 
 export default api;
