@@ -5,56 +5,21 @@ import datetime
 
 from flask_login import login_required
 from app import db
-from ..models import Inventory, Serializer
+from ..models import Inventory, InventorySchema, get_all_items
 
 
 @inventory.route('/save_item', methods=['GET', 'POST'])
-@login_required
+#@login_required
 def save_item():
     """
     Add an item
     """
-    if request.method == 'POST':
-        data = request.data
-        data_js = json.loads(data)
-        pid = data_js.get('pid')
-        name = data_js.get('name')
-        description = data_js.get('description')
-        code = data_js.get('code')
-        material = data_js.get('material')
-        price = data_js.get('price')
-        quantity = data_js.get('quantity')
-        perbox = data_js.get('perbox')
-        location = data_js.get('location')
-        file = data_js.get('file')
-        item = Inventory(pid, name, description, code, material, price, quantity, perbox, location, file, created_date=datetime.datetime.now())
-        db.session.add(item)
-        db.session.commit()
-        return json.dumps(item.serialize()), 200
-
-    if request.method == 'GET':
-        return jsonify('Add a new item'), 200
-
-
-@inventory.route("/show_items")
-@login_required
-def show_items():
-    """
-    Display all inventory
-    """
-    items = Inventory.query.all()
-    return json.dumps(Inventory.serialize_list(items)), 200
-
-
-@inventory.route("/update_item/<int:pid>", methods=['GET', 'POST'])
-@login_required
-def update_items(pid):
-    """
-    Update inventory
-    """
-    item = Inventory.query.get_or_404(pid)
+    # Retrieve the data from request
     data = request.data
     data_js = json.loads(data)
+
+    # Get the individual values
+    pid = data_js.get('pid')
     name = data_js.get('name')
     description = data_js.get('description')
     code = data_js.get('code')
@@ -63,9 +28,56 @@ def update_items(pid):
     quantity = data_js.get('quantity')
     perbox = data_js.get('perbox')
     location = data_js.get('location')
-    file = data_js.form.get('file')
+    file = data_js.get('file')
+    wid = data_js.get('wid')
 
-    # update changes
+    # Add item to database
+    item = Inventory(pid=pid, name=name, description=description, code=code, material=material,
+                     price=price, quantity=quantity, perbox=perbox, location=location, file=file, wid=wid)
+    db.session.add(item)
+    db.session.commit()
+    inventory_schema = InventorySchema()
+    result = inventory_schema.dump(Inventory.query.get(pid))
+    return jsonify({"message": "Item added successfully", "item": result}), 200
+
+
+@inventory.route("/show_items")
+#@login_required
+def show_items():
+    """
+    Display all inventory
+    """
+    items = get_all_items()
+    inventories_schema = InventorySchema(many=True)
+    results = inventories_schema.dump(items)
+    return jsonify({"items": results}), 200
+
+
+@inventory.route("/update_item/<int:pid>", methods=['POST'])
+#@login_required
+def update_items(pid):
+    """
+    Update inventory
+    """
+    # Retrieve item from database
+    item = Inventory.query.get_or_404(pid)
+
+    # Retrieve the data from request
+    data = request.data
+    data_js = json.loads(data)
+
+    # Get the individual values
+    name = data_js.get('name')
+    description = data_js.get('description')
+    code = data_js.get('code')
+    material = data_js.get('material')
+    price = data_js.get('price')
+    quantity = data_js.get('quantity')
+    perbox = data_js.get('perbox')
+    location = data_js.get('location')
+    file = data_js.get('file')
+
+    # Update the changes
     item.name = name
     item.description = description
     item.code = code
@@ -78,11 +90,14 @@ def update_items(pid):
     item.updated_date = datetime.datetime.now()
     db.session.commit()
 
-    return json.dumps(item.serialize()), 200
+    # Return response
+    inventory_schema = InventorySchema()
+    result = inventory_schema.dump(Inventory.query.get(pid))
+    return jsonify({"message": "Item updated", "item": result}), 200
 
 
-@inventory.route("/delete_item/<int:pid>", methods=['GET', 'POST'])
-@login_required
+@inventory.route("/delete_item/<int:pid>", methods=['POST'])
+#@login_required
 def delete_items(pid):
     """
     Delete inventory
@@ -94,7 +109,7 @@ def delete_items(pid):
 
 
 @inventory.route("/upload_image/<int:pid>", methods=['POST'])
-@login_required
+#@login_required
 def upload_images(pid):
     """
     Upload images
@@ -109,5 +124,3 @@ def upload_images(pid):
         db.session.commit()
 
     return jsonify('File uploaded successfully'), 200
-
-
