@@ -2,10 +2,17 @@ from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from passlib.apps import custom_app_context as pwd_context
 
+from marshmallow import fields, Schema
+
 from app import db, login_manager
+import app
 from sqlalchemy.inspection import inspect
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy import ForeignKey
+
+from itsdangerous import (TimedJSONWebSignatureSerializer
+                          as Serializer, BadSignature, SignatureExpired)
+
 
 class Serializer(object):
 
@@ -15,6 +22,7 @@ class Serializer(object):
     @staticmethod
     def serialize_list(l):
         return [m.serialize() for m in l]
+
 
 class Employee(UserMixin, db.Model, Serializer):
     """
@@ -30,6 +38,23 @@ class Employee(UserMixin, db.Model, Serializer):
     last_name = db.Column(db.String(60), index=True)
     password_hash = db.Column(db.String(128))
     is_admin = db.Column(db.Boolean, default=False)
+
+    def generate_auth_token(self, expiration=600):
+        s = Serializer('\xdc^\xd2\xeb\x7f\x9dS\x0b\x98\xce\n&\xdd\x7f\x0c\xea\x80_\x19\xdc\xd8!\\i', expires_in=expiration)
+        return s.dumps({'id': self.id})
+
+    @staticmethod
+    def verify_auth_token(token):
+        s = Serializer('\xdc^\xd2\xeb\x7f\x9dS\x0b\x98\xce\n&\xdd\x7f\x0c\xea\x80_\x19\xdc\xd8!\\i')
+        try:
+            data = s.loads(token)
+        except SignatureExpired:
+            return None  # valid token, but expired
+        except BadSignature:
+            return None  # invalid token
+        employee = Employee.query.get(data['id'])
+        return employee
+
 
     @property
     def password(self):
@@ -59,7 +84,9 @@ class Employee(UserMixin, db.Model, Serializer):
     # Set up user_loader
     @login_manager.user_loader
     def load_user(user_id):
+        #return Employee.query.get(int(user_id))
         return Employee.query.get(int(user_id))
+
 
 class Warehouse(db.Model, Serializer):
     """
@@ -67,13 +94,18 @@ class Warehouse(db.Model, Serializer):
     """
     __tablename__ = 'warehouse'
     wid = db.Column("wid", db.Integer, primary_key=True)
-    name = db.Column("name", db.String(50))
+    wh_name = db.Column("name", db.String(50))
     location = db.Column("location", db.String(100))
 
-    def __init__(self, wid, name, location):
+    def __init__(self, wid, wh_name, location):
         self.wid = wid
-        self.name = name
+        self.wh_name = wh_name
         self.location = location
+
+    @property
+    def serialize(self):
+        return {'wid': self.wid, 'name': self.wh_name, 'location': self.location}
+
 
 class Inventory(db.Model, Serializer):
     """
@@ -93,10 +125,10 @@ class Inventory(db.Model, Serializer):
     created_date = db.Column("created_date", db.DateTime)
     updated_date = db.Column("updated_date", db.DateTime)
     wid = db.Column('wid', db.Integer, ForeignKey('warehouse.wid'))
-    warehouse = relationship("Warehouse", backref=db.backref("inventory", uselist=False))
+    warehouse = relationship("Warehouse", backref=db.backref("inventory", lazy='dynamic'))
 
-    def __init__(self, pid, name, description, code, material, price, quantity, perbox, location, file, created_date,
-                 updated_date, wid):
+    def __init__(self, pid, name, description, code, material, price, quantity, perbox, location, file,
+                 wid):
         self.pid = pid
         self.name = name
         self.description = description
@@ -107,9 +139,24 @@ class Inventory(db.Model, Serializer):
         self.perbox = perbox
         self.location = location
         self.file = file
-        self.created_date = created_date
-        self.updated_date = updated_date
         self.wid = wid
+
+
+class InventorySchema(Schema):
+    """
+    Inventory Schema
+    """
+
+    wid = fields.Int(dump_only=True)
+    wh_name = fields.String(dump_only=True)
+    name = fields.Str(dump_only=True)
+    quantity = fields.Int(dump_only=True)
+    description = fields.Str(dump_only=True)
+    code = fields.Int(dump_only=True)
+    price = fields.Int(dump_only=True)
+    material = fields.String(dump_only=True)
+    perbox = fields.Int(dump_only=True)
+    location = fields.Str(dump_only=True)
 
 
 class Loctite(db.Model, Serializer):
@@ -129,7 +176,7 @@ class Loctite(db.Model, Serializer):
     created_date = db.Column("created_date", db.DateTime)
     updated_date = db.Column("updated_date", db.DateTime)
     wid = db.Column('wid', db.Integer, ForeignKey('warehouse.wid'))
-    warehouse = relationship("Warehouse", backref=backref("loctite", uselist=False))
+    warehouse = relationship("Warehouse", backref=backref("loctite"))
 
     def __init__(self, pid, name, description, code, price, quantity, batch, expiry_date, file, created_date,
                  updated_date, wid):
@@ -145,3 +192,10 @@ class Loctite(db.Model, Serializer):
         self.created_date = created_date
         self.updated_date = updated_date
         self.wid = wid
+
+
+def get_all_items():
+    items = db.session.query(Warehouse.wid, Warehouse.wh_name, Inventory.name, Inventory.quantity, Inventory.description,
+                             Inventory.code, Inventory.price, Inventory.material, Inventory.perbox,
+                             Inventory.location).filter(Inventory.wid == Warehouse.wid).all()
+    return items

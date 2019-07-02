@@ -1,6 +1,5 @@
-from flask import flash, redirect, render_template, url_for, request, jsonify, make_response, json
+from flask import flash, redirect, render_template, url_for, request, jsonify, make_response, json, g
 from flask_login import login_required, login_user, logout_user
-import logging
 
 from . import auth
 from forms import LoginForm, RegistrationForm
@@ -57,12 +56,11 @@ def login():
 
     # when login details are incorrect
     else:
-       return jsonify('Invalid email or password.')
+        return jsonify('Invalid email or password.'), 403
     return jsonify(login_info)
 
 
-
-@auth.route('/logout')
+@auth.route('/logout', methods=['POST'])
 @login_required
 def logout():
     """
@@ -70,7 +68,13 @@ def logout():
     Log an employee out through the logout link
     """
     logout_user()
-    flash('You have successfully been logged out.')
 
     # redirect to the login page
-    return redirect(url_for('auth.login'))
+    return jsonify('Logout successful')
+
+
+@auth.route('/api/token')
+@login_required
+def get_auth_token():
+    token = g.employee.generate_auth_token()
+    return jsonify({'token': token.decode('ascii'), 'duration': 600})

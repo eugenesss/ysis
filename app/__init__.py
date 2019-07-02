@@ -5,12 +5,14 @@ from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_bootstrap import Bootstrap
 from flask_cors import CORS
+from flask_httpauth import HTTPBasicAuth
 
 # local imports
 from config import app_config
 
 # db variable initialization
 db = SQLAlchemy()
+auth = HTTPBasicAuth()
 login_manager = LoginManager()
 
 
@@ -47,6 +49,5 @@ def create_app(config_name):
 
     from .warehouse import warehouse as warehouse_blueprint
     app.register_blueprint(warehouse_blueprint)
-
 
     return app
