@@ -1,15 +1,15 @@
 from flask import request, json, jsonify
+from flask_jwt_extended import jwt_required
 from . import inventory
 import os
 import datetime
 
-from flask_login import login_required
 from app import db
 from ..models import Inventory, InventorySchema, get_all_items
 
 
 @inventory.route('/save_item', methods=['GET', 'POST'])
-#@login_required
+@jwt_required
 def save_item():
     """
     Add an item
@@ -42,7 +42,7 @@ def save_item():
 
 
 @inventory.route("/show_items")
-#@login_required
+@jwt_required
 def show_items():
     """
     Display all inventory
@@ -54,7 +54,7 @@ def show_items():
 
 
 @inventory.route("/update_item/<int:pid>", methods=['POST'])
-#@login_required
+@jwt_required
 def update_items(pid):
     """
     Update inventory
@@ -97,7 +97,7 @@ def update_items(pid):
 
 
 @inventory.route("/delete_item/<int:pid>", methods=['POST'])
-#@login_required
+@jwt_required
 def delete_items(pid):
     """
     Delete inventory
@@ -109,7 +109,7 @@ def delete_items(pid):
 
 
 @inventory.route("/upload_image/<int:pid>", methods=['POST'])
-#@login_required
+@jwt_required
 def upload_images(pid):
     """
     Upload images

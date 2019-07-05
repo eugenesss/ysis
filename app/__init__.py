@@ -6,14 +6,16 @@ from flask_migrate import Migrate
 from flask_bootstrap import Bootstrap
 from flask_cors import CORS
 from flask_httpauth import HTTPBasicAuth
+from flask_jwt_extended import JWTManager
 
 # local imports
 from config import app_config
 
 # db variable initialization
 db = SQLAlchemy()
-auth = HTTPBasicAuth()
+http_auth = HTTPBasicAuth()
 login_manager = LoginManager()
+jwt = JWTManager()
 
 
 def create_app(config_name):
@@ -22,6 +24,7 @@ def create_app(config_name):
     app.config.from_pyfile('config.py')
     db.init_app(app)
     CORS(app)
+    jwt.init_app(app)
 
     login_manager.init_app(app)
     login_manager.login_message = "You must be logged in to access this page"
