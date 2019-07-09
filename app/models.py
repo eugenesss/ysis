@@ -4,15 +4,13 @@ from passlib.apps import custom_app_context as pwd_context
 
 from marshmallow import fields, Schema
 
-from app import db, login_manager
+from app import db, login_manager, http_auth
 import app
 from sqlalchemy.inspection import inspect
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy import ForeignKey
 
-from itsdangerous import (TimedJSONWebSignatureSerializer
-                          as Serializer, BadSignature, SignatureExpired)
-
+SECRET_KEY = 'p9342v<3Eid9%$i01'
 
 class Serializer(object):
 
@@ -38,23 +36,6 @@ class Employee(UserMixin, db.Model, Serializer):
     last_name = db.Column(db.String(60), index=True)
     password_hash = db.Column(db.String(128))
     is_admin = db.Column(db.Boolean, default=False)
-
-    def generate_auth_token(self, expiration=600):
-        s = Serializer('\xdc^\xd2\xeb\x7f\x9dS\x0b\x98\xce\n&\xdd\x7f\x0c\xea\x80_\x19\xdc\xd8!\\i', expires_in=expiration)
-        return s.dumps({'id': self.id})
-
-    @staticmethod
-    def verify_auth_token(token):
-        s = Serializer('\xdc^\xd2\xeb\x7f\x9dS\x0b\x98\xce\n&\xdd\x7f\x0c\xea\x80_\x19\xdc\xd8!\\i')
-        try:
-            data = s.loads(token)
-        except SignatureExpired:
-            return None  # valid token, but expired
-        except BadSignature:
-            return None  # invalid token
-        employee = Employee.query.get(data['id'])
-        return employee
-
 
     @property
     def password(self):
@@ -86,6 +67,19 @@ class Employee(UserMixin, db.Model, Serializer):
     def load_user(user_id):
         #return Employee.query.get(int(user_id))
         return Employee.query.get(int(user_id))
+
+
+@http_auth.verify_password
+def verify_password(username_or_token, password):
+    # Try to authenticate by Token
+    employee = Employee.verify_auth_token(username_or_token)
+    if not employee:
+        # try to authenticate with username/password
+        employee = Employee.query.filter_by(email=username_or_token).first()
+        if not employee or not employee.verify_password(password):
+            return False
+    g.employee = employee
+    return True
 
 
 class Warehouse(db.Model, Serializer):

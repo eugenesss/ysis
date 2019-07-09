@@ -1,10 +1,10 @@
-from flask import flash, redirect, render_template, url_for, request, jsonify, make_response, json, g
+from flask import flash, redirect, render_template, url_for, request, jsonify, make_response, json, g, session
 from flask_login import login_required, login_user, logout_user
 
 from . import auth
-from forms import LoginForm, RegistrationForm
-from .. import db
+from .. import db, http_auth
 from ..models import Employee
+from flask_jwt_extended import create_access_token
 
 
 @auth.route('/register', methods=['GET', 'POST'])
@@ -45,19 +45,25 @@ def login():
     if employee is not None and employee.verify_password(password):
         # log employee in
         login_user(employee)
+        session['logged_in'] = True
 
         # redirect to the appropriate dashboard page
         if employee.is_admin:
-            login_info = {'email': employee.email, 'first_name': employee.first_name, 'last_name': employee.last_name,
-                          'is_admin': True}
+            access_token = create_access_token(identity={'email': employee.email,
+                                                         'first_name': employee.first_name,
+                                                         'last_name': employee.last_name,
+                                                         'is_admin': True})
         else:
-            login_info = {'email': employee.email, 'first_name': employee.first_name, 'last_name': employee.last_name,
-                          'is_admin': False}
-
+            access_token = create_access_token(identity={'email': employee.email,
+                                                         'first_name': employee.first_name,
+                                                         'last_name': employee.last_name,
+                                                         'is_admin': False})
+        results = {'token': access_token, 'is_admin': employee.is_admin, 'first_name': employee.first_name,
+                   'last_name': employee.last_name}
     # when login details are incorrect
     else:
-        return jsonify('Invalid email or password.'), 403
-    return jsonify(login_info)
+        results = {'error': 'invalid email or password.'}, 403
+    return jsonify(results)
 
 
 @auth.route('/logout', methods=['POST'])
@@ -68,13 +74,14 @@ def logout():
     Log an employee out through the logout link
     """
     logout_user()
+    session.pop('logged_in', None)
 
     # redirect to the login page
     return jsonify('Logout successful')
 
 
 @auth.route('/api/token')
-@login_required
+@http_auth.login_required
 def get_auth_token():
     token = g.employee.generate_auth_token()
-    return jsonify({'token': token.decode('ascii'), 'duration': 600})
+    return jsonify({'token': token.decode('ascii')})
