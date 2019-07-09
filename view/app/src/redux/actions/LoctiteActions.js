@@ -1,16 +1,10 @@
-import {
-  GET_ALL_LOCTITE,
-  GET_ALL_LOCTITE_SUCCESS,
-  LOCTITE_API_FAILURE,
-  VIEW_LOCTITE,
-  VIEW_LOCTITE_SUCCESS
-} from "Types";
+import * as types from "Types/LoctiteTypes";
 
 /**
- * GET ALL Loctite
+ * Loctite API failure
  */
 export const loctiteApiFailure = error => ({
-  type: LOCTITE_API_FAILURE,
+  type: types.LOCTITE_API_FAILURE,
   payload: error
 });
 
@@ -18,10 +12,10 @@ export const loctiteApiFailure = error => ({
  * GET ALL Loctite
  */
 export const getAllLoctite = () => ({
-  type: GET_ALL_LOCTITE
+  type: types.GET_ALL_LOCTITE
 });
 export const getAllLoctiteSuccess = Loctite => ({
-  type: GET_ALL_LOCTITE_SUCCESS,
+  type: types.GET_ALL_LOCTITE_SUCCESS,
   payload: Loctite
 });
 
@@ -30,10 +24,47 @@ export const getAllLoctiteSuccess = Loctite => ({
  */
 
 export const viewLoctite = id => ({
-  type: VIEW_LOCTITE,
+  type: types.VIEW_LOCTITE,
   payload: id
 });
 export const viewLoctiteSuccess = inv => ({
-  type: VIEW_LOCTITE_SUCCESS,
+  type: types.VIEW_LOCTITE_SUCCESS,
   payload: inv
+});
+
+/**
+ * New Loctite
+ */
+export const submitLoctite = data => ({
+  type: types.SUBMIT_LOCTITE_FORM,
+  payload: data
+});
+export const submitLoctiteSuccess = data => ({
+  type: types.SUBMIT_LOCTITE_SUCCESS,
+  payload: data
+});
+export const submitLoctiteFailure = error => ({
+  type: types.SUBMIT_LOCTITE_FAILURE,
+  payload: error
+});
+export const clearLoctiteForm = () => ({
+  type: types.CLEAR_LOCTITE_FORM
+});
+export const handleLoctiteForm = (field, value) => ({
+  type: types.HANDLE_LOCTITE_FORM,
+  payload: { field, value }
+});
+
+// Edit
+export const startEditLoctite = id => ({
+  type: types.START_EDIT_LOCTITE,
+  payload: id
+});
+export const startEditLoctiteSuccess = data => ({
+  type: types.START_EDIT_LOCTITE_SUCCESS,
+  payload: data
+});
+export const startEditLoctiteFailure = error => ({
+  type: types.START_EDIT_LOCTITE_FAILURE,
+  payload: error
 });

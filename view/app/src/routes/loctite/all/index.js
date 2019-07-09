@@ -15,23 +15,22 @@ class ViewAllLoctite extends Component {
   }
 
   render() {
-    const { allLoctiteLoading, allLoctite } = this.props;
-    console.log(allLoctite);
+    const { tableData, loading } = this.props.loctiteList;
     return (
       <React.Fragment>
         <Helmet>
           <title>YSIS | View Loctite</title>
         </Helmet>
         <RctCollapsibleCard fullBlock>
-          <LoctiteList data={allLoctite} loading={allLoctiteLoading} />
+          <LoctiteList data={tableData} loading={loading} />
         </RctCollapsibleCard>
       </React.Fragment>
     );
   }
 }
 const mapStateToProps = ({ loctiteState }) => {
-  const { allLoctiteLoading, allLoctite } = loctiteState;
-  return { allLoctiteLoading, allLoctite };
+  const { loctiteList } = loctiteState;
+  return { loctiteList };
 };
 export default connect(
   mapStateToProps,

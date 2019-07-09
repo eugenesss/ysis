@@ -7,6 +7,8 @@ import { Helmet } from "react-helmet";
 // Components
 import RctPageLoader from "Components/RctPageLoader/RctPageLoader";
 import PageErrorMsg from "Components/YSIS/ErrorMsg/PageErrorMsg";
+import TabsWrapper from "Components/YSIS/Tabs/TabsWrapper";
+import ViewActionBox from "Components/YSIS/ViewActionBox";
 
 // actions
 import { viewLoctite } from "Actions";
@@ -17,15 +19,45 @@ class ViewLoctite extends Component {
     this.props.viewLoctite(id);
   }
   render() {
-    const { singleLoctite, singleLoctiteLoading } = this.props;
-    return singleLoctiteLoading ? (
+    const { loctite, loading } = this.props.loctiteToView;
+    return loading ? (
       <RctPageLoader />
-    ) : singleLoctite ? (
+    ) : loctite ? (
       <React.Fragment>
         <Helmet>
           <title>YSIS | View Loctite</title>
         </Helmet>
-        single inventory
+        <div className="row">
+          <div className="col-md-3">
+            <div>
+              card
+              <ViewActionBox>
+                {{
+                  label: "Edit",
+                  icon: "zmdi-edit",
+                  color: "primary"
+                  //onClick: () => this.edit(item)
+                }}
+                {{
+                  label: "Delete",
+                  icon: "zmdi-delete",
+                  color: "inherit"
+                  //onClick: () => this.delete(item)
+                }}
+              </ViewActionBox>
+            </div>
+          </div>
+          <div className="col-md-9">
+            <TabsWrapper>
+              <div label="Details" icon="zmdi-lamp">
+                details
+              </div>
+              <div label="Notes" icon="zmdi-book">
+                Notes
+              </div>
+            </TabsWrapper>
+          </div>
+        </div>
       </React.Fragment>
     ) : (
       <PageErrorMsg
@@ -36,8 +68,8 @@ class ViewLoctite extends Component {
   }
 }
 const mapStateToProps = ({ loctiteState }) => {
-  const { singleLoctite, singleLoctiteLoading } = loctiteState;
-  return { singleLoctite, singleLoctiteLoading };
+  const { loctiteToView } = loctiteState;
+  return { loctiteToView };
 };
 
 export default connect(

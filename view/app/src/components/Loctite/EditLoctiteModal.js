@@ -6,16 +6,16 @@ import DialogRoot from "Components/Dialog/DialogRoot";
 import RctSectionLoader from "Components/RctSectionLoader/RctSectionLoader";
 import InventoryForm from "Components/Forms/Inventory/InventoryForm";
 
-import { startEditInventory } from "Actions";
+import { startEditLoctite } from "Actions";
 
-class EditInventoryModal extends Component {
+class EditLoctiteModal extends Component {
   componentWillMount() {
-    this.props.startEditInventory(this.props.itemToEdit);
+    this.props.startEditLoctite(this.props.itemToEdit);
   }
   state = {};
   render() {
     const { show, handleHide } = this.props;
-    const { modalLoading } = this.props.inventoryForm;
+    const { modalLoading } = this.props.loctiteForm;
     return (
       <DialogRoot
         show={show}
@@ -28,12 +28,12 @@ class EditInventoryModal extends Component {
     );
   }
 }
-const mapStateToProps = ({ inventoryState }) => {
-  const { inventoryForm } = inventoryState;
-  return { inventoryForm };
+const mapStateToProps = ({ loctiteState }) => {
+  const { loctiteForm } = loctiteState;
+  return { loctiteForm };
 };
 
 export default connect(
   mapStateToProps,
-  { startEditInventory }
-)(connectModal({ name: "edit_inventory" })(EditInventoryModal));
+  { startEditLoctite }
+)(connectModal({ name: "edit_loctite" })(EditLoctiteModal));

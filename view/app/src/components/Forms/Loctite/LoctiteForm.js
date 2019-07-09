@@ -14,21 +14,13 @@ class InventoryForm extends Component {
       <FormTable>
         <TableRow>
           <FormBlock label="Name" />
-          <FormBlock empty />
+          <FormBlock label="Batch" />
         </TableRow>
-        <DescriptionFormInput />
         <TableRow>
           <FormBlock label="Total Stock" />
-          <FormBlock empty />
-        </TableRow>
-        <TableRow>
-          <FormBlock label="Batch" />
-          <FormBlock empty />
-        </TableRow>
-        <TableRow>
           <FormBlock label="Expiration Date" />
-          <FormBlock empty />
         </TableRow>
+        <DescriptionFormInput />
       </FormTable>
     );
   }

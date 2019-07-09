@@ -1,5 +1,5 @@
 import { all, call, fork, put, takeEvery, select } from "redux-saga/effects";
-import { GET_ALL_LOCTITE, VIEW_LOCTITE } from "Types";
+import { GET_ALL_LOCTITE, VIEW_LOCTITE } from "Types/LoctiteTypes";
 import {
   loctiteApiFailure,
   getAllLoctiteSuccess,
