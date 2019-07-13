@@ -69,7 +69,7 @@ class ViewSingleInventory extends Component {
                 {{
                   label: "Delete",
                   icon: "zmdi-delete",
-                  color: "inherit",
+                  customClasses: "bg-danger text-white",
                   onClick: () => this.delete(item)
                 }}
               </ViewActionBox>
@@ -79,9 +79,6 @@ class ViewSingleInventory extends Component {
             <TabsWrapper>
               <div label="Details" icon="zmdi-lamp">
                 <InventoryDetails item={item} />
-              </div>
-              <div label="Notes" icon="zmdi-book">
-                Notes
               </div>
             </TabsWrapper>
           </div>

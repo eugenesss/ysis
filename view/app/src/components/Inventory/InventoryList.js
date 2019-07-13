@@ -65,7 +65,7 @@ const InventoryList = ({ title, data, loading, handleEdit }) => {
             <Tooltip id="tooltip-icon" title="Edit">
               <IconButton
                 className="text-primary mr-2"
-                aria-label="Edit Account"
+                aria-label="Edit"
                 onClick={() => {
                   handleEdit(value);
                 }}

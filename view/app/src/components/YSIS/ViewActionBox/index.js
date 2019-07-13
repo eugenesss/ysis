@@ -10,7 +10,7 @@ const ViewActionBox = ({ children }) => {
             <Button
               key={key}
               variant="contained"
-              className="mb-10 w-100 d-block"
+              className={`mb-10 w-100 d-block ${child.customClasses}`}
               size="large"
               color={child.color}
               onClick={child.onClick}
@@ -22,7 +22,7 @@ const ViewActionBox = ({ children }) => {
       ) : (
         <Button
           variant="contained"
-          className="w-100 d-block"
+          className={`w-100 d-block ${children.customClasses}`}
           size="large"
           color="primary"
         >

@@ -17,7 +17,7 @@ export default class EcommerceDashboard extends Component {
         <PageTitleBar title="Dashboard" match={match} />
         <div className="row">
           <div className="col-md-6">
-            <RctCollapsibleCard heading="replacement">table</RctCollapsibleCard>
+            <RctCollapsibleCard heading="Upcoming ">table</RctCollapsibleCard>
           </div>
         </div>
       </div>

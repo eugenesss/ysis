@@ -3,21 +3,44 @@ import { connect } from "react-redux";
 
 // Global Req
 import { Helmet } from "react-helmet";
+import { show } from "redux-modal";
 
 // Components
 import RctPageLoader from "Components/RctPageLoader/RctPageLoader";
 import PageErrorMsg from "Components/YSIS/ErrorMsg/PageErrorMsg";
 import TabsWrapper from "Components/YSIS/Tabs/TabsWrapper";
 import ViewActionBox from "Components/YSIS/ViewActionBox";
+import EditLoctiteModal from "Components/Loctite/EditLoctiteModal";
 
 // actions
 import { viewLoctite } from "Actions";
+import LoctiteCard from "Components/Loctite/LoctiteCard";
 
 class ViewLoctite extends Component {
+  constructor(props) {
+    super(props);
+    this.edit = this.edit.bind(this);
+    this.delete = this.delete.bind(this);
+  }
   componentWillMount() {
     var id = this.props.match.params.id;
     this.props.viewLoctite(id);
   }
+
+  edit(item) {
+    this.props.show("edit_loctite", { itemToEdit: item.pid });
+  }
+
+  delete(item) {
+    this.props.show("alert_delete", {
+      name: item.name,
+      action: () => this.handleDelete(item.pid)
+    });
+  }
+  handleDelete(id) {
+    console.log(`delete ${id}`);
+  }
+
   render() {
     const { loctite, loading } = this.props.loctiteToView;
     return loading ? (
@@ -30,19 +53,19 @@ class ViewLoctite extends Component {
         <div className="row">
           <div className="col-md-3">
             <div>
-              card
+              <LoctiteCard name={loctite.name} />
               <ViewActionBox>
                 {{
                   label: "Edit",
                   icon: "zmdi-edit",
-                  color: "primary"
-                  //onClick: () => this.edit(item)
+                  color: "primary",
+                  onClick: () => this.edit(loctite)
                 }}
                 {{
                   label: "Delete",
-                  icon: "zmdi-delete",
-                  color: "inherit"
-                  //onClick: () => this.delete(item)
+                  customClasses: "bg-danger text-white",
+                  color: "inherit",
+                  onClick: () => this.delete(loctite)
                 }}
               </ViewActionBox>
             </div>
@@ -52,12 +75,10 @@ class ViewLoctite extends Component {
               <div label="Details" icon="zmdi-lamp">
                 details
               </div>
-              <div label="Notes" icon="zmdi-book">
-                Notes
-              </div>
             </TabsWrapper>
           </div>
         </div>
+        <EditLoctiteModal />
       </React.Fragment>
     ) : (
       <PageErrorMsg
@@ -74,5 +95,5 @@ const mapStateToProps = ({ loctiteState }) => {
 
 export default connect(
   mapStateToProps,
-  { viewLoctite }
+  { viewLoctite, show }
 )(ViewLoctite);

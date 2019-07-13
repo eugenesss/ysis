@@ -1,9 +1,16 @@
 import { all, call, fork, put, takeEvery, select } from "redux-saga/effects";
-import { GET_ALL_LOCTITE, VIEW_LOCTITE } from "Types/LoctiteTypes";
+import {
+  GET_ALL_LOCTITE,
+  VIEW_LOCTITE,
+  START_EDIT_LOCTITE,
+  SUBMIT_LOCTITE_FORM
+} from "Types/LoctiteTypes";
 import {
   loctiteApiFailure,
   getAllLoctiteSuccess,
-  viewLoctiteSuccess
+  viewLoctiteSuccess,
+  startEditLoctiteSuccess,
+  startEditLoctiteFailure
 } from "Actions";
 
 import api from "Api";
@@ -19,6 +26,11 @@ const getLoctiteReq = async () => {
   return result;
 };
 const viewLoctiteReq = async id => {
+  console.log(`fetching ${id}`);
+  const result = loctite;
+  return result;
+};
+const startEditLoctiteReq = async id => {
   console.log(`fetching ${id}`);
   const result = loctite;
   return result;
@@ -43,6 +55,14 @@ function* viewLoctiteFromDB({ payload }) {
     yield put(loctiteApiFailure(error));
   }
 }
+function* startLoctiteEdit({ payload }) {
+  try {
+    const inv = yield call(startEditLoctiteReq, payload);
+    yield put(startEditLoctiteSuccess(inv));
+  } catch (error) {
+    yield put(startEditLoctiteFailure(error));
+  }
+}
 
 //=========================
 // WATCHERS
@@ -53,10 +73,17 @@ export function* getAllLoctiteWatcher() {
 export function* viewLoctiteWatcher() {
   yield takeEvery(VIEW_LOCTITE, viewLoctiteFromDB);
 }
+export function* startEditLoctiteWatcher() {
+  yield takeEvery(START_EDIT_LOCTITE, startLoctiteEdit);
+}
 
 //=======================
 // FORK SAGAS TO STORE
 //=======================
 export default function* rootSaga() {
-  yield all([fork(getAllLoctiteWatcher), fork(viewLoctiteWatcher)]);
+  yield all([
+    fork(getAllLoctiteWatcher),
+    fork(viewLoctiteWatcher),
+    fork(startEditLoctiteWatcher)
+  ]);
 }
