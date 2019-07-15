@@ -1,7 +1,11 @@
 import React from "react";
 
+// Default msg
+import DefaultSettingMessage from "./ViewComponents/DefaultSettingMessage";
+
 // User Settings
 import UserManagement from "./ViewComponents/UserManagement";
+import NewUser from "./ViewComponents/NewUser";
 
 const SettingsViewRender = ({ componentToRender }) => {
   switch (componentToRender) {
@@ -10,9 +14,10 @@ const SettingsViewRender = ({ componentToRender }) => {
     //===================
     case "userManagement":
       return <UserManagement />;
-
+    case "newUser":
+      return <NewUser />;
     default:
-      return <UserManagement />;
+      return <DefaultSettingMessage />;
   }
 };
 

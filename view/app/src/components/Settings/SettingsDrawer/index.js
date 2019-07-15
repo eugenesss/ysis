@@ -42,25 +42,26 @@ const SettingsDrawer = ({
             secondary
             selected={activeView == "userManagement"}
           />
+          <DrawerListItem
+            onClickListItem={() => changeReportView("newUser")}
+            title="New Users"
+            secondary
+            selected={activeView == "newUser"}
+          />
         </DrawerListCollapsible>
         <DrawerListCollapsible
           icon="zmdi-case"
-          title="General"
+          title="General Settings"
           state={nestedView.general}
           openNested={() => openNestedView("general")}
         >
           <DrawerListItem
             onClickListItem={() => changeReportView("dealsPipeline")}
-            title="Deals Pipeline"
+            title=""
             secondary
             selected={activeView == "dealsPipeline"}
           />
         </DrawerListCollapsible>
-        <DrawerListItem
-          onClickListItem={() => changeReportView("individual")}
-          title="Individual"
-          selected={activeView == "individual"}
-        />
       </List>
     </Drawer>
   );

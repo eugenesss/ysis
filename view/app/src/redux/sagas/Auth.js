@@ -14,12 +14,12 @@ import api from "Api";
 //=========================
 const loginUserRequest = async (email, password) => {
   const result = await api.post("login", { email, password });
-  console.log(result);
   return result.data;
 };
 
 const logoutUserRequest = async id => {
   localStorage.removeItem("ysis_user");
+  localStorage.removeItem("ysis_token");
 };
 //=========================
 // CALL(GENERATOR) ACTIONS
@@ -29,6 +29,7 @@ function* loginUser({ payload }) {
   try {
     const user = yield call(loginUserRequest, email, password);
     localStorage.setItem("ysis_user", user);
+    localStorage.setItem("ysis_token", user.token);
     window.location.replace("/");
     yield put(loginSuccess(user));
   } catch (error) {

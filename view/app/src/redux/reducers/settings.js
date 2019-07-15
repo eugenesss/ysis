@@ -65,15 +65,7 @@ const INIT_STATE = {
     id: 1,
     name: "primary"
   },
-  // sidebar background image
-  sidebarBackgroundImages: [
-    require("Assets/img/sidebar-1.jpg"),
-    require("Assets/img/sidebar-2.jpg"),
-    require("Assets/img/sidebar-3.jpg"),
-    require("Assets/img/sidebar-4.jpg")
-  ],
-  enableSidebarBackgroundImage: AppConfig.enableSidebarBackgroundImage, // default enable sidebar background
-  selectedSidebarImage: AppConfig.sidebarImage, // default sidebar background image
+  enableSidebarBackgroundImage: false, // default enable sidebar background
   locale: AppConfig.locale,
   languages: [
     {

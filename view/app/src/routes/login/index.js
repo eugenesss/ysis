@@ -41,25 +41,23 @@ class Login extends Component {
                 <div className="col-sm-8 col-md-8 col-lg-8">
                   <div className="session-body bg-secondary text-center">
                     <div className="session-head mb-30">
-                      <div className="mb-20 text-center">
-                        <Link to="/">
+                      <Link to="/">
+                        <h2 className="font-weight-bold text-white">
                           <img
                             src={AppConfig.appLogo}
                             alt="session-logo"
-                            className="img-fluid"
-                            width="110"
+                            className="img-fluid mr-10"
+                            width="50"
                             height="35"
                           />
-                        </Link>
-                      </div>
-                      <h2 className="font-weight-bold text-white">
-                        {AppConfig.brandName}
-                      </h2>
+                          {AppConfig.brandName}
+                        </h2>
+                      </Link>
                       <p className="mb-0 text-gray">
                         Best IMS in all of Singapore and some say Batam.
                       </p>
                     </div>
-                    <Form>
+                    <Form onSubmit={this.onUserLogin}>
                       <FormGroup className="has-wrapper">
                         <Input
                           type="mail"

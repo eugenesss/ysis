@@ -34,7 +34,6 @@
 }
 /*=========== Weather Widget Effect =============*/
 .rct-weather-widget {
-  background-image: $weather-bg;
   background-size: cover;
   -moz-animation: animatedBackground 25s infinite ease;
   -o-animation: animatedBackground 25s infinite ease;
@@ -42,89 +41,113 @@
   animation: animatedBackground 25s infinite ease;
 }
 @-webkit-keyframes animatedBackground {
-  0% { background-position: 0 0; }
-  1% { background-position: 0 0; }
-  50% { background-position: -1000px 0; }
-  51% { background-position: -1000px 0; }
-  99% { background-position: 0 0; }
-  100% { background-position: 0 0; }
+  0% {
+    background-position: 0 0;
+  }
+  1% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: -1000px 0;
+  }
+  51% {
+    background-position: -1000px 0;
+  }
+  99% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
 }
 @keyframes animatedBackground {
-  0% { background-position: 0 0; }
-  1% { background-position: 0 0; }
-  50% { background-position: -1000px 0; }
-  51% { background-position: -1000px 0; }
-  99% { background-position: 0 0; }
-  100% { background-position: 0 0; }
+  0% {
+    background-position: 0 0;
+  }
+  1% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: -1000px 0;
+  }
+  51% {
+    background-position: -1000px 0;
+  }
+  99% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
 }
 /*===== Setting Rotate Animation ======*/
 .rotate {
-  -webkit-transition:0.6s ease-out;
-  -moz-transition:0.6s ease-out;
-  -ms-transition:0.6s ease-out;
-  -o-transition:0.6s ease-out;
-  transition:0.6s ease-out !important;
+  -webkit-transition: 0.6s ease-out;
+  -moz-transition: 0.6s ease-out;
+  -ms-transition: 0.6s ease-out;
+  -o-transition: 0.6s ease-out;
+  transition: 0.6s ease-out !important;
 }
 .rotate:hover {
-  -webkit-transform:rotateZ(360deg);
-  -moz-transform:rotateZ(360deg);
-  -ms-transform:rotateZ(360deg);
-  -o-transform:rotateZ(360deg);
-  transform:rotateZ(360deg);
+  -webkit-transform: rotateZ(360deg);
+  -moz-transform: rotateZ(360deg);
+  -ms-transform: rotateZ(360deg);
+  -o-transform: rotateZ(360deg);
+  transform: rotateZ(360deg);
 }
 /*====== Bell Shake Animation =====*/
 @-ms-keyframes ring {
-  0%{
-    -ms-transform:rotate(15deg);
+  0% {
+    -ms-transform: rotate(15deg);
   }
-  50%{
-    -ms-transform:rotate(-15deg);
+  50% {
+    -ms-transform: rotate(-15deg);
   }
-  100%{
-    -ms-transform:rotate(15deg);
-  }
-}
- @-moz-keyframes ring {
-  0%{
-    -moz-transform:rotate(15deg);
-  }
-  50%{
-    -moz-transform:rotate(-15deg);
-  }
-  100%{
-    -moz-transform:rotate(15deg);
+  100% {
+    -ms-transform: rotate(15deg);
   }
 }
- @-webkit-keyframes ring {
-  0%{
-    -webkit-transform:rotate(15deg);
+@-moz-keyframes ring {
+  0% {
+    -moz-transform: rotate(15deg);
   }
-  50%{
-    -webkit-transform:rotate(-15deg);
+  50% {
+    -moz-transform: rotate(-15deg);
   }
-  100%{
-    -webkit-transform:rotate(15deg);
+  100% {
+    -moz-transform: rotate(15deg);
   }
 }
- @keyframes ring {
-  0%{
-    transform:rotate(15deg);
+@-webkit-keyframes ring {
+  0% {
+    -webkit-transform: rotate(15deg);
   }
-  50%{
-    transform:rotate(-15deg);
+  50% {
+    -webkit-transform: rotate(-15deg);
   }
-  100%{
-    transform:rotate(15deg);
+  100% {
+    -webkit-transform: rotate(15deg);
+  }
+}
+@keyframes ring {
+  0% {
+    transform: rotate(15deg);
+  }
+  50% {
+    transform: rotate(-15deg);
+  }
+  100% {
+    transform: rotate(15deg);
   }
 }
 .shake {
-  -ms-animation:ring .3s infinite;
-  -moz-animation:ring .3s infinite;
-  -webkit-animation:ring .3s infinite;
-  animation:ring .3s infinite;
+  -ms-animation: ring 0.3s infinite;
+  -moz-animation: ring 0.3s infinite;
+  -webkit-animation: ring 0.3s infinite;
+  animation: ring 0.3s infinite;
 }
 
-@keyframes spin-icon{
+@keyframes spin-icon {
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
@@ -134,7 +157,7 @@
     transform: rotate(359deg);
   }
 }
-.spin-icon{
+.spin-icon {
   -webkit-animation: spin-icon 2s infinite linear;
   animation: spin-icon 2s infinite linear;
 }
@@ -163,20 +186,22 @@
     position: relative;
     width: 35px;
     padding: 0 !important;
-    transition: all .34s;
+    transition: all 0.34s;
   }
   .dropdown {
     > button.btn-secondary {
       background: none;
       border: none;
       padding: 0;
-      &:hover, &.active, &:focus {
+      &:hover,
+      &.active,
+      &:focus {
         background: none;
       }
     }
     &.show {
       .dropdown-menu {
-        transform: translate3d(0,-40px,0) !important;
+        transform: translate3d(0, -40px, 0) !important;
         opacity: 1;
         visibility: visible;
       }
@@ -188,8 +213,9 @@
       border-radius: 5px;
       padding: 1.25rem 0rem;
       background-color: $block-bg;
-      transform: translate3d(0,100px,0) !important;
-      &::before, &::after {
+      transform: translate3d(0, 100px, 0) !important;
+      &::before,
+      &::after {
         border: none;
       }
     }
@@ -213,7 +239,7 @@
 }
 /*========== Tour scss =========*/
 .joyride-tooltip {
-	width: 23.13rem !important; //370px;
+  width: 23.13rem !important; //370px;
   padding: 0 !important;
   border-radius: 0;
   &.right {
@@ -232,12 +258,14 @@
       right: -12px !important;
     }
   }
-  .joyride-tooltip__header, .joyride-tooltip__main, .joyride-tooltip__footer {
+  .joyride-tooltip__header,
+  .joyride-tooltip__main,
+  .joyride-tooltip__footer {
     padding: 0.625rem !important;
   }
   .joyride-tooltip__header {
     @include border(1px solid, $primary, bottom);
-  	background-color: $primary;
+    background-color: $primary;
     color: $white;
   }
   .joyride-tooltip__footer {
@@ -250,8 +278,8 @@
     background: none;
     &::before {
       content: "\f136";
-    	font-family: Material-Design-Iconic-Font;
-    	color: $white;
+      font-family: Material-Design-Iconic-Font;
+      color: $white;
     }
   }
 }

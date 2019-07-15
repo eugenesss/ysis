@@ -3,7 +3,6 @@
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
   margin: 0 auto;
   width: 1280px !important;
-  background-image: $boxed-bg;
   .search-icon {
     width: 16rem;
   }
@@ -46,7 +45,9 @@
     .weather-content {
       text-align: center;
     }
-    h2, h3, h4 {
+    h2,
+    h3,
+    h4 {
       font-size: 1rem;
       margin: 0;
     }
@@ -56,9 +57,9 @@
     }
   }
   .current-widget h2 {
-  	font-size: 2.1rem;
+    font-size: 2.1rem;
   }
   .featured-section-icon {
-  	font-size: 2rem;
+    font-size: 2rem;
   }
 }

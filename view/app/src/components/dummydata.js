@@ -14,8 +14,12 @@ export const inventory = {
   updated_date: "19/20/2001",
   description: null
 };
+var list2 = [];
+for (let i = 0; i < 100; i++) {
+  list2.push(inventory);
+}
 
-export const inventoryList = [inventory, inventory, inventory];
+export const inventoryList = list2;
 
 export const loctite = {
   id: 1,
@@ -28,4 +32,9 @@ export const loctite = {
   expiry: "19/4/20"
 };
 
-export const loctiteList = [loctite, loctite, loctite];
+var list = [];
+for (let i = 0; i < 100; i++) {
+  list.push(loctite);
+}
+
+export const loctiteList = list;

@@ -70,27 +70,3 @@ export const AsyncSettingPage = Loadable({
   loader: () => import("Routes/settings"),
   loading: () => <RctPageLoader />
 });
-
-// General
-export const Async_setting_gen_companyDetails_component = Loadable({
-  loader: () => import("Routes/settings/general/companyDetails"),
-  loading: () => <RctPageLoader />
-});
-export const Async_setting_gen_myProfile_component = Loadable({
-  loader: () => import("Routes/settings/general/myProfile"),
-  loading: () => <RctPageLoader />
-});
-// User & Controls
-export const Async_setting_user_users_component = Loadable({
-  loader: () => import("Routes/settings/users-and-controls/users"),
-  loading: () => <RctPageLoader />
-});
-export const Async_setting_user_rolesPermissions_component = Loadable({
-  loader: () =>
-    import("Routes/settings/users-and-controls/roles-and-permissions"),
-  loading: () => <RctPageLoader />
-});
-export const Async_setting_user_groups_component = Loadable({
-  loader: () => import("Routes/settings/users-and-controls/groups"),
-  loading: () => <RctPageLoader />
-});
