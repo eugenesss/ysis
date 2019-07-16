@@ -94,7 +94,7 @@ export default (state = INIT_STATE, action) => {
         inventoryForm: { ...state.inventoryForm, loading: false }
       };
     case types.SUBMIT_INVENTORY_FAILURE:
-      NotificationManager.danger("Error in POST api");
+      NotificationManager.error("Error in POST api");
       console.log(action.payload);
       return {
         ...state,

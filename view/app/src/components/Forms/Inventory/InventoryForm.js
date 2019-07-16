@@ -21,20 +21,37 @@ import {
 class InventoryForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      item: {
+        name: "",
+        price: 0,
+        code: "",
+        material: "",
+        category: "",
+        unit: 0,
+        quantity: 0,
+        perbox: 0,
+        rack: "",
+        warehouse: "",
+        description: ""
+      }
+    };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.isDisabled = this.isDisabled.bind(this);
   }
-  componentWillUnmount() {
-    this.props.clearInventoryForm();
-  }
+  // componentWillUnmount() {
+  //   this.props.clearInventoryForm(this.state.item);
+  // }
 
   handleChange(field, value) {
-    this.props.handleInvFormChange(field, value);
+    this.setState({
+      ...this.state,
+      item: { ...this.state.item, [field]: value }
+    });
   }
 
   handleSubmit() {
-    this.props.submitInventory();
+    this.props.submitInventory(this.state.item);
   }
 
   isDisabled(name) {
@@ -43,7 +60,7 @@ class InventoryForm extends Component {
   }
 
   render() {
-    const { item, loading } = this.props.inventoryForm;
+    const { loading } = this.props.inventoryForm;
     const {
       name,
       price,
@@ -56,7 +73,7 @@ class InventoryForm extends Component {
       rack,
       warehouse,
       description
-    } = item;
+    } = this.state.item;
     return (
       <React.Fragment>
         {loading && <RctSectionLoader />}

@@ -25,7 +25,7 @@ import { inventoryList, inventory } from "Components/dummydata";
 //=========================
 const getAllInventoryReq = async () => {
   const test = await api.get("/show_items");
-  console.log(test);
+  console.log(test.data);
   const result = inventoryList;
   return result;
 };
@@ -35,9 +35,11 @@ const getInventoryReq = async id => {
   return result;
 };
 const postInventoryReq = async data => {
-  console.log(`post ${data}`);
-  // const result = await api.post('/save_item', data);
-  // return result.data;
+  console.log("===== post");
+  console.log(data);
+  const result = await api.post("/save_item", data);
+  console.log(result);
+  return result.data;
 };
 const startEditInvReq = async id => {
   console.log(`start edit ${id}`);

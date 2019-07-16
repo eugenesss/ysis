@@ -6,7 +6,7 @@ const FormNumberField = ({ label, value, handleChange, target }) => {
     <TextField
       label={label}
       defaultValue={value}
-      onChange={e => handleChange(target, e.target.value)}
+      onChange={handleChange}
       fullWidth
       margin="dense"
       type="number"
