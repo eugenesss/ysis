@@ -114,6 +114,29 @@ class WarehouseSchema(Schema):
     # location = fields.Str(dump_only=True)
 
 
+class Category(db.Model, Serializer):
+    """
+    Create a Warehouse table
+    """
+    __tablename__ = 'warehouse'
+    cid = db.Column("wid", db.Integer, primary_key=True)
+    c_name = db.Column("name", db.String(50))
+
+    def __init__(self, cid, c_name):
+        self.cid = cid
+        self.c_name = c_name
+
+
+class CategorySchema(Schema):
+    """
+    Inventory Schema
+    """
+
+    class Meta:
+        # Fields to expose
+        fields = ("cid", "c_name")
+
+
 class Inventory(db.Model, Serializer):
     """
     Create an Inventory table

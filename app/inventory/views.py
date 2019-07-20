@@ -75,6 +75,7 @@ def update_items(pid):
         perbox = data_js.get('perbox')
         location = data_js.get('location')
         img_file = data_js.get('file')
+        wid = data_js.get('wid')
 
         # Update the changes
         item.name = name
@@ -85,6 +86,7 @@ def update_items(pid):
         item.quantity = quantity
         item.perbox = perbox
         item.location = location
+        item.wid = wid
         item.file = img_file
         item.updated_date = datetime.datetime.now()
         db.session.commit()

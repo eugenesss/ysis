@@ -51,8 +51,9 @@ const startEditInvReq = async id => {
   console.log(result);
   return result.data;
 };
-const editInvReq = async (id, data) => {
-  const result = await api.post(`update_item/${id}`, data);
+const editInvReq = async (item) => {
+console.log(item)
+  const result = await api.post(`update_item/${item.pid}`, item);
   console.log(result);
   return result.data;
 };
@@ -124,9 +125,8 @@ function* startEditInv({ payload }) {
   }
 }
 function* editInv({ payload }) {
-  const { id, data } = payload;
   try {
-    const data = yield call(editInvReq, id, data);
+    const data = yield call(editInvReq, payload);
     yield delay(500);
     yield put(editInventorySuccess(data));
   } catch (error) {

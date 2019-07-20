@@ -49,7 +49,7 @@ class InventoryForm extends Component {
   }
 
   onSubmit() {
-    this.props.handleSubmit(this.state.item.pid, this.state.item);
+    this.props.handleSubmit(this.state.item);
   }
 
   isDisabled() {
