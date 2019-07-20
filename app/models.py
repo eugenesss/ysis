@@ -157,6 +157,17 @@ class InventorySchema(Schema):
         fields = ("wid", "wh_name", "pid", "name", "quantity", "description", "code", "price", "material", "perbox",
                   "location")
 
+
+class UpdateInventorySchema(Schema):
+    """
+    Inventory Schema
+    """
+
+    class Meta:
+        # Fields to expose
+        fields = ("wid", "pid", "name", "quantity", "description", "code", "price", "material", "perbox",
+                  "location")
+
     # wid = fields.Int(dump_only=True)
     # wh_name = fields.String(dump_only=True)
     # name = fields.Str(dump_only=True)

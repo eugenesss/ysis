@@ -52,12 +52,12 @@ def login():
             access_token = create_access_token(identity={'email': employee.email,
                                                          'first_name': employee.first_name,
                                                          'last_name': employee.last_name,
-                                                         'is_admin': True})
+                                                         'is_admin': True}, expires_delta=False)
         else:
             access_token = create_access_token(identity={'email': employee.email,
                                                          'first_name': employee.first_name,
                                                          'last_name': employee.last_name,
-                                                         'is_admin': False})
+                                                         'is_admin': False}, expires_delta=False)
         results = {'token': access_token, 'is_admin': employee.is_admin, 'first_name': employee.first_name,
                    'last_name': employee.last_name}
     # when login details are incorrect

@@ -5,7 +5,7 @@ import os
 import datetime
 
 from app import db
-from ..models import Inventory, InventorySchema, get_all_items
+from ..models import Inventory, InventorySchema, UpdateInventorySchema, get_all_items
 
 
 @inventory.route('/save_item', methods=['GET', 'POST'])
@@ -90,11 +90,11 @@ def update_items(pid):
         db.session.commit()
 
         # Return response
-        inventory_schema = InventorySchema()
+        inventory_schema = UpdateInventorySchema()
         return inventory_schema.jsonify(Inventory.query.get(pid))
 
     else:
-        inventory_schema = InventorySchema()
+        inventory_schema = UpdateInventorySchema()
         return inventory_schema.jsonify(Inventory.query.get(pid))
 
 
