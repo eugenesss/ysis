@@ -10,7 +10,7 @@ import InventoryList from "Components/Inventory/InventoryList";
 import EditInventoryModal from "Components/Inventory/EditInventoryModal";
 
 // Actions
-import { getAllInventory, changeInvList } from "Actions";
+import { getAllInventory, changeInvList, deleteInventory } from "Actions";
 import ViewInventoryModal from "Components/Inventory/ViewInventoryModal";
 
 class ViewAllInventory extends Component {
@@ -22,6 +22,7 @@ class ViewAllInventory extends Component {
     };
     this.handleView = this.handleView.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
   componentWillMount() {
     this.props.getAllInventory();
@@ -31,6 +32,15 @@ class ViewAllInventory extends Component {
   }
   handleView(itemID) {
     this.props.show("view_inventory", { itemID });
+  }
+  handleDelete(itemID, name) {
+    this.props.show("alert_delete", {
+      name: name,
+      action: () => this.delete(itemID)
+    });
+  }
+  delete(id) {
+    this.props.deleteInventory(id);
   }
 
   render() {
@@ -59,6 +69,7 @@ class ViewAllInventory extends Component {
             loading={loading}
             handleEdit={this.handleEdit}
             handleView={this.handleView}
+            handleDelete={this.handleDelete}
           />
         </RctCollapsibleCard>
         <EditInventoryModal />
@@ -74,5 +85,5 @@ const mapStateToProps = ({ inventoryState }) => {
 
 export default connect(
   mapStateToProps,
-  { getAllInventory, show, changeInvList }
+  { getAllInventory, show, changeInvList, deleteInventory }
 )(ViewAllInventory);

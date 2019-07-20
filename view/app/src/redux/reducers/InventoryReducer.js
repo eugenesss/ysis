@@ -145,12 +145,33 @@ export default (state = INIT_STATE, action) => {
         inventoryForm: { ...state.inventoryForm, modalLoading: true }
       };
     case types.EDIT_INVENTORY_SUCCESS:
-      NotificationManager.success("Successfully edit Item");
+      NotificationManager.success("Successfully edit item");
       return { ...state, modalLoading: false };
     case types.EDIT_INVENTORY_FAILURE:
       NotificationManager.error("Error in edit item");
       console.log(action.payload);
       return { ...state, modalLoading: false };
+
+    //=========================
+    //  Delete INVENTORY
+    //=========================
+    case types.DELETE_INVENTORY:
+      return {
+        ...state,
+        inventoryList: { ...state.inventoryList, loading: true }
+      };
+    case types.DELETE_INVENTORY_SUCCESS:
+      return {
+        ...state,
+        inventoryList: { ...state.inventoryList, loading: false }
+      };
+    case types.DELETE_INVENTORY_FAILURE:
+      NotificationManager.error("Error in deleting item");
+      console.log(action.payload);
+      return {
+        ...state,
+        inventoryList: { ...state.inventoryList, loading: false }
+      };
     default:
       return { ...state };
   }

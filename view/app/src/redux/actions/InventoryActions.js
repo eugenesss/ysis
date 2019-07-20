@@ -72,7 +72,7 @@ export const startEditInventoryFailure = error => ({
   payload: error
 });
 
-export const editInventory = (data) => ({
+export const editInventory = data => ({
   type: types.EDIT_INVENTORY,
   payload: data
 });
@@ -82,5 +82,19 @@ export const editInventorySuccess = data => ({
 });
 export const editInventoryFailure = error => ({
   type: types.EDIT_INVENTORY_FAILURE,
+  payload: error
+});
+
+// Delete
+export const deleteInventory = id => ({
+  type: types.DELETE_INVENTORY,
+  payload: id
+});
+export const deleteInventorySuccess = id => ({
+  type: types.DELETE_INVENTORY_SUCCESS,
+  payload: id
+});
+export const deleteInventoryFailure = error => ({
+  type: types.DELETE_INVENTORY_FAILURE,
   payload: error
 });

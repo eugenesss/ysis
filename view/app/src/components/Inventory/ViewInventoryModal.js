@@ -8,7 +8,6 @@ import RctSectionLoader from "Components/RctSectionLoader/RctSectionLoader";
 // Components
 import PageErrorMsg from "Components/YSIS/ErrorMsg/PageErrorMsg";
 import TabsWrapper from "Components/YSIS/Tabs/TabsWrapper";
-import ViewActionBox from "Components/YSIS/ViewActionBox";
 // Inventory
 import InventoryCard from "Components/Inventory/InventoryCard";
 import InventoryDetails from "Components/Inventory/InventoryDetails";
@@ -16,35 +15,10 @@ import InventoryDetails from "Components/Inventory/InventoryDetails";
 import { getInventory } from "Actions";
 
 class ViewInventoryModal extends Component {
-  constructor(props) {
-    super(props);
-    // this.edit = this.edit.bind(this);
-    this.delete = this.delete.bind(this);
-  }
   componentWillMount() {
     var id = this.props.itemID;
     this.props.getInventory(id);
   }
-
-  // edit(item) {
-  //     this.props.show("edit_inventory", { itemToEdit: item.pid });
-  // }
-
-  delete(item) {
-    var con = confirm("Want to delete?");
-    if (con) {
-      console.log("confirm");
-    }
-    // this.props.show("alert_delete", {
-    //   name: item.name,
-    //   action: () => this.handleDelete(item.pid)
-    // });
-  }
-  handleDelete(id) {
-    console.log(`delete ${id}`);
-  }
-
-  state = {};
   render() {
     const { show, handleHide } = this.props;
     const { item, loading } = this.props.itemToView;
@@ -68,20 +42,6 @@ class ViewInventoryModal extends Component {
                   warehouse={item.warehouse}
                   rack={item.rack}
                 />
-                <ViewActionBox>
-                  {{
-                    label: "Edit",
-                    icon: "zmdi-edit",
-                    color: "primary",
-                    onClick: () => this.edit(item)
-                  }}
-                  {{
-                    label: "Delete",
-                    icon: "zmdi-delete",
-                    customClasses: "bg-danger text-white",
-                    onClick: () => this.delete(item)
-                  }}
-                </ViewActionBox>
               </div>
             </div>
             <div className="col-md-9">

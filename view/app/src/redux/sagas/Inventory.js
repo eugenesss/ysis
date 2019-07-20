@@ -5,7 +5,8 @@ import {
   GET_INVENTORY,
   SUBMIT_INVENTORY_FORM,
   START_EDIT_INVENTORY,
-  EDIT_INVENTORY
+  EDIT_INVENTORY,
+  DELETE_INVENTORY
 } from "Types/InventoryTypes";
 import {
   inventoryApiFailure,
@@ -16,7 +17,9 @@ import {
   startEditInventorySuccess,
   startEditInventoryFailure,
   editInventorySuccess,
-  editInventoryFailure
+  editInventoryFailure,
+  deleteInventorySuccess,
+  deleteInventoryFailure
 } from "Actions";
 
 import api from "Api";
@@ -51,10 +54,15 @@ const startEditInvReq = async id => {
   console.log(result);
   return result.data;
 };
-const editInvReq = async (item) => {
-console.log(item)
+const editInvReq = async item => {
+  console.log(item);
   const result = await api.post(`update_item/${item.pid}`, item);
   console.log(result);
+  return result.data;
+};
+const deleteInvReq = async id => {
+  console.log("delete" + id);
+  const result = await api.post(`/delete_item/${id}`);
   return result.data;
 };
 
@@ -133,6 +141,15 @@ function* editInv({ payload }) {
     yield put(editInventoryFailure(error));
   }
 }
+function* deleteInv({ payload }) {
+  try {
+    yield call(deleteInvReq, payload);
+    yield delay(500);
+    yield put(deleteInventorySuccess());
+  } catch (error) {
+    yield put(deleteInventoryFailure(error));
+  }
+}
 
 //=========================
 // WATCHERS
@@ -155,6 +172,9 @@ export function* startEditInventoryWatcher() {
 export function* editInventoryWatcher() {
   yield takeEvery(EDIT_INVENTORY, editInv);
 }
+export function* deleteInventoryWatcher() {
+  yield takeEvery(DELETE_INVENTORY, deleteInv);
+}
 
 //=======================
 // FORK SAGAS TO STORE
@@ -166,6 +186,7 @@ export default function* rootSaga() {
     fork(getInventoryWatcher),
     fork(submitInventoryWatcher),
     fork(startEditInventoryWatcher),
-    fork(editInventoryWatcher)
+    fork(editInventoryWatcher),
+    fork(deleteInventoryWatcher)
   ]);
 }
