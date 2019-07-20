@@ -116,15 +116,15 @@ class WarehouseSchema(Schema):
 
 class Category(db.Model, Serializer):
     """
-    Create a Warehouse table
+    Create a Category table
     """
-    __tablename__ = 'warehouse'
-    cid = db.Column("wid", db.Integer, primary_key=True)
-    c_name = db.Column("name", db.String(50))
+    __tablename__ = 'category'
+    cid = db.Column("cid", db.Integer, primary_key=True)
+    cat_name = db.Column("cat_name", db.String(50))
 
-    def __init__(self, cid, c_name):
+    def __init__(self, cid, cat_name):
         self.cid = cid
-        self.c_name = c_name
+        self.cat_name = cat_name
 
 
 class CategorySchema(Schema):
@@ -134,7 +134,7 @@ class CategorySchema(Schema):
 
     class Meta:
         # Fields to expose
-        fields = ("cid", "c_name")
+        fields = ("cid", "cat_name")
 
 
 class Inventory(db.Model, Serializer):
@@ -155,7 +155,10 @@ class Inventory(db.Model, Serializer):
     created_date = db.Column("created_date", db.DateTime)
     updated_date = db.Column("updated_date", db.DateTime)
     wid = db.Column('wid', db.Integer, ForeignKey('warehouse.wid'))
+    cid = db.Column('cid', db.Integer, ForeignKey('category.cid'))
     warehouse = relationship("Warehouse", backref=db.backref("inventory", lazy='dynamic'))
+    category = relationship("Category", backref=db.backref("inventory", lazy='dynamic'))
+
 
     def __init__(self, name, description, code, material, price, quantity, perbox, location, file,
                  wid):
@@ -178,7 +181,7 @@ class InventorySchema(Schema):
     class Meta:
         # Fields to expose
         fields = ("wid", "wh_name", "pid", "name", "quantity", "description", "code", "price", "material", "perbox",
-                  "location")
+                  "location", "cid", "cat_name")
 
 
 class UpdateInventorySchema(Schema):
@@ -189,7 +192,7 @@ class UpdateInventorySchema(Schema):
     class Meta:
         # Fields to expose
         fields = ("wid", "pid", "name", "quantity", "description", "code", "price", "material", "perbox",
-                  "location")
+                  "location", "cid")
 
     # wid = fields.Int(dump_only=True)
     # wh_name = fields.String(dump_only=True)
@@ -240,8 +243,9 @@ class Loctite(db.Model, Serializer):
 
 def get_all_items():
     items = db.session.query(Warehouse.wid, Warehouse.wh_name, Inventory.pid, Inventory.name, Inventory.quantity,
-                             Inventory.description, Inventory.code, Inventory.price, Inventory.material, Inventory.perbox,
-                             Inventory.location).filter(Inventory.wid == Warehouse.wid).all()
+                             Inventory.description, Inventory.code, Inventory.price, Inventory.material,
+                             Inventory.perbox, Inventory.location, Category.cid,
+                             Category.cat_name).filter(Inventory.wid == Warehouse.wid).all()
     return items
 
 

@@ -31,6 +31,7 @@ import { inventory } from "Components/dummydata";
 //=========================
 const getAllInventoryReq = async () => {
   const result = await api.get("/show_items");
+  console.log(result);
   return result.data;
 };
 const getAMKInventory = async () => {
