@@ -29,7 +29,7 @@ def save_item():
     perbox = data_js.get('perbox')
     location = data_js.get('location')
     file = data_js.get('file')
-    wid = data_js.get('wid')
+    wid = data_js.get('warehouse')
 
     # Add item to database
     item = Inventory(name=name, description=description, code=code, material=material,
