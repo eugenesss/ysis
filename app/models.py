@@ -69,17 +69,17 @@ class Employee(UserMixin, db.Model, Serializer):
         return Employee.query.get(int(user_id))
 
 
-@http_auth.verify_password
-def verify_password(username_or_token, password):
-    # Try to authenticate by Token
-    employee = Employee.verify_auth_token(username_or_token)
-    if not employee:
-        # try to authenticate with username/password
-        employee = Employee.query.filter_by(email=username_or_token).first()
-        if not employee or not employee.verify_password(password):
-            return False
-    g.employee = employee
-    return True
+# @http_auth.verify_password
+# def verify_password(username_or_token, password):
+#     # Try to authenticate by Token
+#     employee = Employee.verify_auth_token(username_or_token)
+#     if not employee:
+#         # try to authenticate with username/password
+#         employee = Employee.query.filter_by(email=username_or_token).first()
+#         if not employee or not employee.verify_password(password):
+#             return False
+#     g.employee = employee
+#     return True
 
 
 class Warehouse(db.Model, Serializer):
@@ -188,14 +188,14 @@ class Loctite(db.Model, Serializer):
 
 
 def get_all_items_by_warehouse():
-    items = db.session.query(Warehouse.wid, Warehouse.wh_name, Inventory.name, Inventory.quantity, Inventory.description,
-                             Inventory.code, Inventory.price, Inventory.material, Inventory.perbox,
+    items = db.session.query(Warehouse.wid, Warehouse.wh_name, Inventory.name, Inventory.quantity,
+                             Inventory.description, Inventory.code, Inventory.price, Inventory.material, Inventory.perbox,
                              Inventory.location).filter(Inventory.wid == Warehouse.wid).all()
     return items
 
 
 def get_all_items():
-    all_items = db.session.query(Warehouse.wid, Warehouse.wh_name, Inventory.name, Inventory.quantity, Inventory.description,
-                             Inventory.code, Inventory.price, Inventory.material, Inventory.perbox,
-                             Inventory.location).all()
+    all_items = db.session.query(Warehouse.wid, Warehouse.wh_name, Inventory.name, Inventory.quantity,
+                                 Inventory.description, Inventory.code, Inventory.price, Inventory.material,
+                                 Inventory.perbox, Inventory.location).all()
     return all_items
