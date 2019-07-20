@@ -53,4 +53,7 @@ def create_app(config_name):
     from .warehouse import warehouse as warehouse_blueprint
     app.register_blueprint(warehouse_blueprint)
 
+    from .category import category as category_blueprint
+    app.register_blueprint(category_blueprint)
+
     return app
