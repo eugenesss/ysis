@@ -25,3 +25,5 @@ export const LOGIN_USER_FAILURE = "LOGIN_USER_FAILURE";
 export const LOGOUT_USER = "LOGOUT_USER";
 export const LOGOUT_USER_SUCCESS = "LOGOUT_USER_SUCCESS";
 export const LOGOUT_USER_FAILURE = "LOGOUT_USER_FAILURE";
+
+// Warehouse Actions

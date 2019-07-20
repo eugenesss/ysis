@@ -88,7 +88,7 @@ export default (state = INIT_STATE, action) => {
         inventoryForm: { ...state.inventoryForm, loading: true }
       };
     case types.SUBMIT_INVENTORY_SUCCESS:
-      NotificationManager.success("Success");
+      NotificationManager.success(action.payload.message);
       return {
         ...state,
         inventoryForm: { ...state.inventoryForm, loading: false }

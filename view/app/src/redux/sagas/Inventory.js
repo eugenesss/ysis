@@ -42,6 +42,7 @@ const postInventoryReq = async data => {
   return result.data;
 };
 const startEditInvReq = async id => {
+  //  const test = await api.post(`update_item/${id}`);
   console.log(`start edit ${id}`);
   const result = inventory;
   return result;
