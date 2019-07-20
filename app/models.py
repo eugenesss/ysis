@@ -154,7 +154,7 @@ class InventorySchema(Schema):
     """
     class Meta:
         # Fields to expose
-        fields = ("wid", "wh_name", "name", "quantity", "description", "code", "price", "material", "perbox",
+        fields = ("wid", "wh_name", "pid", "name", "quantity", "description", "code", "price", "material", "perbox",
                   "location")
 
     # wid = fields.Int(dump_only=True)
