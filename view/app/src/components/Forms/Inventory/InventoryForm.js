@@ -15,7 +15,8 @@ import Button from "@material-ui/core/Button";
 import {
   submitInventory,
   clearInventoryForm,
-  handleInvFormChange
+  handleInvFormChange,
+  getWarehouse
 } from "Actions";
 
 class InventoryForm extends Component {
@@ -36,12 +37,13 @@ class InventoryForm extends Component {
         description: ""
       }
     };
+    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.isDisabled = this.isDisabled.bind(this);
   }
-  // componentWillUnmount() {
-  //   this.props.clearInventoryForm(this.state.item);
-  // }
+  componentDidMount() {
+    this.props.getWarehouse();
+  }
 
   handleChange(field, value) {
     this.setState({
@@ -54,8 +56,8 @@ class InventoryForm extends Component {
     this.props.submitInventory(this.state.item);
   }
 
-  isDisabled(name) {
-    var disabled = !name;
+  isDisabled() {
+    var disabled = !this.state.item.name && !this.state.item.warehouse;
     return disabled;
   }
 
@@ -137,6 +139,9 @@ class InventoryForm extends Component {
               value={warehouse}
               handleChange={e => this.handleChange("warehouse", e.target.value)}
               label="Warehouse"
+              selectValues={this.props.warehouse}
+              objProp="wid"
+              required
             />
           </TableRow>
           <DescriptionFormInput
@@ -155,7 +160,7 @@ class InventoryForm extends Component {
                 Cancel
               </Button>
               <Button
-                disabled={this.isDisabled(name)}
+                disabled={this.isDisabled()}
                 onClick={() => this.handleSubmit()}
                 className="bg-success text-white"
                 variant="contained"
@@ -169,12 +174,13 @@ class InventoryForm extends Component {
     );
   }
 }
-const mapStateToProps = ({ inventoryState }) => {
+const mapStateToProps = ({ inventoryState, warehouseState }) => {
   const { inventoryForm } = inventoryState;
-  return { inventoryForm };
+  const { warehouse } = warehouseState;
+  return { inventoryForm, warehouse };
 };
 
 export default connect(
   mapStateToProps,
-  { submitInventory, clearInventoryForm, handleInvFormChange }
+  { submitInventory, clearInventoryForm, handleInvFormChange, getWarehouse }
 )(InventoryForm);

@@ -9,7 +9,7 @@ const INIT_STATE = {
     tableData: [],
     loading: false,
     nowShowing: "All Inventory",
-    options: ["All Inventory", "Warehouse 1", "Warehouse 2"]
+    options: ["All Inventory", "Warehouse 1", "Warehouse 2", "AMK #3"]
   },
   itemToView: {
     item: null,
@@ -88,7 +88,7 @@ export default (state = INIT_STATE, action) => {
         inventoryForm: { ...state.inventoryForm, loading: true }
       };
     case types.SUBMIT_INVENTORY_SUCCESS:
-      NotificationManager.success(action.payload.message);
+      NotificationManager.success("Successfully created Item");
       return {
         ...state,
         inventoryForm: { ...state.inventoryForm, loading: false }

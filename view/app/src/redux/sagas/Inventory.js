@@ -18,15 +18,18 @@ import {
 
 import api from "Api";
 
-import { inventoryList, inventory } from "Components/dummydata";
+import { inventory } from "Components/dummydata";
 
 //=========================
 // REQUESTS
 //=========================
 const getAllInventoryReq = async () => {
-  const test = await api.get("/show_items");
-  console.log(test.data);
-  const result = inventoryList;
+  const result = await api.get("/show_items");
+  console.log(result);
+  return result.data;
+};
+const getAMKInventory = async () => {
+  const result = [];
   return result;
 };
 const getInventoryReq = async id => {
@@ -42,7 +45,8 @@ const postInventoryReq = async data => {
   return result.data;
 };
 const startEditInvReq = async id => {
-  //  const test = await api.post(`update_item/${id}`);
+  const test = await api.get(`update_item/${id}`);
+  console.log(test);
   console.log(`start edit ${id}`);
   const result = inventory;
   return result;
@@ -69,13 +73,15 @@ function* changeInvList({ payload }) {
       yield delay(500);
       yield put(getAllInventorySuccess(data));
     } else if (payload == "Warehouse 1") {
-      // Open Leads
       data = yield call(getAllInventoryReq);
       yield delay(500);
       yield put(getAllInventorySuccess(data));
     } else if (payload == "Warehouse 2") {
-      // Hot Leads
       data = yield call(getAllInventoryReq);
+      yield delay(500);
+      yield put(getAllInventorySuccess(data));
+    } else if (payload == "AMK #3") {
+      data = yield call(getAMKInventory);
       yield delay(500);
       yield put(getAllInventorySuccess(data));
     } else {

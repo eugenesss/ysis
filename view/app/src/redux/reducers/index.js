@@ -7,12 +7,14 @@ import settings from "./settings";
 import inventoryReducer from "./InventoryReducer";
 import authUserReducer from "./AuthUserReducer";
 import loctiteReducer from "./LoctiteReducer";
+import WarehouseReducer from "./WarehouseReducer";
 
 const reducers = combineReducers({
   settings,
   authUser: authUserReducer,
   inventoryState: inventoryReducer,
   loctiteState: loctiteReducer,
+  warehouseState: WarehouseReducer,
   modal
 });
 

@@ -5,7 +5,7 @@ import RctSectionLoader from "Components/RctSectionLoader/RctSectionLoader";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 
-const InventoryList = ({ title, data, loading, handleEdit }) => {
+const InventoryList = ({ title, data, loading, handleEdit, handleView }) => {
   const columns = [
     {
       label: "ID",
@@ -18,11 +18,16 @@ const InventoryList = ({ title, data, loading, handleEdit }) => {
       options: {
         customBodyRender: (value, tableMeta) => {
           return (
-            <NavLink to={`/app/inventory/${tableMeta.rowData[0]}`}>
-              {value}
-            </NavLink>
+            <a onClick={() => handleView(tableMeta.rowData[0])}>{value}</a>
           );
         }
+        // customBodyRender: (value, tableMeta) => {
+        //   return (
+        //     <NavLink to={`/app/inventory/${tableMeta.rowData[0]}`}>
+        //       {value}
+        //     </NavLink>
+        //   );
+        // }
       }
     },
     { label: "Code", name: "code" },
@@ -52,7 +57,7 @@ const InventoryList = ({ title, data, loading, handleEdit }) => {
     },
     {
       label: "Warehouse",
-      name: "warehouse"
+      name: "wh_name"
     },
     {
       label: "Actions",

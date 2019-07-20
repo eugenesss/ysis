@@ -7,7 +7,8 @@ import { all } from "redux-saga/effects";
 import authSagas from "./Auth";
 import inventorySagas from "./Inventory";
 import loctiteSagas from "./Loctite";
+import warehouseSagas from "./Warehouse";
 
 export default function* rootSaga(getState) {
-  yield all([authSagas(), inventorySagas(), loctiteSagas()]);
+  yield all([authSagas(), inventorySagas(), loctiteSagas(), warehouseSagas()]);
 }

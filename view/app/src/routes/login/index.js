@@ -13,15 +13,20 @@ import AppConfig from "Constants/AppConfig";
 import { login } from "Actions";
 
 class Login extends Component {
-  state = {
-    email: "",
-    password: ""
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: "",
+      password: ""
+    };
+    this.onUserLogin = this.onUserLogin.bind(this);
+  }
 
   /**
    * On User Login
    */
-  onUserLogin() {
+  onUserLogin(e) {
+    e.preventDefault();
     if (this.state.email !== "" && this.state.password !== "") {
       this.props.login(this.state);
     }
@@ -53,9 +58,6 @@ class Login extends Component {
                           {AppConfig.brandName}
                         </h2>
                       </Link>
-                      <p className="mb-0 text-gray">
-                        Best IMS in all of Singapore and some say Batam.
-                      </p>
                     </div>
                     <Form onSubmit={this.onUserLogin}>
                       <FormGroup className="has-wrapper">
@@ -96,7 +98,8 @@ class Login extends Component {
                           className="btn-block text-white w-100"
                           variant="contained"
                           size="large"
-                          onClick={() => this.onUserLogin()}
+                          type="submit"
+                          //onClick={() => this.onUserLogin()}
                         >
                           Sign In
                         </Button>

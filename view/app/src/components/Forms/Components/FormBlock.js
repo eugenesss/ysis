@@ -14,7 +14,8 @@ const FormBlock = ({
   customTextField,
   required,
   empty,
-  numberInput
+  numberInput,
+  objProp
 }) => {
   return (
     <React.Fragment>
@@ -36,6 +37,7 @@ const FormBlock = ({
               handleChange={handleChange}
               target={target}
               selectValues={selectValues}
+              objProp={objProp}
             />
           ) : numberInput ? (
             <FormNumberField

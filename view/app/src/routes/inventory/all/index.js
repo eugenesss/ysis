@@ -11,6 +11,7 @@ import EditInventoryModal from "Components/Inventory/EditInventoryModal";
 
 // Actions
 import { getAllInventory, changeInvList } from "Actions";
+import ViewInventoryModal from "Components/Inventory/ViewInventoryModal";
 
 class ViewAllInventory extends Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class ViewAllInventory extends Component {
       nowShowing: "All Inventory",
       options: ["All Inventory", "Warehouse 1", "Warehouse 2"]
     };
+    this.handleView = this.handleView.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
   }
   componentWillMount() {
@@ -26,6 +28,9 @@ class ViewAllInventory extends Component {
   }
   handleEdit(id) {
     this.props.show("edit_inventory", { itemToEdit: id });
+  }
+  handleView(id) {
+    this.props.show("view_inventory", { itemToView: id });
   }
 
   render() {
@@ -53,9 +58,11 @@ class ViewAllInventory extends Component {
             data={tableData}
             loading={loading}
             handleEdit={this.handleEdit}
+            handleView={this.handleView}
           />
         </RctCollapsibleCard>
         <EditInventoryModal />
+        <ViewInventoryModal />
       </React.Fragment>
     );
   }

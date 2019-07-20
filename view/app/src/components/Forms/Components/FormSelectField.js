@@ -7,7 +7,8 @@ const FormSelectField = ({
   value,
   target,
   handleChange,
-  selectValues
+  selectValues,
+  objProp
 }) => {
   return (
     <TextField
@@ -15,13 +16,13 @@ const FormSelectField = ({
       fullWidth
       label={label}
       value={value ? value : ""}
-      onChange={e => handleChange(target, e.target.value)}
+      onChange={handleChange}
       margin="dense"
       variant="filled"
     >
       {selectValues &&
         selectValues.map((select, key) => (
-          <MenuItem key={key} value={select.id}>
+          <MenuItem key={key} value={select[objProp]}>
             {select.name}
           </MenuItem>
         ))}
