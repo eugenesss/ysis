@@ -187,8 +187,15 @@ class Loctite(db.Model, Serializer):
         self.wid = wid
 
 
-def get_all_items():
+def get_all_items_by_warehouse():
     items = db.session.query(Warehouse.wid, Warehouse.wh_name, Inventory.name, Inventory.quantity, Inventory.description,
                              Inventory.code, Inventory.price, Inventory.material, Inventory.perbox,
                              Inventory.location).filter(Inventory.wid == Warehouse.wid).all()
     return items
+
+
+def get_all_items():
+    all_items = db.session.query(Warehouse.wid, Warehouse.wh_name, Inventory.name, Inventory.quantity, Inventory.description,
+                             Inventory.code, Inventory.price, Inventory.material, Inventory.perbox,
+                             Inventory.location).all()
+    return all_items
