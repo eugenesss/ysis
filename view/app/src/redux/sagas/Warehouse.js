@@ -8,10 +8,9 @@ import api from "Api";
 // REQUESTS
 //=========================
 const getWarehouseReq = async () => {
-  //const test = await api.get("/show_warehouse");
-  //console.log(test);
-  const result = [{ wid: 1, name: "Jurong" }];
-  return result;
+  const result = await api.get("/show_warehouse");
+  console.log(result.data);
+  return result.data;
 };
 
 //=========================

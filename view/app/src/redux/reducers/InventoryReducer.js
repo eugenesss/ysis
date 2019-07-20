@@ -138,6 +138,19 @@ export default (state = INIT_STATE, action) => {
         ...state,
         inventoryForm: { ...state.inventoryForm, modalLoading: false }
       };
+
+    case types.EDIT_INVENTORY:
+      return {
+        ...state,
+        inventoryForm: { ...state.inventoryForm, modalLoading: true }
+      };
+    case types.EDIT_INVENTORY_SUCCESS:
+      NotificationManager.success("Successfully edit Item");
+      return { ...state, modalLoading: false };
+    case types.EDIT_INVENTORY_FAILURE:
+      NotificationManager.error("Error in edit item");
+      console.log(action.payload);
+      return { ...state, modalLoading: false };
     default:
       return { ...state };
   }

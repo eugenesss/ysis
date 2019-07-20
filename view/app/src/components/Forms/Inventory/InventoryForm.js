@@ -12,12 +12,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Button from "@material-ui/core/Button";
 
 // Actions
-import {
-  submitInventory,
-  clearInventoryForm,
-  handleInvFormChange,
-  getWarehouse
-} from "Actions";
+import { handleInvFormChange, getWarehouse } from "Actions";
 
 class InventoryForm extends Component {
   constructor(props) {
@@ -33,13 +28,14 @@ class InventoryForm extends Component {
         quantity: 0,
         perbox: 0,
         rack: "",
-        warehouse: "",
+        wid: "",
         description: ""
       }
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
     this.isDisabled = this.isDisabled.bind(this);
+    if (this.props.edit) this.state = { item: { ...this.props.edit } };
   }
   componentDidMount() {
     this.props.getWarehouse();
@@ -52,8 +48,8 @@ class InventoryForm extends Component {
     });
   }
 
-  handleSubmit() {
-    this.props.submitInventory(this.state.item);
+  onSubmit() {
+    this.props.handleSubmit(this.state.item.pid, this.state.item);
   }
 
   isDisabled() {
@@ -73,9 +69,10 @@ class InventoryForm extends Component {
       quantity,
       perbox,
       rack,
-      warehouse,
+      wid,
       description
     } = this.state.item;
+    console.log(this.state.item);
     return (
       <React.Fragment>
         {loading && <RctSectionLoader />}
@@ -136,11 +133,12 @@ class InventoryForm extends Component {
               label="Rack"
             />
             <FormBlock
-              value={warehouse}
-              handleChange={e => this.handleChange("warehouse", e.target.value)}
+              value={wid}
+              handleChange={e => this.handleChange("wid", e.target.value)}
               label="Warehouse"
               selectValues={this.props.warehouse}
               objProp="wid"
+              objLabel="wh_name"
               required
             />
           </TableRow>
@@ -161,7 +159,7 @@ class InventoryForm extends Component {
               </Button>
               <Button
                 disabled={this.isDisabled()}
-                onClick={() => this.handleSubmit()}
+                onClick={() => this.onSubmit()}
                 className="bg-success text-white"
                 variant="contained"
               >
@@ -182,5 +180,5 @@ const mapStateToProps = ({ inventoryState, warehouseState }) => {
 
 export default connect(
   mapStateToProps,
-  { submitInventory, clearInventoryForm, handleInvFormChange, getWarehouse }
+  { handleInvFormChange, getWarehouse }
 )(InventoryForm);

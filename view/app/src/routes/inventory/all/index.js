@@ -26,11 +26,11 @@ class ViewAllInventory extends Component {
   componentWillMount() {
     this.props.getAllInventory();
   }
-  handleEdit(id) {
-    this.props.show("edit_inventory", { itemToEdit: id });
+  handleEdit(itemToEdit) {
+    this.props.show("edit_inventory", { itemToEdit });
   }
-  handleView(id) {
-    this.props.show("view_inventory", { itemToView: id });
+  handleView(itemID) {
+    this.props.show("view_inventory", { itemID });
   }
 
   render() {

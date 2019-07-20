@@ -15,7 +15,8 @@ const FormBlock = ({
   required,
   empty,
   numberInput,
-  objProp
+  objProp,
+  objLabel
 }) => {
   return (
     <React.Fragment>
@@ -38,6 +39,7 @@ const FormBlock = ({
               target={target}
               selectValues={selectValues}
               objProp={objProp}
+              objLabel={objLabel}
             />
           ) : numberInput ? (
             <FormNumberField

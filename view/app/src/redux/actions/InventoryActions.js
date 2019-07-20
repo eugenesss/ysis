@@ -71,3 +71,16 @@ export const startEditInventoryFailure = error => ({
   type: types.START_EDIT_INVENTORY_FAILURE,
   payload: error
 });
+
+export const editInventory = (id, data) => ({
+  type: types.EDIT_INVENTORY,
+  payload: { id, data }
+});
+export const editInventorySuccess = data => ({
+  type: types.EDIT_INVENTORY_SUCCESS,
+  payload: data
+});
+export const editInventoryFailure = error => ({
+  type: types.EDIT_INVENTORY_FAILURE,
+  payload: error
+});

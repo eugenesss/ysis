@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Helmet } from "react-helmet";
 
 //Components
@@ -6,6 +7,9 @@ import RctCollapsibleCard from "Components/RctCollapsibleCard/RctCollapsibleCard
 
 // form
 import InventoryForm from "Components/Forms/Inventory/InventoryForm";
+
+// action
+import { submitInventory } from "Actions";
 
 class NewInventory extends Component {
   state = {};
@@ -21,7 +25,7 @@ class NewInventory extends Component {
           <div className="row">
             <div className="col-md-3">image upload</div>
             <div className="col-md-9">
-              <InventoryForm />
+              <InventoryForm handleSubmit={this.props.submitInventory} />
             </div>
           </div>
         </RctCollapsibleCard>
@@ -30,4 +34,7 @@ class NewInventory extends Component {
   }
 }
 
-export default NewInventory;
+export default connect(
+  null,
+  { submitInventory }
+)(NewInventory);

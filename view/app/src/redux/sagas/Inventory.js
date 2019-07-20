@@ -4,7 +4,8 @@ import {
   ON_CHANGE_INVENTORY_LIST,
   GET_INVENTORY,
   SUBMIT_INVENTORY_FORM,
-  START_EDIT_INVENTORY
+  START_EDIT_INVENTORY,
+  EDIT_INVENTORY
 } from "Types/InventoryTypes";
 import {
   inventoryApiFailure,
@@ -13,7 +14,9 @@ import {
   submitInventorySuccess,
   submitInventoryFailure,
   startEditInventorySuccess,
-  startEditInventoryFailure
+  startEditInventoryFailure,
+  editInventorySuccess,
+  editInventoryFailure
 } from "Actions";
 
 import api from "Api";
@@ -25,7 +28,6 @@ import { inventory } from "Components/dummydata";
 //=========================
 const getAllInventoryReq = async () => {
   const result = await api.get("/show_items");
-  console.log(result);
   return result.data;
 };
 const getAMKInventory = async () => {
@@ -45,11 +47,14 @@ const postInventoryReq = async data => {
   return result.data;
 };
 const startEditInvReq = async id => {
-  const test = await api.get(`update_item/${id}`);
-  console.log(test);
-  console.log(`start edit ${id}`);
-  const result = inventory;
-  return result;
+  const result = await api.get(`update_item/${id}`);
+  console.log(result);
+  return result.data;
+};
+const editInvReq = async (id, data) => {
+  const result = await api.post(`update_item/${id}`, data);
+  console.log(result);
+  return result.data;
 };
 
 //=========================
@@ -118,6 +123,16 @@ function* startEditInv({ payload }) {
     yield put(startEditInventoryFailure(error));
   }
 }
+function* editInv({ payload }) {
+  const { id, data } = payload;
+  try {
+    const data = yield call(editInvReq, id, data);
+    yield delay(500);
+    yield put(editInventorySuccess(data));
+  } catch (error) {
+    yield put(editInventoryFailure(error));
+  }
+}
 
 //=========================
 // WATCHERS
@@ -137,6 +152,9 @@ export function* submitInventoryWatcher() {
 export function* startEditInventoryWatcher() {
   yield takeEvery(START_EDIT_INVENTORY, startEditInv);
 }
+export function* editInventoryWatcher() {
+  yield takeEvery(EDIT_INVENTORY, editInv);
+}
 
 //=======================
 // FORK SAGAS TO STORE
@@ -147,6 +165,7 @@ export default function* rootSaga() {
     fork(changeInvListWatcher),
     fork(getInventoryWatcher),
     fork(submitInventoryWatcher),
-    fork(startEditInventoryWatcher)
+    fork(startEditInventoryWatcher),
+    fork(editInventoryWatcher)
   ]);
 }

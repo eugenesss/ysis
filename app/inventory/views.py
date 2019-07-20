@@ -29,7 +29,7 @@ def save_item():
     perbox = data_js.get('perbox')
     location = data_js.get('location')
     file = data_js.get('file')
-    wid = data_js.get('warehouse')
+    wid = data_js.get('wid')
 
     # Add item to database
     item = Inventory(name=name, description=description, code=code, material=material,
@@ -74,7 +74,7 @@ def update_items(pid):
         quantity = data_js.get('quantity')
         perbox = data_js.get('perbox')
         location = data_js.get('location')
-        file = data_js.get('file')
+        img_file = data_js.get('file')
 
         # Update the changes
         item.name = name
@@ -85,7 +85,7 @@ def update_items(pid):
         item.quantity = quantity
         item.perbox = perbox
         item.location = location
-        item.file = file
+        item.file = img_file
         item.updated_date = datetime.datetime.now()
         db.session.commit()
 

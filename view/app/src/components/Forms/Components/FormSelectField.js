@@ -5,7 +5,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 const FormSelectField = ({
   label,
   value,
-  target,
+  objLabel,
   handleChange,
   selectValues,
   objProp
@@ -23,7 +23,7 @@ const FormSelectField = ({
       {selectValues &&
         selectValues.map((select, key) => (
           <MenuItem key={key} value={select[objProp]}>
-            {select.name}
+            {select[objLabel]}
           </MenuItem>
         ))}
     </TextField>
