@@ -121,9 +121,8 @@ class Inventory(db.Model, Serializer):
     wid = db.Column('wid', db.Integer, ForeignKey('warehouse.wid'))
     warehouse = relationship("Warehouse", backref=db.backref("inventory", lazy='dynamic'))
 
-    def __init__(self, pid, name, description, code, material, price, quantity, perbox, location, file,
+    def __init__(self, name, description, code, material, price, quantity, perbox, location, file,
                  wid):
-        self.pid = pid
         self.name = name
         self.description = description
         self.code = code
@@ -146,7 +145,7 @@ class InventorySchema(Schema):
     name = fields.Str(dump_only=True)
     quantity = fields.Int(dump_only=True)
     description = fields.Str(dump_only=True)
-    code = fields.Int(dump_only=True)
+    code = fields.Str(dump_only=True)
     price = fields.Int(dump_only=True)
     material = fields.String(dump_only=True)
     perbox = fields.Int(dump_only=True)

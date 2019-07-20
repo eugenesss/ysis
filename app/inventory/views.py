@@ -19,7 +19,7 @@ def save_item():
     data_js = json.loads(data)
 
     # Get the individual values
-    pid = data_js.get('pid')
+    # pid = data_js.get('pid')
     name = data_js.get('name')
     description = data_js.get('description')
     code = data_js.get('code')
@@ -32,12 +32,12 @@ def save_item():
     wid = data_js.get('wid')
 
     # Add item to database
-    item = Inventory(pid=pid, name=name, description=description, code=code, material=material,
+    item = Inventory(name=name, description=description, code=code, material=material,
                      price=price, quantity=quantity, perbox=perbox, location=location, file=file, wid=wid)
     db.session.add(item)
     db.session.commit()
     inventory_schema = InventorySchema()
-    result = inventory_schema.dump(Inventory.query.get(pid))
+    result = inventory_schema.dump(Inventory.query.get(item.pid))
     return jsonify({"message": "Item added successfully", "item": result}), 200
 
 
@@ -53,47 +53,53 @@ def show_items():
     return jsonify({"items": results}), 200
 
 
-@inventory.route("/update_item/<int:pid>", methods=['POST'])
+@inventory.route("/update_item/<int:pid>", methods=['POST', 'GET'])
 @jwt_required
 def update_items(pid):
     """
     Update inventory
     """
-    # Retrieve item from database
-    item = Inventory.query.get_or_404(pid)
+    if request.method == 'POST':
+        # Retrieve item from database
+        item = Inventory.query.get_or_404(pid)
 
-    # Retrieve the data from request
-    data = request.data
-    data_js = json.loads(data)
+        # Retrieve the data from request
+        data = request.data
+        data_js = json.loads(data)
 
-    # Get the individual values
-    name = data_js.get('name')
-    description = data_js.get('description')
-    code = data_js.get('code')
-    material = data_js.get('material')
-    price = data_js.get('price')
-    quantity = data_js.get('quantity')
-    perbox = data_js.get('perbox')
-    location = data_js.get('location')
-    file = data_js.get('file')
+        # Get the individual values
+        name = data_js.get('name')
+        description = data_js.get('description')
+        code = data_js.get('code')
+        material = data_js.get('material')
+        price = data_js.get('price')
+        quantity = data_js.get('quantity')
+        perbox = data_js.get('perbox')
+        location = data_js.get('location')
+        file = data_js.get('file')
 
-    # Update the changes
-    item.name = name
-    item.description = description
-    item.code = code
-    item.material = material
-    item.price = price
-    item.quantity = quantity
-    item.perbox = perbox
-    item.location = location
-    item.file = file
-    item.updated_date = datetime.datetime.now()
-    db.session.commit()
+        # Update the changes
+        item.name = name
+        item.description = description
+        item.code = code
+        item.material = material
+        item.price = price
+        item.quantity = quantity
+        item.perbox = perbox
+        item.location = location
+        item.file = file
+        item.updated_date = datetime.datetime.now()
+        db.session.commit()
 
-    # Return response
-    inventory_schema = InventorySchema()
-    result = inventory_schema.dump(Inventory.query.get(pid))
-    return jsonify({"message": "Item updated", "item": result}), 200
+        # Return response
+        inventory_schema = InventorySchema()
+        result = inventory_schema.dump(Inventory.query.get(pid))
+        return jsonify({"message": "Item updated", "item": result}), 200
+
+    else:
+        inventory_schema = InventorySchema()
+        item = inventory_schema.dump(Inventory.query.get(pid))
+        return jsonify({"item": item}), 200
 
 
 @inventory.route("/delete_item/<int:pid>", methods=['POST'])

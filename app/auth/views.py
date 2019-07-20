@@ -63,7 +63,7 @@ def login():
     # when login details are incorrect
     else:
         results = {'error': 'invalid email or password.'}, 403
-    return jsonify(results)
+    return make_response(jsonify(results))
 
 
 @auth.route('/logout', methods=['POST'])
