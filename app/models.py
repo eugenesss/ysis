@@ -2,7 +2,7 @@ from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from passlib.apps import custom_app_context as pwd_context
 
-from marshmallow import fields, Schema
+from flask_marshmallow import fields, Schema
 
 from app import db, login_manager, http_auth
 import app
@@ -101,6 +101,19 @@ class Warehouse(db.Model, Serializer):
         return {'wid': self.wid, 'name': self.wh_name, 'location': self.location}
 
 
+class WarehouseSchema(Schema):
+    """
+    Inventory Schema
+    """
+
+    class Meta:
+        # Fields to expose
+        fields = ("wid", "wh_name", "location")
+    # wid = fields.Int(dump_only=True)
+    # wh_name = fields.String(dump_only=True)
+    # location = fields.Str(dump_only=True)
+
+
 class Inventory(db.Model, Serializer):
     """
     Create an Inventory table
@@ -139,17 +152,21 @@ class InventorySchema(Schema):
     """
     Inventory Schema
     """
+    class Meta:
+        # Fields to expose
+        fields = ("wid", "wh_name", "name", "quantity", "description", "code", "price", "material", "perbox",
+                  "location")
 
-    wid = fields.Int(dump_only=True)
-    wh_name = fields.String(dump_only=True)
-    name = fields.Str(dump_only=True)
-    quantity = fields.Int(dump_only=True)
-    description = fields.Str(dump_only=True)
-    code = fields.Str(dump_only=True)
-    price = fields.Int(dump_only=True)
-    material = fields.String(dump_only=True)
-    perbox = fields.Int(dump_only=True)
-    location = fields.Str(dump_only=True)
+    # wid = fields.Int(dump_only=True)
+    # wh_name = fields.String(dump_only=True)
+    # name = fields.Str(dump_only=True)
+    # quantity = fields.Int(dump_only=True)
+    # description = fields.Str(dump_only=True)
+    # code = fields.Str(dump_only=True)
+    # price = fields.Int(dump_only=True)
+    # material = fields.String(dump_only=True)
+    # perbox = fields.Int(dump_only=True)
+    # location = fields.Str(dump_only=True)
 
 
 class Loctite(db.Model, Serializer):

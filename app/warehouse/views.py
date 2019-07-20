@@ -1,14 +1,16 @@
 from flask import request, json, jsonify
 from . import warehouse
 
-from flask_login import login_required
+from flask_jwt_extended import jwt_required
 
 from app import db
-from ..models import Warehouse, Serializer
+from ..models import Warehouse, WarehouseSchema
+
+warehouse_schema = WarehouseSchema()
 
 
 @warehouse.route('/add_warehouse', methods=['POST'])
-@login_required
+@jwt_required
 def add_warehouse():
     data = request.data
     data_js = json.loads(data)
@@ -19,34 +21,37 @@ def add_warehouse():
     wh = Warehouse(wid, name, location)
     db.session.add(wh)
     db.session.commit()
-    return json.dumps(wh.serialize()), 200
+    return warehouse_schema.jsonify(Warehouse.query.get(wh.wid))
 
 
-@warehouse.route('/update_warehouse', methods=['POST'])
-@login_required
+@warehouse.route('/update_warehouse', methods=['POST', 'GET'])
+@jwt_required
 def update_warehouse():
-    # Read the JSON data
     data = request.data
     data_js = json.loads(data)
     wid = data_js.get('wid')
-    name = data_js.get('name')
-    location = data_js.get('location')
+    # Read the JSON data
+    if request.method == 'POST':
+        name = data_js.get('name')
+        location = data_js.get('location')
 
-    # Get the warehouse from database
-    wh = Warehouse.query.get_or_404(wid)
+        # Get the warehouse from database
+        wh = Warehouse.query.get_or_404(wid)
 
-    # Update the values
-    wh.wid = wid
-    wh.name = name
-    wh.location = location
+        # Update the values
+        wh.wid = wid
+        wh.name = name
+        wh.location = location
 
-    # Store in database
-    db.session.commit()
-    return json.dumps(wh.serialize()), 200
+        # Store in database
+        db.session.commit()
+        return warehouse_schema.jsonify(Warehouse.query.get(wh.wid))
+    else:
+        return warehouse_schema.jsonify(Warehouse.query.get(wid))
 
 
 @warehouse.route('/delete_warehouse', methods=['DELETE'])
-@login_required
+@jwt_required
 def delete_warehouse():
     # Read the JSON data
     data = request.data
@@ -61,8 +66,9 @@ def delete_warehouse():
 
 
 @warehouse.route('/show_warehouse', methods=['GET'])
-@login_required
+@jwt_required
 def show_warehouse():
     wh = Warehouse.query.all()
-    return json.dumps(Warehouse.serialize_list(wh)), 200
+    all_warehouse_schema = WarehouseSchema(many=True)
+    return all_warehouse_schema.jsonify(wh), 200
 

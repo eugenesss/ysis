@@ -37,8 +37,7 @@ def save_item():
     db.session.add(item)
     db.session.commit()
     inventory_schema = InventorySchema()
-    result = inventory_schema.dump(Inventory.query.get(item.pid))
-    return jsonify({"message": "Item added successfully", "item": result}), 200
+    return inventory_schema.jsonify(Inventory.query.get(item.pid))
 
 
 @inventory.route("/show_items")
@@ -49,8 +48,7 @@ def show_items():
     """
     items = get_all_items()
     inventories_schema = InventorySchema(many=True)
-    results = inventories_schema.dump(items)
-    return jsonify({"items": results}), 200
+    return inventories_schema.jsonify(items)
 
 
 @inventory.route("/update_item/<int:pid>", methods=['POST', 'GET'])
@@ -93,13 +91,11 @@ def update_items(pid):
 
         # Return response
         inventory_schema = InventorySchema()
-        result = inventory_schema.dump(Inventory.query.get(pid))
-        return jsonify({"message": "Item updated", "item": result}), 200
+        return inventory_schema.jsonify(Inventory.query.get(pid))
 
     else:
         inventory_schema = InventorySchema()
-        item = inventory_schema.dump(Inventory.query.get(pid))
-        return jsonify({"item": item}), 200
+        return inventory_schema.jsonify(Inventory.query.get(pid))
 
 
 @inventory.route("/delete_item/<int:pid>", methods=['POST'])
