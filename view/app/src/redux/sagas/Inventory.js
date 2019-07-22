@@ -39,7 +39,6 @@ const getAMKInventory = async () => {
   return result;
 };
 const getInventoryReq = async id => {
-  console.log(`fetching ${id}`);
   const result = inventory;
   return result;
 };
@@ -56,13 +55,10 @@ const startEditInvReq = async id => {
   return result.data;
 };
 const editInvReq = async item => {
-  console.log(item);
   const result = await api.post(`update_item/${item.pid}`, item);
-  console.log(result);
   return result.data;
 };
 const deleteInvReq = async id => {
-  console.log("delete" + id);
   const result = await api.post(`/delete_item/${id}`);
   return result.data;
 };

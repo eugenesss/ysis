@@ -8,7 +8,14 @@ import authSagas from "./Auth";
 import inventorySagas from "./Inventory";
 import loctiteSagas from "./Loctite";
 import warehouseSagas from "./Warehouse";
+import categoriesSagas from "./Categories";
 
 export default function* rootSaga(getState) {
-  yield all([authSagas(), inventorySagas(), loctiteSagas(), warehouseSagas()]);
+  yield all([
+    authSagas(),
+    inventorySagas(),
+    loctiteSagas(),
+    warehouseSagas(),
+    categoriesSagas()
+  ]);
 }

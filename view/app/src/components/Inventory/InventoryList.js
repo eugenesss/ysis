@@ -28,13 +28,6 @@ const InventoryList = ({
             <a onClick={() => handleView(tableMeta.rowData[0])}>{value}</a>
           );
         }
-        // customBodyRender: (value, tableMeta) => {
-        //   return (
-        //     <NavLink to={`/app/inventory/${tableMeta.rowData[0]}`}>
-        //       {value}
-        //     </NavLink>
-        //   );
-        // }
       }
     },
     { label: "Code", name: "code" },
@@ -44,7 +37,7 @@ const InventoryList = ({
     },
     {
       label: "Category",
-      name: "category"
+      name: "cat_name"
     },
     {
       label: "Unit",
@@ -56,7 +49,7 @@ const InventoryList = ({
     },
     {
       label: "Quantity Per Box",
-      name: "qtyPerBox"
+      name: "perbox"
     },
     {
       label: "Rack",
