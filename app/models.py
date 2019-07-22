@@ -151,6 +151,8 @@ class Inventory(db.Model, Serializer):
     quantity = db.Column("quantity", db.Integer)
     perbox = db.Column("perbox", db.Integer)
     location = db.Column("location", db.String(50))
+    rack = db.Column("rack", db.String(50))
+    unit_code = db.Column("unit_code", db.String(50))
     file = db.Column("file", db.String(150))
     created_date = db.Column("created_date", db.DateTime)
     updated_date = db.Column("updated_date", db.DateTime)
@@ -161,7 +163,7 @@ class Inventory(db.Model, Serializer):
 
 
     def __init__(self, name, description, code, material, price, quantity, perbox, location, file,
-                 wid):
+                 wid, cid, rack, unit_code):
         self.name = name
         self.description = description
         self.code = code
@@ -172,6 +174,9 @@ class Inventory(db.Model, Serializer):
         self.location = location
         self.file = file
         self.wid = wid
+        self.cid = cid
+        self.rack = rack
+        self.unit_code = unit_code
 
 
 class InventorySchema(Schema):
@@ -181,7 +186,7 @@ class InventorySchema(Schema):
     class Meta:
         # Fields to expose
         fields = ("wid", "wh_name", "pid", "name", "quantity", "description", "code", "price", "material", "perbox",
-                  "location", "cid", "cat_name")
+                  "location", "cid", "cat_name", "rack", "unit_code")
 
 
 class UpdateInventorySchema(Schema):
@@ -192,7 +197,7 @@ class UpdateInventorySchema(Schema):
     class Meta:
         # Fields to expose
         fields = ("wid", "pid", "name", "quantity", "description", "code", "price", "material", "perbox",
-                  "location", "cid")
+                  "location", "cid", "cat_name", "rack", "unit_code")
 
     # wid = fields.Int(dump_only=True)
     # wh_name = fields.String(dump_only=True)
@@ -244,10 +249,17 @@ class Loctite(db.Model, Serializer):
 def get_all_items():
     items = db.session.query(Warehouse.wid, Warehouse.wh_name, Inventory.pid, Inventory.name, Inventory.quantity,
                              Inventory.description, Inventory.code, Inventory.price, Inventory.material,
-                             Inventory.perbox, Inventory.location, Category.cid,
+                             Inventory.perbox, Inventory.location, Inventory.rack, Inventory.unit_code, Category.cid,
                              Category.cat_name).filter(Inventory.wid == Warehouse.wid).all()
     return items
 
+
+def get_item(pid):
+    item = db.session.query(Warehouse.wid, Warehouse.wh_name, Inventory.pid, Inventory.name, Inventory.quantity,
+                             Inventory.description, Inventory.code, Inventory.price, Inventory.material,
+                             Inventory.perbox, Inventory.location, Inventory.rack, Inventory.unit_code, Category.cid,
+                             Category.cat_name).filter(Inventory.pid == pid).first()
+    return item
 
 # def get_all_items():
 #     all_items = db.session.query(Warehouse.wid, Warehouse.wh_name, Inventory.name, Inventory.quantity,
