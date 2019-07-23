@@ -250,7 +250,7 @@ def get_all_items():
     items = db.session.query(Warehouse.wid, Warehouse.wh_name, Inventory.pid, Inventory.name, Inventory.quantity,
                              Inventory.description, Inventory.code, Inventory.price, Inventory.material,
                              Inventory.perbox, Inventory.location, Inventory.rack, Inventory.unit_code, Category.cid,
-                             Category.cat_name).filter(Inventory.wid == Warehouse.wid).all()
+                             Category.cat_name).filter(Inventory.wid == Warehouse.wid).filter(Category.cid == Inventory.cid).all()
     return items
 
 
@@ -258,8 +258,8 @@ def get_item(pid):
     item = db.session.query(Warehouse.wid, Warehouse.wh_name, Inventory.pid, Inventory.name, Inventory.quantity,
                             Inventory.description, Inventory.code, Inventory.price, Inventory.material,
                             Inventory.perbox, Inventory.location, Inventory.rack, Inventory.unit_code, Category.cid,
-                            Category.cat_name).filter(Inventory.pid == pid).filter(Warehouse.wid == Inventory.wid)\
-                            .first()
+                            Category.cat_name).filter(Inventory.pid == pid).filter(Warehouse.wid == Inventory.wid).\
+        filter(Category.cid == Inventory.cid).first()
     return item
 
 # def get_all_items():
