@@ -5,7 +5,7 @@ import os
 import datetime
 
 from app import db
-from ..models import Inventory, InventorySchema, UpdateInventorySchema, get_all_items
+from ..models import Inventory, InventorySchema, UpdateInventorySchema, get_all_items, get_item
 
 
 @inventory.route('/save_item', methods=['GET', 'POST'])
@@ -30,10 +30,14 @@ def save_item():
     location = data_js.get('location')
     file = data_js.get('file')
     wid = data_js.get('wid')
+    cid = data_js.get('cid')
+    rack = data_js.get('rack')
+    unit_code = data_js.get('unit_code')
 
     # Add item to database
     item = Inventory(name=name, description=description, code=code, material=material,
-                     price=price, quantity=quantity, perbox=perbox, location=location, file=file, wid=wid)
+                     price=price, quantity=quantity, perbox=perbox, location=location, file=file, wid=wid, cid=cid,
+                     rack=rack, unit_code=unit_code)
     db.session.add(item)
     db.session.commit()
     inventory_schema = InventorySchema()
@@ -76,6 +80,9 @@ def update_items(pid):
         location = data_js.get('location')
         img_file = data_js.get('file')
         wid = data_js.get('wid')
+        cid = data_js.get('cid')
+        rack = data_js.get('rack')
+        unit_code = data_js.get('unit_code')
 
         # Update the changes
         item.name = name
@@ -88,16 +95,19 @@ def update_items(pid):
         item.location = location
         item.wid = wid
         item.file = img_file
+        item.cid = cid
+        item.rack = rack
+        item.unit_code = unit_code
         item.updated_date = datetime.datetime.now()
         db.session.commit()
 
         # Return response
         inventory_schema = UpdateInventorySchema()
-        return inventory_schema.jsonify(Inventory.query.get(pid))
+        return inventory_schema.jsonify(get_item(pid))
 
     else:
         inventory_schema = UpdateInventorySchema()
-        return inventory_schema.jsonify(Inventory.query.get(pid))
+        return inventory_schema.jsonify(get_item(pid))
 
 
 @inventory.route("/delete_item/<int:pid>", methods=['POST'])
