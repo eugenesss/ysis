@@ -12,22 +12,18 @@ const InventoryDetails = ({ item }) => {
             <TabsHeader title="Inventory Details" />
             <DetailsTable>
               <DetailsRow label="Name" value={item.name} />
-              <DetailsRow label="Category" value={item.category} />
+              <DetailsRow label="Category" value={item.cat_name} />
               <DetailsRow label="Material" value={item.material} />
               <DetailsRow label="Quantity" value={item.quantity} />
               <DetailsRow label="Qty Per Box" value={item.perbox} />
             </DetailsTable>
           </div>
-        </div>
-      </div>
-      <div className="mb-30">
-        <div className="row">
           <div className="col-6">
             <TabsHeader title="Location Details" />
             <DetailsTable>
               <DetailsRow label="Code" value={item.code} />
               <DetailsRow label="Location" value={item.location} />
-              <DetailsRow label="Warehouse" value={item.warehouse} />
+              <DetailsRow label="Warehouse" value={item.wh_name} />
               <DetailsRow label="Rack" value={item.rack} />
             </DetailsTable>
           </div>

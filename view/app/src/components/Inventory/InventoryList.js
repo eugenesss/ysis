@@ -1,5 +1,4 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 import MUIDataTable from "mui-datatables";
 import RctSectionLoader from "Components/RctSectionLoader/RctSectionLoader";
 import IconButton from "@material-ui/core/IconButton";
@@ -25,7 +24,12 @@ const InventoryList = ({
       options: {
         customBodyRender: (value, tableMeta) => {
           return (
-            <a onClick={() => handleView(tableMeta.rowData[0])}>{value}</a>
+            <a
+              className="text-primary"
+              onClick={() => handleView(tableMeta.rowData[0])}
+            >
+              {value}
+            </a>
           );
         }
       }

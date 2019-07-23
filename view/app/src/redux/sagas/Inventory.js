@@ -1,4 +1,12 @@
-import { all, call, fork, put, takeEvery, delay } from "redux-saga/effects";
+import {
+  all,
+  call,
+  fork,
+  put,
+  takeEvery,
+  delay,
+  select
+} from "redux-saga/effects";
 import {
   GET_ALL_INVENTORY,
   ON_CHANGE_INVENTORY_LIST,
@@ -106,7 +114,10 @@ function* changeInvList({ payload }) {
 }
 function* getInventoryFromDB({ payload }) {
   try {
-    const inv = yield call(getInventoryReq, payload);
+    //const inv = yield call(getInventoryReq, payload);
+    const invList = state => state.inventoryState.inventoryList.tableData;
+    const tableData = yield select(invList);
+    const inv = tableData.find(inv => inv.pid === payload);
     yield put(getInventorySuccess(inv));
   } catch (error) {
     yield put(inventoryApiFailure(error));
