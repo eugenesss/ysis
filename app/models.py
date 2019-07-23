@@ -196,7 +196,7 @@ class UpdateInventorySchema(Schema):
 
     class Meta:
         # Fields to expose
-        fields = ("wid", "pid", "name", "quantity", "description", "code", "price", "material", "perbox",
+        fields = ("wid", "wh_name", "pid", "name", "quantity", "description", "code", "price", "material", "perbox",
                   "location", "cid", "cat_name", "rack", "unit_code")
 
     # wid = fields.Int(dump_only=True)
@@ -256,9 +256,10 @@ def get_all_items():
 
 def get_item(pid):
     item = db.session.query(Warehouse.wid, Warehouse.wh_name, Inventory.pid, Inventory.name, Inventory.quantity,
-                             Inventory.description, Inventory.code, Inventory.price, Inventory.material,
-                             Inventory.perbox, Inventory.location, Inventory.rack, Inventory.unit_code, Category.cid,
-                             Category.cat_name).filter(Inventory.pid == pid).first()
+                            Inventory.description, Inventory.code, Inventory.price, Inventory.material,
+                            Inventory.perbox, Inventory.location, Inventory.rack, Inventory.unit_code, Category.cid,
+                            Category.cat_name).filter(Inventory.pid == pid).filter(Warehouse.wid == Inventory.wid)\
+                            .first()
     return item
 
 # def get_all_items():

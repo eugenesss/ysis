@@ -41,7 +41,7 @@ def save_item():
     db.session.add(item)
     db.session.commit()
     inventory_schema = InventorySchema()
-    return inventory_schema.jsonify(Inventory.query.get(item.pid))
+    return inventory_schema.jsonify(get_item(item.pid))
 
 
 @inventory.route("/show_items")
