@@ -1,11 +1,16 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 import MUIDataTable from "mui-datatables";
 import RctSectionLoader from "Components/RctSectionLoader/RctSectionLoader";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 
-const LoctiteList = ({ data, loading, handleEdit }) => {
+const LoctiteList = ({
+  data,
+  loading,
+  handleEdit,
+  handleDelete,
+  handleView
+}) => {
   const columns = [
     {
       label: "ID",
@@ -18,9 +23,12 @@ const LoctiteList = ({ data, loading, handleEdit }) => {
       options: {
         customBodyRender: (value, tableMeta) => {
           return (
-            <NavLink to={`/app/loctite/${tableMeta.rowData[0]}`}>
+            <a
+              className="text-primary"
+              onClick={() => handleView(tableMeta.rowData[0])}
+            >
               {value}
-            </NavLink>
+            </a>
           );
         }
       }
@@ -44,19 +52,32 @@ const LoctiteList = ({ data, loading, handleEdit }) => {
       options: {
         filter: false,
         sort: false,
-        customBodyRender: value => {
+        customBodyRender: (value, tableMeta) => {
           return (
-            <Tooltip id="tooltip-icon" title="Edit">
-              <IconButton
-                className="text-primary mr-2"
-                aria-label="Edit"
-                onClick={() => {
-                  handleEdit(value);
-                }}
-              >
-                <i className="zmdi zmdi-edit" />
-              </IconButton>
-            </Tooltip>
+            <React.Fragment>
+              <Tooltip id="tooltip-icon" title="Edit">
+                <IconButton
+                  className="text-primary mr-2"
+                  aria-label="Edit"
+                  onClick={() => {
+                    handleEdit(value);
+                  }}
+                >
+                  <i className="zmdi zmdi-edit" />
+                </IconButton>
+              </Tooltip>
+              <Tooltip id="tooltip-icon" title="Delete">
+                <IconButton
+                  className="text-danger mr-2"
+                  aria-label="Delete"
+                  onClick={() => {
+                    handleDelete(value, tableMeta.rowData[1]);
+                  }}
+                >
+                  <i className="zmdi zmdi-delete" />
+                </IconButton>
+              </Tooltip>
+            </React.Fragment>
           );
         }
       }

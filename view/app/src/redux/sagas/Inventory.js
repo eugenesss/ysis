@@ -1,4 +1,12 @@
-import { all, call, fork, put, takeEvery, delay } from "redux-saga/effects";
+import {
+  all,
+  call,
+  fork,
+  put,
+  takeEvery,
+  delay,
+  select
+} from "redux-saga/effects";
 import {
   GET_ALL_INVENTORY,
   ON_CHANGE_INVENTORY_LIST,
@@ -39,7 +47,6 @@ const getAMKInventory = async () => {
   return result;
 };
 const getInventoryReq = async id => {
-  console.log(`fetching ${id}`);
   const result = inventory;
   return result;
 };
@@ -56,13 +63,10 @@ const startEditInvReq = async id => {
   return result.data;
 };
 const editInvReq = async item => {
-  console.log(item);
   const result = await api.post(`update_item/${item.pid}`, item);
-  console.log(result);
   return result.data;
 };
 const deleteInvReq = async id => {
-  console.log("delete" + id);
   const result = await api.post(`/delete_item/${id}`);
   return result.data;
 };
@@ -110,7 +114,10 @@ function* changeInvList({ payload }) {
 }
 function* getInventoryFromDB({ payload }) {
   try {
-    const inv = yield call(getInventoryReq, payload);
+    //const inv = yield call(getInventoryReq, payload);
+    const invList = state => state.inventoryState.inventoryList.tableData;
+    const tableData = yield select(invList);
+    const inv = tableData.find(inv => inv.pid === payload);
     yield put(getInventorySuccess(inv));
   } catch (error) {
     yield put(inventoryApiFailure(error));

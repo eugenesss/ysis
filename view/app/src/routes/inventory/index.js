@@ -6,8 +6,7 @@ import {
   AsyncInventoryViewAllComponent,
   AsyncInventoryNewComponent,
   AsyncLoctiteComponent,
-  AsyncInventoryAdjustmentsComponent,
-  AsyncViewSingleInventory
+  AsyncInventoryAdjustmentsComponent
 } from "Components/AsyncComponent/AsyncComponent";
 
 const InventorySwitcher = ({ match }) => (
@@ -23,7 +22,6 @@ const InventorySwitcher = ({ match }) => (
         path={`${match.url}/adjustments`}
         component={AsyncInventoryAdjustmentsComponent}
       />
-      <Route path={`${match.url}/:id`} component={AsyncViewSingleInventory} />
     </Switch>
   </div>
 );

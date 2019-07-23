@@ -9,7 +9,6 @@ import api from "Api";
 //=========================
 const getWarehouseReq = async () => {
   const result = await api.get("/show_warehouse");
-  console.log(result.data);
   return result.data;
 };
 

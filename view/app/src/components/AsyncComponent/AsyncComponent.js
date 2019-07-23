@@ -27,10 +27,6 @@ export const AsyncInventoryAdjustmentsComponent = Loadable({
   loader: () => import("Routes/inventory/adjustments"),
   loading: () => <RctPageLoader />
 });
-export const AsyncViewSingleInventory = Loadable({
-  loader: () => import("Routes/inventory/view"),
-  loading: () => <RctPageLoader />
-});
 
 // Loctite
 export const AsyncLoctiteComponent = Loadable({
@@ -43,10 +39,6 @@ export const AsyncNewLoctiteComponent = Loadable({
 });
 export const AsyncLoctiteAdjustComponent = Loadable({
   loader: () => import("Routes/loctite/adjustments"),
-  loading: () => <RctPageLoader />
-});
-export const AsyncSingleLoctiteComponent = Loadable({
-  loader: () => import("Routes/loctite/view"),
   loading: () => <RctPageLoader />
 });
 

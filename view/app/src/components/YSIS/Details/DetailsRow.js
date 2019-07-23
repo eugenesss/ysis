@@ -3,27 +3,19 @@ import React from "react";
 const DetailsRow = ({ label, value }) => {
   return (
     <tr>
-      <td className="w-20 p-0 text-right">
+      <td className="w-30 py-10 text-left">
         <span
           style={{
-            padding: "8px 17px 8px 0",
             color: "#777",
             lineHeight: "20px",
-            minHeight: "17px"
+            minHeight: "35px"
           }}
         >
           {label}
         </span>
       </td>
-      <td>
-        <span
-          style={{
-            minHeight: "35px",
-            padding: "6px 30px 6px 10px"
-          }}
-        >
-          {value}
-        </span>
+      <td className="text-left py-10">
+        <span style={{ minHeight: "35px" }}>{value}</span>
       </td>
     </tr>
   );

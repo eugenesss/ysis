@@ -12,7 +12,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Button from "@material-ui/core/Button";
 
 // Actions
-import { handleInvFormChange, getWarehouse } from "Actions";
+import { handleInvFormChange, getWarehouse, getCategories } from "Actions";
 
 class InventoryForm extends Component {
   constructor(props) {
@@ -23,7 +23,7 @@ class InventoryForm extends Component {
         price: 0,
         code: "",
         material: "",
-        category: "",
+        cid: "",
         unit: 0,
         quantity: 0,
         perbox: 0,
@@ -39,6 +39,7 @@ class InventoryForm extends Component {
   }
   componentDidMount() {
     this.props.getWarehouse();
+    this.props.getCategories();
   }
 
   handleChange(field, value) {
@@ -64,7 +65,7 @@ class InventoryForm extends Component {
       price,
       code,
       material,
-      category,
+      cid,
       unit,
       quantity,
       perbox,
@@ -72,7 +73,6 @@ class InventoryForm extends Component {
       wid,
       description
     } = this.state.item;
-    console.log(this.state.item);
     return (
       <React.Fragment>
         {loading && <RctSectionLoader />}
@@ -98,9 +98,12 @@ class InventoryForm extends Component {
               label="Material"
             />
             <FormBlock
-              value={category}
-              handleChange={e => this.handleChange("category", e.target.value)}
+              value={cid}
+              handleChange={e => this.handleChange("cid", e.target.value)}
               label="Category"
+              selectValues={this.props.categories}
+              objProp="cid"
+              objLabel="cat_name"
             />
           </TableRow>
           <TableRow>
@@ -172,13 +175,18 @@ class InventoryForm extends Component {
     );
   }
 }
-const mapStateToProps = ({ inventoryState, warehouseState }) => {
+const mapStateToProps = ({
+  inventoryState,
+  warehouseState,
+  categoriesState
+}) => {
   const { inventoryForm } = inventoryState;
   const { warehouse } = warehouseState;
-  return { inventoryForm, warehouse };
+  const { categories } = categoriesState;
+  return { inventoryForm, warehouse, categories };
 };
 
 export default connect(
   mapStateToProps,
-  { handleInvFormChange, getWarehouse }
+  { handleInvFormChange, getWarehouse, getCategories }
 )(InventoryForm);

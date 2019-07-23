@@ -7,6 +7,7 @@ import { show } from "redux-modal";
 import RctCollapsibleCard from "Components/RctCollapsibleCard/RctCollapsibleCard";
 import LoctiteList from "Components/Loctite/LoctiteList";
 import EditLoctiteModal from "Components/Loctite/EditLoctiteModal";
+import ViewLoctiteModal from "Components/Loctite/ViewLoctiteModal";
 
 // Actions
 import { getAllLoctite } from "Actions";
@@ -15,13 +16,28 @@ class ViewAllLoctite extends Component {
   constructor(props) {
     super(props);
     this.handleEdit = this.handleEdit.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+    this.handleView = this.handleView.bind(this);
   }
   componentWillMount() {
     this.props.getAllLoctite();
   }
 
-  handleEdit(id) {
-    this.props.show("edit_loctite", { itemToEdit: id });
+  handleEdit(itemToEdit) {
+    this.props.show("edit_loctite", { itemToEdit });
+  }
+  handleView(itemID) {
+    this.props.show("view_loctite", { itemID });
+  }
+  handleDelete(itemID, name) {
+    this.props.show("alert_delete", {
+      name: name,
+      action: () => this.delete(itemID)
+    });
+  }
+  delete(id) {
+    console.log("delete loctite");
+    //this.props.deleteInventory(id);
   }
 
   render() {
@@ -36,9 +52,12 @@ class ViewAllLoctite extends Component {
             data={tableData}
             loading={loading}
             handleEdit={this.handleEdit}
+            handleDelete={this.handleDelete}
+            handleView={this.handleView}
           />
-          <EditLoctiteModal />
         </RctCollapsibleCard>
+        <EditLoctiteModal />
+        <ViewLoctiteModal />
       </React.Fragment>
     );
   }

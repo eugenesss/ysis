@@ -8,40 +8,40 @@ import RctSectionLoader from "Components/RctSectionLoader/RctSectionLoader";
 // Components
 import PageErrorMsg from "Components/YSIS/ErrorMsg/PageErrorMsg";
 import TabsWrapper from "Components/YSIS/Tabs/TabsWrapper";
-// Inventory
+// Loctite details
 import InventoryCard from "Components/Inventory/InventoryCard";
-import InventoryDetails from "Components/Inventory/InventoryDetails";
+import LoctiteDetails from "Components/Loctite/LoctiteDetails";
 
-import { getInventory } from "Actions";
+import { viewLoctite } from "Actions";
 
 class ViewInventoryModal extends Component {
   componentWillMount() {
     var id = this.props.itemID;
-    this.props.getInventory(id);
+    this.props.viewLoctite(id);
   }
   render() {
     const { show, handleHide } = this.props;
-    const { item, loading } = this.props.itemToView;
+    const { loctite, loading } = this.props.loctiteToView;
     return (
       <DialogRoot
         show={show}
         handleHide={handleHide}
-        title="View Inventory"
+        title="View Loctite"
         size="lg"
       >
         {loading ? (
           <RctSectionLoader />
-        ) : item ? (
+        ) : loctite ? (
           <div className="row">
             <div className="col-md-3">
               <div>
-                <InventoryCard name={item.name} category={item.cat_name} />
+                <InventoryCard name={loctite.name} />
               </div>
             </div>
             <div className="col-md-9">
               <TabsWrapper>
                 <div label="Details" icon="zmdi-lamp">
-                  <InventoryDetails item={item} />
+                  <LoctiteDetails item={loctite} />
                 </div>
               </TabsWrapper>
             </div>
@@ -56,12 +56,12 @@ class ViewInventoryModal extends Component {
     );
   }
 }
-const mapStateToProps = ({ inventoryState }) => {
-  const { itemToView } = inventoryState;
-  return { itemToView };
+const mapStateToProps = ({ loctiteState }) => {
+  const { loctiteToView } = loctiteState;
+  return { loctiteToView };
 };
 
 export default connect(
   mapStateToProps,
-  { getInventory }
-)(connectModal({ name: "view_inventory" })(ViewInventoryModal));
+  { viewLoctite }
+)(connectModal({ name: "view_loctite" })(ViewInventoryModal));
