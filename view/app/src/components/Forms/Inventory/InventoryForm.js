@@ -24,7 +24,7 @@ class InventoryForm extends Component {
         code: "",
         material: "",
         cid: "",
-        unit: 0,
+        unit_code: "",
         quantity: 0,
         perbox: 0,
         rack: "",
@@ -66,7 +66,7 @@ class InventoryForm extends Component {
       code,
       material,
       cid,
-      unit,
+      unit_code,
       quantity,
       perbox,
       rack,
@@ -108,10 +108,9 @@ class InventoryForm extends Component {
           </TableRow>
           <TableRow>
             <FormBlock
-              value={unit}
-              handleChange={e => this.handleChange("unit", e.target.value)}
-              label="Unit"
-              numberInput
+              value={unit_code}
+              handleChange={e => this.handleChange("unit_code", e.target.value)}
+              label="Unit Code"
             />
             <FormBlock
               value={quantity}

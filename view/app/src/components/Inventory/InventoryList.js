@@ -44,8 +44,8 @@ const InventoryList = ({
       name: "cat_name"
     },
     {
-      label: "Unit",
-      name: "unit"
+      label: "Unit Code",
+      name: "unit_code"
     },
     {
       label: "Quantity",

@@ -9,8 +9,16 @@ import InventoryForm from "Components/Forms/Inventory/InventoryForm";
 import { startEditInventory, editInventory } from "Actions";
 
 class EditInventoryModal extends Component {
+  constructor(props) {
+    super(props);
+    this.handleEdit = this.handleEdit.bind(this);
+  }
   componentWillMount() {
     this.props.startEditInventory(this.props.itemToEdit);
+  }
+  handleEdit(item) {
+    this.props.editInventory(item);
+    this.props.handleHide();
   }
   render() {
     const { show, handleHide } = this.props;
