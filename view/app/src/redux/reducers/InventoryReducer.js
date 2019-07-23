@@ -35,6 +35,13 @@ const INIT_STATE = {
 };
 
 export default (state = INIT_STATE, action) => {
+  function updateInvList(item) {
+    var allInv = Object.assign([], state.inventoryList.tableData).map(inv =>
+      inv.pid == item.pid ? (inv = item) : inv
+    );
+    return allInv;
+  }
+
   switch (action.type) {
     //=========================
     //  API FAILURE
@@ -89,8 +96,10 @@ export default (state = INIT_STATE, action) => {
       };
     case types.SUBMIT_INVENTORY_SUCCESS:
       NotificationManager.success("Successfully created Item");
+      var newInv = updateInvList(action.payload);
       return {
         ...state,
+        inventoryList: { ...state.inventoryList, tableData: newInv },
         inventoryForm: { ...state.inventoryForm, loading: false }
       };
     case types.SUBMIT_INVENTORY_FAILURE:
@@ -146,11 +155,20 @@ export default (state = INIT_STATE, action) => {
       };
     case types.EDIT_INVENTORY_SUCCESS:
       NotificationManager.success("Successfully edit item");
-      return { ...state, modalLoading: false };
+      var list = updateInvList(action.payload);
+      // Not showing the actual payload
+      return {
+        ...state,
+        inventoryList: { ...state.inventoryList, tableData: list },
+        inventoryForm: { ...state.inventoryForm, modalLoading: false }
+      };
     case types.EDIT_INVENTORY_FAILURE:
       NotificationManager.error("Error in edit item");
       console.log(action.payload);
-      return { ...state, modalLoading: false };
+      return {
+        ...state,
+        inventoryForm: { ...state.inventoryForm, modalLoading: false }
+      };
 
     //=========================
     //  Delete INVENTORY
@@ -161,9 +179,16 @@ export default (state = INIT_STATE, action) => {
         inventoryList: { ...state.inventoryList, loading: true }
       };
     case types.DELETE_INVENTORY_SUCCESS:
+      var deleteInv = Object.assign([], state.inventoryList.tableData).filter(
+        inv => inv.pid == action.payload
+      );
       return {
         ...state,
-        inventoryList: { ...state.inventoryList, loading: false }
+        inventoryList: {
+          ...state.inventoryList,
+          tableData: deleteInv,
+          loading: false
+        }
       };
     case types.DELETE_INVENTORY_FAILURE:
       NotificationManager.error("Error in deleting item");

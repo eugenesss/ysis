@@ -3,6 +3,7 @@ import MUIDataTable from "mui-datatables";
 import RctSectionLoader from "Components/RctSectionLoader/RctSectionLoader";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
+import { getTheDate } from "Helpers/helpers";
 
 const LoctiteList = ({
   data,
@@ -45,6 +46,9 @@ const LoctiteList = ({
     {
       label: "Expiration Date",
       name: "expiry"
+      // options: {
+      //   customBodyRender: value => getTheDate(value)
+      // }
     },
     {
       label: "Actions",
