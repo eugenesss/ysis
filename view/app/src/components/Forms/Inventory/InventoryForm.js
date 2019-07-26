@@ -53,6 +53,10 @@ class InventoryForm extends Component {
     this.props.handleSubmit(this.state.item);
   }
 
+  onCancel() {
+    this.props.handleCancel();
+  }
+
   isDisabled() {
     var disabled = !this.state.item.name && !this.state.item.warehouse;
     return disabled;
@@ -155,6 +159,7 @@ class InventoryForm extends Component {
               <Button
                 className="text-white mr-15"
                 color="default"
+                onClick={() => this.onCancel()}
                 variant="contained"
               >
                 Cancel
