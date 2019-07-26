@@ -53,7 +53,8 @@ const InventoryList = ({
     },
     {
       label: "Quantity Per Box",
-      name: "perbox"
+      name: "perbox",
+      options: { display: false }
     },
     {
       label: "Rack",
@@ -107,6 +108,8 @@ const InventoryList = ({
     download: false,
     print: false,
     selectableRows: "none",
+    rowsPerPage: 50,
+    rowsPerPageOptions: [20, 50, 100, data.length],
     textLabels: { body: { noMatch: "No Inventory to display" } }
   };
   return (

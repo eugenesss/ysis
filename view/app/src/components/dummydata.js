@@ -15,7 +15,7 @@ export const inventory = {
   description: null
 };
 var list2 = [];
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 5; i++) {
   list2.push(inventory);
 }
 
@@ -33,7 +33,7 @@ export const loctite = {
 };
 
 var list = [];
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 5; i++) {
   list.push(loctite);
 }
 
