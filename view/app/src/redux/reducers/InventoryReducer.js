@@ -102,7 +102,8 @@ export default (state = INIT_STATE, action) => {
         inventoryList: { ...state.inventoryList, tableData: newInv },
         inventoryForm: {
           ...state.inventoryForm,
-          loading: false
+          loading: false,
+          item: INIT_STATE.inventoryForm.item
         }
       };
     case types.SUBMIT_INVENTORY_FAILURE:

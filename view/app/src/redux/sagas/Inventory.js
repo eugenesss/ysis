@@ -117,8 +117,13 @@ function* getInventoryFromDB({ payload }) {
   }
 }
 function* submitInvToDB({ payload }) {
+  const { data, redirect } = payload;
   try {
-    const inv = yield call(postInventoryReq, payload);
+    const inv = yield call(postInventoryReq, data);
+    if (redirect) {
+      yield delay(400);
+      window.location.replace("/app/inventory/all");
+    }
     yield put(submitInventorySuccess(inv));
   } catch (error) {
     yield put(submitInventoryFailure(error));

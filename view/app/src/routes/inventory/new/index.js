@@ -34,6 +34,7 @@ class NewInventory extends Component {
               <InventoryForm
                 handleSubmit={this.props.submitInventory}
                 handleCancel={this.handleBack}
+                // handleSaveNew
               />
             </div>
           </div>
