@@ -65,11 +65,12 @@ class InventoryForm extends Component {
 
   isDisabled() {
     var disabled =
-      !this.state.item.name &&
-      !this.state.item.wid &&
-      !this.state.item.material &&
-      !this.state.item.cid &&
-      !this.state.item.code;
+      this.state.item.name != "" &&
+      this.state.item.wid != "" &&
+      this.state.item.material != "" &&
+      this.state.item.cid != "" &&
+      this.state.item.code != "";
+    console.log(disabled);
     return disabled;
   }
 
@@ -188,7 +189,7 @@ class InventoryForm extends Component {
                 </Button>
               )}
               <Button
-                disabled={this.isDisabled()}
+                disabled={!this.isDisabled()}
                 onClick={() => this.onSubmit()}
                 className="bg-success text-white"
                 variant="contained"
