@@ -18,7 +18,7 @@ const AppConfig = {
     name: "English",
     icon: "en"
   },
-  enableUserTour: process.env.NODE_ENV === "production" ? true : false, // Enable / Disable User Tour
+  //enableUserTour: process.env.NODE_ENV === "production" ? true : false, // Enable / Disable User Tour
   copyRightText: "Yong Seng Screws IMS © 2019 All Rights Reserved.", // Copy Right Text
   // light theme colors
   themeColors: {
