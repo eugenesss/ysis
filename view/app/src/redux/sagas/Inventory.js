@@ -41,16 +41,16 @@ const getAllInventoryReq = async () => {
   return result.data;
 };
 const getAMKInventory = async () => {
-  const result = [];
-  return result;
+  const result = await api.get("/warehouse/1");
+  return result.data;
 };
 const getJSInventory = async () => {
-  const result = [];
-  return result;
+  const result = await api.get("/warehouse/3");
+  return result.data;
 };
 const getAICInventory = async () => {
-  const result = [];
-  return result;
+  const result = await api.get("/warehouse/2");
+  return result.data;
 };
 const postInventoryReq = async data => {
   const result = await api.post("/save_item", data);
