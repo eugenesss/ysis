@@ -1,3 +1,4 @@
+import datetime
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from passlib.apps import custom_app_context as pwd_context
@@ -154,7 +155,7 @@ class Inventory(db.Model, Serializer):
     rack = db.Column("rack", db.String(50))
     unit_code = db.Column("unit_code", db.String(50))
     file = db.Column("file", db.String(150))
-    created_date = db.Column("created_date", db.DateTime)
+    created_date = db.Column("created_date", default=datetime.datetime.now())
     updated_date = db.Column("updated_date", db.DateTime)
     wid = db.Column('wid', db.Integer, ForeignKey('warehouse.wid'))
     cid = db.Column('cid', db.Integer, ForeignKey('category.cid'))
