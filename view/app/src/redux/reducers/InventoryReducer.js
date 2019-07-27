@@ -9,7 +9,7 @@ const INIT_STATE = {
     tableData: [],
     loading: false,
     nowShowing: "All Inventory",
-    options: ["All Inventory", "Warehouse 1", "Warehouse 2", "AMK #3"]
+    options: ["All Inventory", "JOOSENG #1", "AIC #2", "AMK #3"]
   },
   itemToView: {
     item: null,

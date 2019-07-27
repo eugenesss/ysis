@@ -44,6 +44,14 @@ const getAMKInventory = async () => {
   const result = [];
   return result;
 };
+const getJSInventory = async () => {
+  const result = [];
+  return result;
+};
+const getAICInventory = async () => {
+  const result = [];
+  return result;
+};
 const postInventoryReq = async data => {
   const result = await api.post("/save_item", data);
   console.log("===== post");
@@ -84,12 +92,12 @@ function* changeInvList({ payload }) {
       data = yield call(getAllInventoryReq);
       yield delay(500);
       yield put(getAllInventorySuccess(data));
-    } else if (payload == "Warehouse 1") {
-      data = yield call(getAllInventoryReq);
+    } else if (payload == "JOOSENG #1") {
+      data = yield call(getJSInventory);
       yield delay(500);
       yield put(getAllInventorySuccess(data));
-    } else if (payload == "Warehouse 2") {
-      data = yield call(getAllInventoryReq);
+    } else if (payload == "AIC #2") {
+      data = yield call(getAICInventory);
       yield delay(500);
       yield put(getAllInventorySuccess(data));
     } else if (payload == "AMK #3") {
