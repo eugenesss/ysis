@@ -64,7 +64,12 @@ class InventoryForm extends Component {
   }
 
   isDisabled() {
-    var disabled = !this.state.item.name && !this.state.item.warehouse;
+    var disabled =
+      !this.state.item.name &&
+      !this.state.item.wid &&
+      !this.state.item.material &&
+      !this.state.item.cid &&
+      !this.state.item.code;
     return disabled;
   }
 
@@ -106,6 +111,7 @@ class InventoryForm extends Component {
               value={material}
               handleChange={e => this.handleChange("material", e.target.value)}
               label="Material"
+              required
             />
             <FormBlock
               value={cid}
@@ -114,6 +120,7 @@ class InventoryForm extends Component {
               selectValues={this.props.categories}
               objProp="cid"
               objLabel="cat_name"
+              required
             />
           </TableRow>
           <TableRow>
