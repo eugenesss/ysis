@@ -15,7 +15,7 @@ import {
  * initial auth user
  */
 const INIT_STATE = {
-  user: JSON.parse(localStorage.getItem("ysis_user")),
+  user: localStorage.getItem("ysis_user"),
   loading: false
 };
 
