@@ -1,8 +1,5 @@
 import datetime
-<<<<<<< HEAD
 
-=======
->>>>>>> f7fe65f391221ea785bf91ed13870b6717b09aaf
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from passlib.apps import custom_app_context as pwd_context
