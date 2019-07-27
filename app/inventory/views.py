@@ -5,7 +5,7 @@ import os
 import datetime
 
 from app import db
-from ..models import Inventory, InventorySchema, UpdateInventorySchema, get_all_items, get_item
+from ..models import Inventory, InventorySchema, UpdateInventorySchema, get_all_items, get_item, get_item_by_warehouse
 
 
 @inventory.route('/save_item', methods=['GET', 'POST'])
@@ -138,3 +138,14 @@ def upload_images(pid):
         db.session.commit()
 
     return jsonify('File uploaded successfully'), 200
+
+
+@inventory.route("/warehouse/<int:wid>", methods=["GET"])
+@jwt_required
+def get_by_warehouse(wid):
+    """
+    Search by warehouse
+    """
+    items = get_item_by_warehouse(wid)
+    inventories_schema = InventorySchema(many=True)
+    return inventories_schema.jsonify(items)
