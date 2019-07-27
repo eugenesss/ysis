@@ -4,6 +4,20 @@ import RctSectionLoader from "Components/RctSectionLoader/RctSectionLoader";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 
+// style
+import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
+
+const getMuiTheme = () =>
+  createMuiTheme({
+    overrides: {
+      MuiTableCell: {
+        body: {
+          fontSize: "0.9rem"
+        }
+      }
+    }
+  });
+
 const InventoryList = ({
   title,
   data,
@@ -110,16 +124,19 @@ const InventoryList = ({
     selectableRows: "none",
     rowsPerPage: 50,
     rowsPerPageOptions: [20, 50, 100, data.length],
-    textLabels: { body: { noMatch: "No Inventory to display" } }
+    textLabels: { body: { noMatch: "No data to display" } }
   };
+
   return (
     <React.Fragment>
-      <MUIDataTable
-        title={title}
-        data={data}
-        columns={columns}
-        options={options}
-      />
+      <MuiThemeProvider theme={getMuiTheme()}>
+        <MUIDataTable
+          title={title}
+          data={data}
+          columns={columns}
+          options={options}
+        />
+      </MuiThemeProvider>
       {loading && <RctSectionLoader />}
     </React.Fragment>
   );

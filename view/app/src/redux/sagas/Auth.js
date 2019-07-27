@@ -28,8 +28,9 @@ function* loginUser({ payload }) {
   const { email, password } = payload;
   try {
     const user = yield call(loginUserRequest, email, password);
-    localStorage.setItem("ysis_user", user);
     localStorage.setItem("ysis_token", user.token);
+    delete user.token;
+    localStorage.setItem("ysis_user", JSON.stringify(user));
     window.location.replace("/");
     yield put(loginSuccess(user));
   } catch (error) {

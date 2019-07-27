@@ -2,12 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1e7760d9-ae73-46b6-98d9-cf7c1ee4c171" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/inventory/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/inventory/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/instance/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/instance/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/app/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/view/app/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/view/app/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/view/app/src/api/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/view/app/src/api/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wsgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/wsgi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/app/src/assets/scss/_style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/view/app/src/assets/scss/_style.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/app/src/components/Forms/Inventory/InventoryForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/view/app/src/components/Forms/Inventory/InventoryForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/app/src/components/Header/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/view/app/src/components/Header/Header.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/app/src/components/Header/UserBlock.js" beforeDir="false" afterPath="$PROJECT_DIR$/view/app/src/components/Header/UserBlock.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/app/src/components/Inventory/EditInventoryModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/view/app/src/components/Inventory/EditInventoryModal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/app/src/components/Inventory/InventoryList.js" beforeDir="false" afterPath="$PROJECT_DIR$/view/app/src/components/Inventory/InventoryList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/app/src/constants/AppConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/view/app/src/constants/AppConfig.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/app/src/lib/reactifyCss.js" beforeDir="false" afterPath="$PROJECT_DIR$/view/app/src/lib/reactifyCss.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/app/src/redux/actions/InventoryActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/view/app/src/redux/actions/InventoryActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/app/src/redux/reducers/AuthUserReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/view/app/src/redux/reducers/AuthUserReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/app/src/redux/reducers/InventoryReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/view/app/src/redux/reducers/InventoryReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/app/src/redux/sagas/Auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/view/app/src/redux/sagas/Auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/app/src/redux/sagas/Inventory.js" beforeDir="false" afterPath="$PROJECT_DIR$/view/app/src/redux/sagas/Inventory.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/app/src/routes/inventory/new/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/view/app/src/routes/inventory/new/index.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,7 +33,7 @@
         <entry file="file://$PROJECT_DIR$/app/inventory/views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="372">
-              <caret line="151" lean-forward="true" selection-start-line="151" selection-end-line="151" />
+              <caret line="151" selection-start-line="151" selection-end-line="151" />
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
               </folding>
@@ -53,7 +65,7 @@
         <entry file="file://$PROJECT_DIR$/app/models.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="391">
-              <caret line="273" column="16" lean-forward="true" selection-start-line="273" selection-start-column="16" selection-end-line="273" selection-end-column="16" />
+              <caret line="276" column="16" selection-start-line="276" selection-start-column="16" selection-end-line="276" selection-end-column="16" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -65,7 +77,7 @@
         <entry file="file://$PROJECT_DIR$/view/app/src/api/index.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="75">
-              <caret line="5" column="2" selection-start-line="5" selection-start-column="2" selection-end-line="5" selection-end-column="2" />
+              <caret line="15" column="2" selection-start-line="15" selection-start-column="2" selection-end-line="15" selection-end-column="2" />
             </state>
           </provider>
         </entry>
@@ -243,9 +255,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="172" y="79" width="1400" height="892" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24945612" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24945612" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -256,7 +267,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="8" visible="true" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="10" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -472,7 +483,7 @@
     <entry file="file://$PROJECT_DIR$/view/app/src/api/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
-          <caret line="5" column="2" selection-start-line="5" selection-start-column="2" selection-end-line="5" selection-end-column="2" />
+          <caret line="15" column="2" selection-start-line="15" selection-start-column="2" selection-end-line="15" selection-end-column="2" />
         </state>
       </provider>
     </entry>
@@ -517,7 +528,7 @@
     <entry file="file://$PROJECT_DIR$/app/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
-          <caret line="273" column="16" lean-forward="true" selection-start-line="273" selection-start-column="16" selection-end-line="273" selection-end-column="16" />
+          <caret line="276" column="16" selection-start-line="276" selection-start-column="16" selection-end-line="276" selection-end-column="16" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
@@ -527,7 +538,7 @@
     <entry file="file://$PROJECT_DIR$/app/inventory/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="372">
-          <caret line="151" lean-forward="true" selection-start-line="151" selection-end-line="151" />
+          <caret line="151" selection-start-line="151" selection-end-line="151" />
           <folding>
             <element signature="e#0#40#0" expanded="true" />
           </folding>

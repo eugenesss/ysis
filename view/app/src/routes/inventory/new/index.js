@@ -12,7 +12,13 @@ import InventoryForm from "Components/Forms/Inventory/InventoryForm";
 import { submitInventory } from "Actions";
 
 class NewInventory extends Component {
-  state = {};
+  constructor(props) {
+    super(props);
+    this.handleBack = this.handleBack.bind(this);
+  }
+  handleBack() {
+    this.props.history.goBack();
+  }
 
   render() {
     return (
@@ -25,7 +31,11 @@ class NewInventory extends Component {
           <div className="row">
             <div className="col-md-3">image upload</div>
             <div className="col-md-9">
-              <InventoryForm handleSubmit={this.props.submitInventory} />
+              <InventoryForm
+                handleSubmit={this.props.submitInventory}
+                handleCancel={this.handleBack}
+                // handleSaveNew
+              />
             </div>
           </div>
         </RctCollapsibleCard>

@@ -33,7 +33,11 @@ class EditInventoryModal extends Component {
         {modalLoading ? (
           <RctSectionLoader />
         ) : (
-          <InventoryForm edit={item} handleSubmit={this.props.editInventory} />
+          <InventoryForm
+            edit={item}
+            handleSubmit={this.props.editInventory}
+            handleCancel={handleHide}
+          />
         )}
       </DialogRoot>
     );

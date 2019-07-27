@@ -32,8 +32,6 @@ import {
 
 import api from "Api";
 
-import { inventory } from "Components/dummydata";
-
 //=========================
 // REQUESTS
 //=========================
@@ -46,14 +44,9 @@ const getAMKInventory = async () => {
   const result = [];
   return result;
 };
-const getInventoryReq = async id => {
-  const result = inventory;
-  return result;
-};
 const postInventoryReq = async data => {
-  console.log("===== post");
-  console.log(data);
   const result = await api.post("/save_item", data);
+  console.log("===== post");
   console.log(result);
   return result.data;
 };
@@ -124,8 +117,13 @@ function* getInventoryFromDB({ payload }) {
   }
 }
 function* submitInvToDB({ payload }) {
+  const { data, redirect } = payload;
   try {
-    const inv = yield call(postInventoryReq, payload);
+    const inv = yield call(postInventoryReq, data);
+    if (redirect) {
+      yield delay(400);
+      window.location.replace("/app/inventory/all");
+    }
     yield put(submitInventorySuccess(inv));
   } catch (error) {
     yield put(submitInventoryFailure(error));
@@ -153,7 +151,7 @@ function* deleteInv({ payload }) {
   try {
     yield call(deleteInvReq, payload);
     yield delay(500);
-    yield put(deleteInventorySuccess());
+    yield put(deleteInventorySuccess(payload));
   } catch (error) {
     yield put(deleteInventoryFailure(error));
   }

@@ -11,8 +11,6 @@ import Tooltip from "@material-ui/core/Tooltip";
 import { logout } from "Actions";
 
 class UserBlock extends Component {
-  state = {};
-
   handleProfile() {
     console.log("profile");
   }
@@ -38,23 +36,15 @@ class UserBlock extends Component {
                 <div className="media">
                   <div className="media-body">
                     <span className="mb-5 text-primary fs-14 d-block">
-                      Hello firstName!
+                      Hello!
                     </span>
-                    <h4 className="mb-5">jobTitle</h4>
+                    <h4 className="mb-5">Admin</h4>
                     <span className="text-muted fs-12 mb-15 d-block">
                       <i>Member since 4 hours ago</i>
                     </span>
                   </div>
                 </div>
                 <div className="card-foot d-flex align-self-end">
-                  <Button
-                    variant="contained"
-                    size="small"
-                    onClick={() => this.handleProfile()}
-                    className="btn-primary mr-10 mb-10 text-white"
-                  >
-                    Profile
-                  </Button>
                   <Button
                     variant="contained"
                     size="small"
@@ -74,14 +64,14 @@ class UserBlock extends Component {
 }
 
 // map state to props
-const mapStateToProps = ({ settings, authUser }) => {
+const mapStateToProps = ({ authUser }) => {
   const { user } = authUser;
-  return { settings, user };
+  return { user };
 };
 
 export default withRouter(
   connect(
-    null,
+    mapStateToProps,
     { logout }
   )(UserBlock)
 );

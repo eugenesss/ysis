@@ -14,7 +14,7 @@ import UserBlock from "./UserBlock";
 
 const Header = () => {
   return (
-    <AppBar position="static" className="rct-header bg-primary">
+    <AppBar position="static" className="rct-header bg-secondary">
       <Toolbar className="d-flex justify-content-between w-100 pl-0">
         <div className="d-flex align-items-center">
           <div className="site-logo">

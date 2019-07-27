@@ -35,6 +35,8 @@ class InventoryForm extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.isDisabled = this.isDisabled.bind(this);
+    this.onSaveNew = this.onSaveNew.bind(this);
+    this.onCancel = this.onCancel.bind(this);
     if (this.props.edit) this.state = { item: { ...this.props.edit } };
   }
   componentDidMount() {
@@ -50,11 +52,25 @@ class InventoryForm extends Component {
   }
 
   onSubmit() {
-    this.props.handleSubmit(this.state.item);
+    this.props.handleSubmit(this.state.item, true);
+  }
+
+  onSaveNew() {
+    this.props.handleSubmit(this.state.item, false);
+  }
+
+  onCancel() {
+    this.props.handleCancel();
   }
 
   isDisabled() {
-    var disabled = !this.state.item.name && !this.state.item.warehouse;
+    var disabled =
+      this.state.item.name != "" &&
+      this.state.item.wid != "" &&
+      this.state.item.material != "" &&
+      this.state.item.cid != "" &&
+      this.state.item.code != "";
+    console.log(disabled);
     return disabled;
   }
 
@@ -96,6 +112,7 @@ class InventoryForm extends Component {
               value={material}
               handleChange={e => this.handleChange("material", e.target.value)}
               label="Material"
+              required
             />
             <FormBlock
               value={cid}
@@ -104,6 +121,7 @@ class InventoryForm extends Component {
               selectValues={this.props.categories}
               objProp="cid"
               objLabel="cat_name"
+              required
             />
           </TableRow>
           <TableRow>
@@ -150,17 +168,28 @@ class InventoryForm extends Component {
           />
         </FormTable>
         <div className="row justify-content-end mt-30">
-          <div className="col-md-3">
+          <div className="col-md-4">
             <div className="d-flex justify-content-end">
               <Button
                 className="text-white mr-15"
                 color="default"
+                onClick={() => this.onCancel()}
                 variant="contained"
               >
                 Cancel
               </Button>
+              {this.props.handleSaveNew && (
+                <Button
+                  disabled={this.isDisabled()}
+                  onClick={() => this.onSaveNew()}
+                  className="bg-success text-white mr-15"
+                  variant="contained"
+                >
+                  Save and new
+                </Button>
+              )}
               <Button
-                disabled={this.isDisabled()}
+                disabled={!this.isDisabled()}
                 onClick={() => this.onSubmit()}
                 className="bg-success text-white"
                 variant="contained"

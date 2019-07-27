@@ -100,7 +100,11 @@ export default (state = INIT_STATE, action) => {
       return {
         ...state,
         inventoryList: { ...state.inventoryList, tableData: newInv },
-        inventoryForm: { ...state.inventoryForm, loading: false }
+        inventoryForm: {
+          ...state.inventoryForm,
+          loading: false,
+          item: INIT_STATE.inventoryForm.item
+        }
       };
     case types.SUBMIT_INVENTORY_FAILURE:
       NotificationManager.error("Error in POST api");
@@ -156,11 +160,14 @@ export default (state = INIT_STATE, action) => {
     case types.EDIT_INVENTORY_SUCCESS:
       NotificationManager.success("Successfully edit item");
       var list = updateInvList(action.payload);
-      // Not showing the actual payload
       return {
         ...state,
         inventoryList: { ...state.inventoryList, tableData: list },
-        inventoryForm: { ...state.inventoryForm, modalLoading: false }
+        inventoryForm: {
+          ...state.inventoryForm,
+          modalLoading: false,
+          item: action.payload
+        }
       };
     case types.EDIT_INVENTORY_FAILURE:
       NotificationManager.error("Error in edit item");
@@ -179,8 +186,9 @@ export default (state = INIT_STATE, action) => {
         inventoryList: { ...state.inventoryList, loading: true }
       };
     case types.DELETE_INVENTORY_SUCCESS:
+      NotificationManager.success("Item deleted");
       var deleteInv = Object.assign([], state.inventoryList.tableData).filter(
-        inv => inv.pid == action.payload
+        inv => inv.pid !== action.payload
       );
       return {
         ...state,
