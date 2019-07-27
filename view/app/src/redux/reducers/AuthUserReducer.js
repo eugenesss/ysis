@@ -15,7 +15,7 @@ import {
  * initial auth user
  */
 const INIT_STATE = {
-  user: localStorage.getItem("ysis_user"),
+  user: JSON.parse(localStorage.getItem("ysis_user")),
   loading: false
 };
 
@@ -27,8 +27,9 @@ export default (state = INIT_STATE, action) => {
     case LOGIN_USER:
       return { ...state, loading: true };
     case LOGIN_USER_SUCCESS:
-      localStorage.setItem("ysis_user", action.payload);
-      return { ...state, loading: false, user: action.payload };
+      //localStorage.setItem("ysis_user", action.payload);
+      console.log(action.payload);
+      return { ...state, loading: false /* user: action.payload */ };
     case LOGIN_USER_FAILURE:
       NotificationManager.error("Error in Logging In");
       console.log(action.payload);
